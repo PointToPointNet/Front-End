@@ -1,15 +1,13 @@
-import './App.css'
-import React, { useEffect, useRef } from "react";
-import * as d3 from "d3";
-import './styles/dash.scss';
+import { useState } from 'react';
+import './App.css';
+import detail from './styles/dashboard-detail.module.scss';
 
-function App() {
+const App: React.FC = () => {
+  
+  return <div className={detail.container}>
+    <Dashboard-detail></Dashboard-detail>
+  </div>
 
-  return (
-    <>
-      <h1>sample</h1>
-    </>
-  )
 }
 
-export default App
+export default App;
