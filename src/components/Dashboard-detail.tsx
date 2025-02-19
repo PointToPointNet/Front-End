@@ -4,13 +4,13 @@
 import NavBar from './Nav-bar.tsx'
 import BoardRuntime from './Board-runtime.tsx';
 import BoardStatus from './Board-status.tsx';
-import BoardResspeed from './Board-resspeed.tsx';
+// import BoardResspeed from './Board-resspeed.tsx';
 
-import detail from './styles/dashboard-detail.module.scss';
+import detail from '../styles/dashboard-detail.module.scss';
 
 const DashboardDetail: React.FC = () => {
 
-  return <>
+    return <>
         <div className={detail.navbar}>
         <NavBar></NavBar>
         </div>
@@ -18,17 +18,17 @@ const DashboardDetail: React.FC = () => {
             <div className={detail.boardTop}>
                 <BoardRuntime></BoardRuntime>
                 <BoardStatus></BoardStatus>
-                <BoardResspeed></BoardResspeed>
+                {/* <BoardResspeed></BoardResspeed> */}
             </div>
             <div className={detail.boardBody}>
-                <BoardPorts></BoardPorts>
+                {/* <BoardPorts></BoardPorts>
                 <BoardPacket></BoardPacket>
-                <BoardUsers></BoardUsers>
+                <BoardUsers></BoardUsers> */}
             </div>
         </div>
     </>
     
-  
+
 
 }
 
