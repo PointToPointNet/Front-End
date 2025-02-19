@@ -1,5 +1,21 @@
-@import './_variables';
+@import './_variables.scss';
 .container {
-    height: 500px;
+    display: flex;
+    height: 100vh;
     background-color: $background-Dashboard;
+    .navbar {
+        width: 120px;
+        background-color: $background-Navbar;
+        border-right: 1px solid $border-Boxes;
+    }
+    .board {
+        padding: 20px;
+        .boardTop {
+            height: 200px;
+            border-bottom: 1px solid red;
+        }
+        .boardBody {
+            background-color: orange;
+        }
+    }
 }

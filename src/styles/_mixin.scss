@@ -1,0 +1,6 @@
+@mixin box-item {
+    background-color: $background-Boxes;
+    border: 1px solid $border-Boxes;
+    padding: 20px;
+    border-radius: 10px;
+}
