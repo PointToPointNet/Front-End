@@ -1,0 +1,42 @@
+@use 'variables';
+@use 'mixin';
+
+.body {
+    @include mixin.box-item;
+    padding: 0;
+    [class*=table]{
+        display: grid;
+        grid-template-columns: 
+            100px
+            100px
+            150px
+            1fr
+            150px
+            120px
+        ;
+    }
+    .tableHeader {
+        background-color: variables.$background-Header;
+        border-bottom: 1px solid variables.$border-Boxes;
+        div {
+            flex: 1;
+            padding: 15px;
+            
+            &+div {
+                border-left: 1px solid variables.$border-Boxes;
+            }
+        } 
+    }
+    .tableBody {
+        div {
+            flex: 1;
+            border-bottom: 1px solid variables.$border-Boxes;
+            font-size: 14px;
+            padding: 10px 15px;
+            color: rgba(255,255,255,0.6);
+            &+div {
+                border-left: 1px solid variables.$border-Boxes;
+            }
+        }
+    }
+}

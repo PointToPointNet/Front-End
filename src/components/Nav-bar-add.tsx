@@ -2,7 +2,7 @@
 // 구성 :
 //  하나의 버튼 구성을 정의
 
-import nav from './styles/nav-bar-add.module.scss';
+import style from './styles/nav-bar-add.module.scss';
 
 const NavBarAdd: React.FC = () => {
 

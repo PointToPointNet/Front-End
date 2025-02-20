@@ -1,21 +1,31 @@
-@import './_variables.scss';
+@use 'variables';
+@use 'mixin';
 .container {
     display: flex;
     height: 100vh;
-    background-color: $background-Dashboard;
+    background-color: variables.$background-Dashboard;
+    color: variables.$font-color;
     .navbar {
         width: 120px;
-        background-color: $background-Navbar;
-        border-right: 1px solid $border-Boxes;
+        background-color: variables.$background-Navbar;
+        border-right: 1px solid variables.$border-Boxes;
     }
     .board {
-        padding: 20px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        padding: 30px;
+        gap: 20px;
         .boardTop {
+            display: flex;
+            gap: 20px;
             height: 200px;
-            border-bottom: 1px solid red;
         }
         .boardBody {
-            background-color: orange;
+            display: grid;
+            grid-template-columns: 1fr 1.2fr 2fr;
+            min-height: 600px;
+            gap: 20px;
         }
     }
 }

@@ -1,0 +1,23 @@
+@use 'variables';
+@use 'mixin';
+
+.body {
+    @include mixin.box-item;
+    flex: 1;
+    display: flex;
+    text-align: center;
+    gap: 20px;
+    h2 {
+        margin-bottom: 15px;
+        margin-top: 5px;
+    }
+    .memory {
+        flex: 1;
+    }
+    .cpu {
+        flex: 1;
+    }
+    .disk {
+        flex: 1;
+    }
+}

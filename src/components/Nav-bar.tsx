@@ -2,15 +2,15 @@
 // 구성 :
 // Nav-bar-add.tsx, Nav-bar-button.tsx
 
-import './Nav-bar-add.tsx';
-import './Nav-bar-button.tsx';
-import nav from './styles/nav-bar.module.scss';
+//import NavBarAdd from './Nav-bar-add.tsx';
+//import NavBarButton from './Nav-bar-button.tsx';
+import style from '../styles/nav-bar.module.scss';
 
 const NavBar: React.FC = () => {
 
-  return <div className={nav.navbar}>
-    <NavBarAdd></NavBarAdd>
-    <NavBarButton></NavBarButton>
+  return <div className={style.navbar}>
+    {/*<NavBarAdd></NavBarAdd>*/}
+    {/*<NavBarButton></NavBarButton>*/}
   </div>
 
 }

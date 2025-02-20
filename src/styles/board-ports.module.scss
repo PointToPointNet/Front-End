@@ -1,0 +1,13 @@
+@use 'variables';
+@use 'mixin';
+
+.portsbody {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    height: 100%;
+    .body {
+        @include mixin.box-item;
+        flex: 1;
+    }
+}
