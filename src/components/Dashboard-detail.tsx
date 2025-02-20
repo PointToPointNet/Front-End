@@ -24,7 +24,7 @@ const DashboardDetail: React.FC = () => {
         </div>
     </>
     
-  
+
 
 }
 
