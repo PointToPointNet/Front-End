@@ -14,7 +14,7 @@ const BoardStatusMemory: React.FC<BoardStatusMemoryProps> = (props) => {
 
   let percent = 0;
   if (usingMemory !== null && totalMemory !== null) {
-    percent = Math.round((usingMemory / totalMemory) * 100 * 100) / 100;
+    percent = Math.round((usingMemory / totalMemory) * 100 * 10) / 10;
   }
 
   useEffect(() => {
