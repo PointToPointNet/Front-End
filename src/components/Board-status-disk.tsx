@@ -28,7 +28,7 @@ const BoardStatusDisk: React.FC<BoardStatusDiskProps> = ({ usingDisk }) => {
       .append("g")
       .attr("transform", `translate(${width / 2}, ${height / 2})`);
 
-    const diskColor = d3.scaleOrdinal(["#1E90FF", "#36434E"]);
+    const diskColor = d3.scaleOrdinal(["#FF6060", "#36434E"]);
 
 
     const diskPie = d3.pie<number>()

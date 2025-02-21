@@ -10,7 +10,6 @@ const BoardResspeed: React.FC = () => {
   const pingRef = useRef<SVGSVGElement | null>(null);
 
   useEffect(() => {
-    // Fetch JSON data every 3 seconds
     const interval = setInterval(() => {
       fetch("http://localhost:3000/ping")
         .then((response) => response.json())

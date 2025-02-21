@@ -21,7 +21,7 @@ const BoardStatusCpu: React.FC<BoardStatusCpuProps> = ({ cpuUtilization }) => {
     const remaining = 100 - cpuUsage;
 
     const data = [cpuUsage, remaining];
-    const color = d3.scaleOrdinal(["#ff4d4d", "#36434E"]);
+    const color = d3.scaleOrdinal(["#1BCB80", "#36434E"]);
 
     const cpuSvg = d3
       .select(cpuSvgRef.current)
