@@ -20,15 +20,35 @@ const BoardRuntime: React.FC = () => {
         .catch((error) => {
           console.error("Error fetching data:", error);
         });
-    }, 1000);
+        
+      }, 1000);
+      
+      return () => clearInterval(interval);
+    }, []);
 
-    return () => clearInterval(interval);
-  }, []);
+  
+  const addZero = (value) => {
+    if(value<10){
+      return `0${value}`;
+    }else{
+      return value;
+    }
+  }
+    
+  
 
   return (
     <div className={style.body}>
       <h2 className={style.title}>RUN TIME</h2>
-      <p className={style.contents}>{runtimeData !== null ? `${Math.floor(runtimeData / 60 / 24)}d : ${Math.floor(runtimeData / 60)}h : ${runtimeData % 60}m` : "Loading..."}</p>
+      <div className={style.timebox}>
+        <div className={style.time}>
+        {`${addZero(Math.floor(runtimeData / 60 - (24 * Math.floor(runtimeData / 60 / 24))))}:${addZero(runtimeData % 60)}`} 
+        </div>
+        <div className={style.day}>
+          {`${Math.floor(runtimeData / 60 / 24)} days`}
+        </div>
+      </div>
+      {/* <p className={style.contents}>{runtimeData !== null ? `${Math.floor(runtimeData / 60 / 24)}d : ${Math.floor(runtimeData / 60 - (24 * Math.floor(runtimeData / 60 / 24)))}h : ${runtimeData % 60}m` : "Loading..."}</p> */}
     </div>
   );
 };

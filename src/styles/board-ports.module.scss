@@ -8,6 +8,45 @@
     height: 100%;
     .body {
         @include mixin.box-item;
-        flex: 1;
+        //flex: 1;
+        h2 {
+            margin-bottom: 10px;
+        }
+        svg {
+            display: block;
+            margin: 20px auto;
+        }
+        .list {
+            li {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                border-bottom: 1px solid variables.$border-Boxes;
+                padding: 5px 0;
+                text-align: left;
+                font-size: 14px;
+                .status {
+                    width: 30px;
+                }
+                .ip {
+                    flex: 1;
+                }
+                .protocol {
+                    width: 50px;
+                }
+                .button {
+                    width: 60px;
+                }
+                .circle {
+                    width: 13px;
+                    height: 13px;
+                    border-radius: 50%;
+                    background-color: rgb(119, 255, 98);
+                }
+                &:last-child {
+                    border-bottom: 0;
+                }
+            }
+        }
     }
 }

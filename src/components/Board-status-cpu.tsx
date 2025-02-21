@@ -33,7 +33,7 @@ const BoardStatusCpu: React.FC<BoardStatusCpuProps> = ({ cpuUtilization }) => {
     const pie = d3.pie<number>()
       .value((d) => d)
       .sort(null)
-      .startAngle(-Math.PI / 2)
+      .startAngle(-Math.PI / 2 )
       .endAngle(Math.PI / 2);
 
     const arc = d3.arc<d3.PieArcDatum<number>>().innerRadius(60).outerRadius(radius);
@@ -52,7 +52,7 @@ const BoardStatusCpu: React.FC<BoardStatusCpuProps> = ({ cpuUtilization }) => {
 
   return (
     <div className={style.cpu}>
-      <h2>CPU</h2>
+      <h2 className={style.title}>CPU</h2>
       <p className={style.data}>{cpuUtilization} %</p>
       <svg ref={cpuSvgRef}></svg>
     </div>

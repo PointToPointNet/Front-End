@@ -1,15 +1,42 @@
-// 본 버튼을 클릭하면 해당하는 페이지로 이동
-// 구성 :
-//  하나의 버튼 구성을 정의
+import { useState } from "react";
+import { HiHome } from "react-icons/hi2";
+import { RiComputerLine } from "react-icons/ri";
+import style from '../styles/nav-bar.module.scss';
 
-import style from './styles/nav-bar-button.module.scss';
+interface NavBarButtonProps {
+  activeServer: string | null; // 현재 활성화된 서버 이름
+  changeServer: (serverName: string) => void; // 서버를 변경하는 함수
+  changePage: (serverName: string) => void; // 페이지를 변경하는 함수
+}
 
-const NavBarButton: React.FC = () => {
+const NavBarButton: React.FC<NavBarButtonProps> = (props) => {
+
+  //serverlist 현재는 5대로 고정입니다
+  const serverList = ["test", "c1", "c2", "c3", "c4"]; 
+
+  const server = serverList.map((serverName, index) => (
+    <li
+      key={serverName}
+      id={serverName}
+      className={props.activeServer === serverName ? style.on : ""}
+      onClick={() => { 
+        props.changeServer(serverName); 
+        props.changePage("detail");
+      }}
+    ><RiComputerLine /></li>
+))
 
   return <div>
-    <p>buttons</p>
+    <ul className={style.iconlist}>
+      <li className={ props.activeServer == "home" ? style.on : ""} 
+      onClick={ () => { 
+        props.changeServer("home"); 
+        props.changePage("home");
+      }}
+      ><HiHome /></li>
+      {server}
+    </ul>  
   </div>
-
 }
 
 export default NavBarButton;

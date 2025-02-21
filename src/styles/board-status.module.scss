@@ -7,24 +7,31 @@
     display: flex;
     text-align: center;
     gap: 20px;
-    h2 {
-        margin-bottom: 15px;
+    .title {
+        margin-bottom: 0px;
         margin-top: 5px;
+        @include mixin.title;
     }
     .memory {
+        position: relative;
         flex: 1;
     }
     .cpu {
+        position: relative;
         flex: 1;
     }
     .disk {
+        position: relative;
         flex: 1;
     }
     .data {
-        position: relative;
+        position: absolute;
         z-index: 1000;
-        top: 50%;
-        left: 1%;
-        font-weight: bold;
+        bottom: 5px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    svg {
+        margin-top: 17px;
     }
 }

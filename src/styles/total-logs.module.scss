@@ -1,0 +1,7 @@
+@use 'variables';
+@use 'mixin';
+
+.body {
+    @include mixin.box-item;
+    height: 200px;
+}

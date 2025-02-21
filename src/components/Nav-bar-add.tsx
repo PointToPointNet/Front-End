@@ -2,12 +2,12 @@
 // 구성 :
 //  하나의 버튼 구성을 정의
 
-import style from './styles/nav-bar-add.module.scss';
+import style from '../styles/nav-bar.module.scss';
 
 const NavBarAdd: React.FC = () => {
 
   return <div>
-    <p>추가</p>
+    
   </div>
 
 }

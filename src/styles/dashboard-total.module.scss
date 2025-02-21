@@ -1,0 +1,41 @@
+@use 'variables';
+@use 'mixin';
+.dashboard {
+    flex: 1;
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 30px 30px 0 30px;
+        a {
+            display: flex;
+            padding: 7px 20px;
+            background-color: variables.$primary-color;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            gap: 5px;
+            align-items: center;
+        } 
+    }
+    .total {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        padding: 15px 30px 15px 30px;
+        gap: 20px;
+        .section1 {
+            display: flex;
+            gap: 20px;
+            height: 300px;
+        }
+        .section2 {
+            display: flex;
+            gap: 20px;
+            height: 300px;
+        }
+        .section3 {
+            flex: 1;
+        }
+    }
+}

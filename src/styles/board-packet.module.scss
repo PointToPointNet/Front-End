@@ -1,15 +1,23 @@
 @use 'variables';
 @use 'mixin';
-
-.body {
-    @include mixin.box-item;
+.packetbox {
     display: flex;
     flex-direction: column;
-    text-align: center;
     gap: 20px;
-    p {
+    .body {
+        @include mixin.box-item;
         flex: 1;
-        background-color: #222;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        .title {
+            margin-bottom: 10px;
+        }
         
+        p {
+            flex: 1;
+            background-color: #222;
+            
+        }
     }
 }

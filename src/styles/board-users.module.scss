@@ -7,12 +7,12 @@
     [class*=table]{
         display: grid;
         grid-template-columns: 
-            100px
-            100px
-            150px
+            12%
+            12%
+            15%
             1fr
-            150px
-            120px
+            15%
+            15%
         ;
     }
     .tableHeader {

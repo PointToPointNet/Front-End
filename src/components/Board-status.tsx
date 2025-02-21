@@ -22,7 +22,7 @@ const BoardStatus: React.FC = () => {
         const usingMemory = memory.usingMemory;
         const totalMemory = memory.totalMemory;
         const cpuUtilization = parseFloat(cpu.cpuUtilization);
-        const usingDisk = disk.usingDisk;
+        const usingDisk = disk.diskUtilization;
 
         setUsingMemory(usingMemory);
         setTotalMemory(totalMemory);
