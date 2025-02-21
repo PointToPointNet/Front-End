@@ -62,7 +62,7 @@ const BoardStatusMemory: React.FC<BoardStatusMemoryProps> = (props) => {
   return (
     <div className={style.memory}>
       <h2>MEMORY</h2>
-      <p>{!percent ? 0 : percent } %</p>
+      <p className={style.data}>{!percent ? 0 : percent } %</p>
       <svg ref={memorySvgRef}></svg>
     </div>
   );

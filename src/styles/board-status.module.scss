@@ -20,4 +20,11 @@
     .disk {
         flex: 1;
     }
+    .data {
+        position: relative;
+        z-index: 1000;
+        top: 50%;
+        left: 1%;
+        font-weight: bold;
+    }
 }

@@ -53,7 +53,7 @@ const BoardStatusCpu: React.FC<BoardStatusCpuProps> = ({ cpuUtilization }) => {
   return (
     <div className={style.cpu}>
       <h2>CPU</h2>
-      <p>{cpuUtilization} %</p>
+      <p className={style.data}>{cpuUtilization} %</p>
       <svg ref={cpuSvgRef}></svg>
     </div>
   );

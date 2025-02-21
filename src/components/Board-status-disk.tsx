@@ -56,7 +56,7 @@ const BoardStatusDisk: React.FC<BoardStatusDiskProps> = ({ usingDisk }) => {
   return (
     <div className={style.disk}>
       <h2>DISK</h2>
-      <p>{usingDisk} %</p>
+      <p className={style.data}>{usingDisk} %</p>
       <svg ref={diskSvgRef}></svg>
     </div>
   );
