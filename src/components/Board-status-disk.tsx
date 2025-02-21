@@ -48,7 +48,7 @@ const BoardStatusDisk: React.FC<BoardStatusDiskProps> = ({ usingDisk }) => {
       .selectAll("path")
       .data(diskArcData)
       .join("path")
-      .attr("d", diskArc as any)
+      .attr("d", diskArc as never)
       .attr("fill", (_, i) => diskColor(i.toString()))
       .attr("stroke-width", 2);
   }, [usingDisk]);

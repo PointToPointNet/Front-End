@@ -41,7 +41,7 @@ const BoardStatusCpu: React.FC<BoardStatusCpuProps> = ({ cpuUtilization }) => {
     cpuSvg.selectAll("path")
       .data(pie(data))
       .join("path")
-      .attr("d", arc as any)
+      .attr("d", arc as never)
       .attr("fill", (_, i) => color(i.toString()))
       .attr("stroke-width", 2);
   }, [cpuUtilization]);

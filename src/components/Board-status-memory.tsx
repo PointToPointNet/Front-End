@@ -50,7 +50,7 @@ const BoardStatusMemory: React.FC<BoardStatusMemoryProps> = (props) => {
       .selectAll("path")
       .data(memoryArcData)
       .join("path")
-      .attr("d", memoryArc as any)
+      .attr("d", memoryArc as never)
       .attr("fill", (_, i) => memoryColor(i.toString()))
       .attr("stroke-width", 2);
   }, [usingMemory, totalMemory]);
