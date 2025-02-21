@@ -7,3 +7,13 @@
     border-radius: 10px;
     overflow: hidden;
 }
+
+@mixin title {
+    text-align: center;
+    font-weight: bold;
+}
+
+@mixin contents {
+    text-align: center;
+    font-weight: normal;
+}
