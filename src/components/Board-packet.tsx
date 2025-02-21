@@ -9,29 +9,35 @@ const BoardPacket: React.FC = () => {
   }
 
   const [RXData, setRXData] = useState<NetworkData[]>([
-    { packets: 31499111952, bytes: 14872699632 },
-    { packets: 3355941123, bytes: 21938207568 },
-    { packets: 28479112952, bytes: 13849333632 },
-    { packets: 3273411113, bytes: 11872699632 },
-    { packets: 31499911152, bytes: 148799632 },
-    { packets: 3355941123, bytes: 21938807568 },
-    { packets: 4100001100, bytes: 23834724 },
-    { packets: 2847511443, bytes: 9872634632 },
-    { packets: 54838111234, bytes: 13872699632 },
-    { packets: 3281111343, bytes: 11872699632 },
+    { "packets": 32243693, "bytes": 14873201.798 },
+    { "packets": 12243693, "bytes": 24873201.798 },
+    { "packets": 12243693, "bytes": 24873201.798 },
+    { "packets": 62243693, "bytes": 34827301.798 },
+    { "packets": 12243693, "bytes": 24873201.798 },
+    { "packets": 42243693, "bytes": 24872301.798 },
+    { "packets": 52243693, "bytes": 84872301.798 },
+    { "packets": 32243693, "bytes": 44872301.798 },
+    { "packets": 22243693, "bytes": 34873201.798 },
+    { "packets": 12243693, "bytes": 24873201.798 },
+    { "packets": 72243693, "bytes": 24873201.798 },
+    { "packets": 22243693, "bytes": 64873201.798 },
+    { "packets": 12243693, "bytes": 24873201.798 },
   ]);
 
   const [TXData, setTXData] = useState<NetworkData[]>([
-    { packets: 28475422343, bytes: 98723234232 },
-    { packets: 234232132333, bytes: 23342236332 },
-    { packets: 54332322334, bytes: 313872629632 },
-    { packets: 32817312423, bytes: 772699632 },
-    { packets: 54838254434, bytes: 138769961132 },
-    { packets: 32817222343, bytes: 21872699632 },
-    { packets: 31499993952, bytes: 248723119632 },
-    { packets: 3355332423, bytes: 21938807568 },
-    { packets: 12847923952, bytes: 338442632 },
-    { packets: 41000100110, bytes: 11872699632 },
+    { "packets": 22243693, "bytes": 34817301.798 },
+    { "packets": 12243693, "bytes": 24872301.798 },
+    { "packets": 32243693, "bytes": 64873301.798 },
+    { "packets": 2243693, "bytes": 14873301.798 },
+    { "packets": 12243693, "bytes": 24873201.798 },
+    { "packets": 72243693, "bytes": 34873301.797 },
+    { "packets": 92243693, "bytes": 14873301.797 },
+    { "packets": 12243693, "bytes": 24873301.797 },
+    { "packets": 22243693, "bytes": 94873301.797 },
+    { "packets": 12243693, "bytes": 24873201.798 },
+    { "packets": 32243693, "bytes": 24873301.797 },
+    { "packets": 22243693, "bytes": 14873301.797 },
+    { "packets": 12243693, "bytes": 24873201.798 },
   ]);
 
   const rxsvgRef = useRef<SVGSVGElement | null>(null);
@@ -45,21 +51,27 @@ const BoardPacket: React.FC = () => {
       fetch("http://localhost:3000/network")
         .then((response) => response.json())
         .then((data) => {
-          
-            let tempRX = [...RXData];
-            console.log(data[0].test.enp0s25.RX);
-            tempRX.push(data[0].test.enp0s25.RX);
+          setRXData(prevRXData => {
+            const tempRX = [...prevRXData];
+            tempRX.push({
+              packets: data[0].test.enp0s25.RX.packets,
+              bytes: data[0].test.enp0s25.RX.bytes / 1000, // bytes 값을 1/1000로 변환
+            });
             tempRX.shift();
-            setRXData(tempRX);
+            return tempRX;
+          });
         
-            let tempTX = [...TXData];
-            tempTX.push(data[0].test.enp0s25.TX);
+          setTXData(prevTXData => {
+            const tempTX = [...prevTXData];
+            tempTX.push({
+              packets: data[0].test.enp0s25.TX.packets,
+              bytes: data[0].test.enp0s25.TX.bytes / 1000, // bytes 값을 1/1000로 변환
+            });
             tempTX.shift();
-            setTXData(tempTX);
+            return tempTX;
+          });
 
-            console.log("rx" + RXData[8].packets + '/' + RXData[9].packets);
-            console.log("tx" + TXData[9].packets);
-
+          console.log(RXData)
         })
         .catch((error) => {
           console.error("Error fetching data:", error);
@@ -72,33 +84,30 @@ const BoardPacket: React.FC = () => {
 
   const drawGraph = (svgRef: React.RefObject<SVGSVGElement>, data: NetworkData[], title: string) => {
     if (!svgRef.current || data.length === 0) return;
-
+  
     const width = 500;
     const height = 200;
     const margin = { top: 10, right: 10, bottom: 20, left: 35 };
-
-    d3.select(svgRef.current).selectAll("*").remove();
-
+  
     const svg = d3
       .select(svgRef.current)
       .attr("width", width)
-      .attr("height", height)
-      .append("g")
-      .attr("transform", `translate(${margin.left}, ${margin.top})`);
-
+      .attr("height", height);
+  
     const innerWidth = width - margin.left - margin.right;
     const innerHeight = height - margin.top - margin.bottom;
-
+  
     const xScale = d3
       .scaleLinear()
       .domain([0, data.length - 1])
       .range([0, innerWidth]);
-
+  
     const yScale = d3
       .scaleLinear()
       .domain([0, d3.max(data, d => Math.max(d.packets, d.bytes)) || 100])
       .nice()
       .range([innerHeight, 0]);
+ 
 
 
     // packet gradient정의
@@ -134,47 +143,61 @@ const BoardPacket: React.FC = () => {
     .attr("stop-color", "rgba(151,71,255,0.7)");
 
 
-
-    // x축
-    svg
-      .append("g")
-      .attr("transform", `translate(0, ${innerHeight})`)
-      .call(d3.axisBottom(xScale).ticks(5))
-      .style("stroke", "#444");
-      
-    // y축
-    svg.append("g").call(
-      d3.axisLeft(yScale)
-        .tickFormat(d => (Math.floor(d * 0.00000001)))
-    ).style("stroke", "#444");
-
-
+    let graphGroup = svg.select(".graph-group");
+    if (graphGroup.empty()) {
+      graphGroup = svg.append("g").attr("class", "graph-group").attr("transform", `translate(${margin.left}, ${margin.top})`);
+    }
   
-    const area1 = d3.area<NetworkData>()
+    graphGroup.select(".x-axis").remove();
+    graphGroup.append("g")
+      .attr("class", "x-axis")
+      .attr("transform", `translate(0, ${innerHeight})`)
+      .call(d3.axisBottom(xScale).ticks(5));
+  
+    graphGroup.select(".y-axis").remove();
+    graphGroup.append("g")
+      .attr("class", "y-axis")
+      .call(d3.axisLeft(yScale).tickFormat(d => Math.floor(d * Math.pow(10,-5))));
+  
+    const areaPackets = d3.area<NetworkData>()
       .x((_, i) => xScale(i))
       .y0(innerHeight)
       .y1(d => yScale(d.packets))
       .curve(d3.curveMonotoneX);
-
-    const area2 = d3.area<NetworkData>()
+  
+    const areaBytes = d3.area<NetworkData>()
       .x((_, i) => xScale(i))
       .y0(innerHeight)
       .y1(d => yScale(d.bytes))
       .curve(d3.curveMonotoneX);
-
-    svg
+  
+    const packetsPath = graphGroup.selectAll(".area-packets").data([data]);
+  
+    packetsPath.enter()
       .append("path")
-      .datum(data)
+      .attr("class", "area-packets")
+      .merge(packetsPath)
+      .transition()
+      .duration(500)
       .attr("fill", "url(#area-gradient-packet)")
-      .attr("d", area1)
-
-      //console.log(d3.max(data, d => Math.max(d.packets, d.bytes)))
-    svg
+      .attr("d", areaPackets);
+  
+    packetsPath.exit().remove();
+  
+    const bytesPath = graphGroup.selectAll(".area-bytes").data([data]);
+  
+    bytesPath.enter()
       .append("path")
-      .datum(data)
-      .attr("fill", `url(#area-gradient-bytes)`)
-      .attr("d", area2)
+      .attr("class", "area-bytes")
+      .merge(bytesPath)
+      .transition()
+      .duration(500)
+      .attr("fill", "url(#area-gradient-bytes)")
+      .attr("d", areaBytes);
+  
+    bytesPath.exit().remove();
   };
+  
 
   useEffect(() => {
     drawGraph(rxsvgRef, RXData, "RX");

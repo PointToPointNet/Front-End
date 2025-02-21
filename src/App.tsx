@@ -31,7 +31,7 @@ const App: React.FC = () => {
       break;
    } 
   
-  return <div className={style.container}>
+  return <div className={`${style.container} light`}>
     <div className={style.navbar}>
       <NavBar 
         activeServer={activeServer}

@@ -1,14 +1,123 @@
-// 응답시간 및 인터넷속도 
-import style from '../styles/Board-resspeed.module.scss';
+import { useEffect, useState, useRef } from "react";
+import * as d3 from "d3";
+import style from "../styles/Board-resspeed.module.scss";
 
 const BoardResspeed: React.FC = () => {
+  const [PingData, setPingData] = useState<number[]>([
+    32.1, 33.6, 26.7, 33.3, 22.1, 25.9, 15.3, 44.2, 22.3, 11,
+  ]);
 
-  return  <div className={style.body}>
-  <p>response speed</p>
-</div>
-    
-  
+  const pingRef = useRef<SVGSVGElement | null>(null);
 
-}
+  useEffect(() => {
+    // Fetch JSON data every 3 seconds
+    const interval = setInterval(() => {
+      fetch("http://localhost:3000/ping")
+        .then((response) => response.json())
+        .then((data) => {
+          setPingData((prevPingData) => {
+            const tempPing = [...prevPingData];
+            tempPing.push(data[0].test.pingResponse);
+            tempPing.shift();
+            return tempPing;
+          });
+        })
+        .catch((error) => {
+          console.error("Error fetching data:", error);
+        });
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const drawGraph = (
+    svgRef: React.RefObject<SVGSVGElement>,
+    data: number[],
+    title: string
+  ) => {
+    if (!svgRef.current || data.length === 0) return;
+
+    const width = 360;
+    const height = 130;
+    const margin = { top: 10, right: 10, bottom: 20, left: 30 };
+
+    const svg = d3
+      .select(svgRef.current)
+      .attr("width", width)
+      .attr("height", height);
+
+    const innerWidth = width - margin.left - margin.right;
+    const innerHeight = height - margin.top - margin.bottom;
+
+    // Scales
+    const xScale = d3
+      .scaleLinear()
+      .domain([0, data.length - 1])
+      .range([15, innerWidth]);
+
+    const yScale = d3
+      .scaleLinear()
+      .domain([0, d3.max(data) || 100])
+      .nice()
+      .range([innerHeight, 0]);
+
+    // Clear previous content
+    svg.selectAll("*").remove();
+
+    // Create graph group
+    const graphGroup = svg
+      .append("g")
+      .attr("transform", `translate(${margin.left}, ${margin.top})`);
+
+    // Axes
+    graphGroup
+      .append("g")
+      .attr("class", "x-axis")
+      .attr("transform", `translate(0, ${innerHeight})`)
+      .call(d3.axisBottom(xScale).ticks(5));
+
+    graphGroup.append("g").attr("class", "y-axis").call(d3.axisLeft(yScale));
+
+    // Line generator
+    const lineGenerator = d3
+      .line<number>()
+      .x((_, i) => xScale(i))
+      .y((d) => yScale(d))
+      .curve(d3.curveMonotoneX);
+
+    // Draw line graph
+    graphGroup
+      .append("path")
+      .datum(data)
+      .attr("class", "line-path")
+      .attr("fill", "none")
+      .attr("stroke", "#ACEBAB")
+      .attr("stroke-width", 2)
+      .attr("d", lineGenerator);
+
+    // Draw bar chart
+    graphGroup
+      .selectAll(".bar")
+      .data(data)
+      .enter()
+      .append("rect")
+      .attr("class", "bar")
+      .attr("x", (_, i) => xScale(i) - innerWidth / data.length / 2)
+      .attr("y", (d) => yScale(d))
+      .attr("width", innerWidth / data.length - 10)
+      .attr("height", (d) => innerHeight - yScale(d))
+      .attr("fill", "rgba(38,203,130,0.2)");
+  };
+
+  useEffect(() => {
+    drawGraph(pingRef, PingData, "Ping");
+  }, [PingData]);
+
+  return (
+    <div className={style.body}>
+      <p>Response Speed</p>
+      <svg ref={pingRef}></svg>
+    </div>
+  );
+};
 
 export default BoardResspeed;
