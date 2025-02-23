@@ -11,6 +11,8 @@
         flex-direction: column;
         gap: 10px;
         .title {
+            @include mixin.title;
+            text-align: left;
             margin-bottom: 10px;
         }
         

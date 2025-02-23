@@ -4,4 +4,8 @@
 .body {
     @include mixin.box-item;
     width: 400px;
+    .title {
+        @include mixin.title;
+        text-align: left;
+    }
 }

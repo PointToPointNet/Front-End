@@ -1,6 +1,7 @@
 @use 'variables';
 @use 'mixin';
 .dashboard {
+    padding-left: 100px;
     flex: 1;
     .header {
         display: flex;

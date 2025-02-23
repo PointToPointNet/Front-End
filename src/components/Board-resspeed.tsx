@@ -113,7 +113,7 @@ const BoardResspeed: React.FC = () => {
 
   return (
     <div className={style.body}>
-      <p>Response Speed</p>
+      <h2 className={style.title}>Response Speed</h2>
       <svg ref={pingRef}></svg>
     </div>
   );

@@ -6,14 +6,24 @@ import DashboardDetail from './components/Dashboard-detail.tsx';
 import DashboardTotal from './components/Dashboard-total.tsx';
 import style from './styles/dashboard-detail.module.scss';
 
-const App: React.FC = () => { 
+const App: React.FC = () => {
+
+  const serverList = ["test", "c1", "c2", "c3", "test4"];  
   const [ activeServer, setActiveServer ] = useState<string | null>("c2");
   const [ mode, setMode ] = useState<string | null>("detail");
   
   let myScreen; 
   switch(mode){
     case "home":
-      myScreen = <DashboardMain></DashboardMain>
+      myScreen = <DashboardMain 
+        serverList={serverList}
+        setPage={(page)=>{
+          setMode(page);
+        }}
+        changeServer={(server)=>{
+          setActiveServer(server);
+        }}
+      ></DashboardMain>
       break;
     case "detail":
       myScreen = <DashboardDetail serverName={activeServer}
@@ -41,6 +51,7 @@ const App: React.FC = () => {
         changePage={(page)=>{
           setMode(page);
         }}
+        serverList={serverList}
       ></NavBar>
     </div>
     {myScreen}

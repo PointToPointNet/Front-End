@@ -9,8 +9,10 @@
     .body {
         @include mixin.box-item;
         //flex: 1;
-        h2 {
+        .title {
+            @include mixin.title;
             margin-bottom: 10px;
+            text-align: left;
         }
         svg {
             display: block;

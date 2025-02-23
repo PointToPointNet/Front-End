@@ -1,16 +1,20 @@
 @use 'variables';
 @use 'mixin';
 .container {
-    display: flex;
-    height: 100vh;
+    min-height: 100vh;
     background-color: variables.$background-Dashboard;
     color: variables.$font-color;
     .navbar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        height: 100%;
         width: 100px;
         background-color: variables.$background-Navbar;
         border-right: 1px solid variables.$border-Boxes;
     }
     .dashboard {
+        padding-left: 100px;
         flex: 1;
         .header {
             display: flex;

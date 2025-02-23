@@ -68,11 +68,11 @@ const BoardPorts: React.FC = () => {
 
   return <div className={style.portsbody}>
       <div className={style.body}>
-        <h2 >Port Type</h2>
+        <h2 className={style.title}>Port Type</h2>
         <svg ref={svgRef}></svg>
       </div>
       <div className={style.body}>
-        <h2>Active Ports</h2>
+        <h2 className={style.title}>Active Ports</h2>
         <ul className={style.list}>
           <li>
             <div className={style.status}>

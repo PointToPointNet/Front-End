@@ -11,7 +11,10 @@ const BoardRuntime: React.FC = () => {
   const [runtimeData, setRuntimeData] = useState<number | null>(null);
 
   useEffect(() => {
-    const interval = setInterval(() => {
+    let timeoutId: NodeJS.Timeout;
+
+    // setInterval을 setTimeout으로 변경.
+    const fetchData = () => {
       fetch("http://localhost:3000/runtime")
         .then((response) => response.json())
         .then(([{ test: { runtime } }]: RuntimeResponse) => {
@@ -19,12 +22,17 @@ const BoardRuntime: React.FC = () => {
         })
         .catch((error) => {
           console.error("Error fetching data:", error);
+        })
+        .finally(() => {
+          // setInterval처럼 사용할 수 있도록...
+          timeoutId = setTimeout(fetchData, 1000);
         });
-        
-      }, 1000);
-      
-      return () => clearInterval(interval);
-    }, []);
+    }
+
+    fetchData(); // 최초에 실행해서 처음 값이 일단 나오도록 세팅
+
+    return () => clearTimeout(timeoutId); 
+  }, []);
 
   
   const addZero = (value) => {

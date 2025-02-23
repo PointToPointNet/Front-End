@@ -7,14 +7,13 @@ interface NavBarButtonProps {
   activeServer: string | null; // 현재 활성화된 서버 이름
   changeServer: (serverName: string) => void; // 서버를 변경하는 함수
   changePage: (serverName: string) => void; // 페이지를 변경하는 함수
+  serverList: string[];
 }
 
 const NavBarButton: React.FC<NavBarButtonProps> = (props) => {
 
-  //serverlist 현재는 5대로 고정입니다
-  const serverList = ["test", "c1", "c2", "c3", "c4"]; 
 
-  const server = serverList.map((serverName, index) => (
+  const server = props.serverList.map((serverName, index) => (
     <li
       key={serverName}
       id={serverName}
