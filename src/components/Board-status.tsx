@@ -14,7 +14,7 @@ const BoardStatus: React.FC<BoardStatusProps> = ({serverName}) => {
   const [usingDisk, setUsingDisk] = useState<number | null>(0);
 
   useEffect(() => {
-    // 초기 데이터 로드
+    // 맨처음에 불러오기기
     fetch("http://localhost:3000/status")
     .then((response) => response.json())
     .then((data) => {

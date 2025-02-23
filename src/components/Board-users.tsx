@@ -83,7 +83,7 @@ const BoardUsers: React.FC<BoardUsersProps> = ({ serverName }) => {
           <div>{user.terminal}</div>
           <div>{user.ip}</div>
           <div>{user.loginTime} / {user.logoutTime}</div>
-          <div>{user.connecting ? "Connected" : "Disconnected"}</div>
+          <div>{user.connecting ? "🟢" : "🔴"}</div>
           <div><button>연결끊기</button></div>
         </div>
       ))}
