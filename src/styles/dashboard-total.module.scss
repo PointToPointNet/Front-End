@@ -18,6 +18,33 @@
             gap: 5px;
             align-items: center;
         } 
+        // 2025.02.23 **SDH**
+        button {
+            display: flex;
+            padding: 7px 20px;
+            background-color: variables.$primary-color;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            gap: 5px;
+            align-items: center;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        // 2025.02.23 END **SDH**// 2025.02.23 **SDH**
+        button {
+            display: flex;
+            padding: 7px 20px;
+            background-color: variables.$primary-color;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            gap: 5px;
+            align-items: center;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        // 2025.02.23 END **SDH**
     }
     .total {
         display: flex;

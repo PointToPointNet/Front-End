@@ -1,0 +1,19 @@
+@use 'variables';
+@use 'mixin';
+.container {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    @include mixin.title;
+    input{
+        border:3px solid variables.$border-Boxes;
+        height:35px;
+        width:150px;
+        text-align: center;
+        background-color: variables.$background-Boxes;
+        border-radius: 10px;
+        color: variables.$font-color;
+        font-size:16px;
+        font-weight: 600;
+    }
+}
