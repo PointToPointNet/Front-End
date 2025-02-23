@@ -9,9 +9,12 @@ import BoardUsers from './Board-users.tsx';
 
 import style from '../styles/dashboard-detail.module.scss';
 
-const DashboardDetail: React.FC = ({ serverName, setPage }) => {
+interface ParentProps {
+    serverName: string;
+}
 
-  return <div className={style.dashboard}>
+const DashboardDetail: React.FC<ParentProps> = ({ serverName, setPage }) => {
+    return <div className={style.dashboard}>
             <div className={style.header}>
             <h1 className={style.title}>Network Dashboard - {serverName}</h1>
             <a href="#" onClick={ e=>{
@@ -22,13 +25,13 @@ const DashboardDetail: React.FC = ({ serverName, setPage }) => {
         <div className={style.board}>
             <div className={style.boardTop}>
                 <BoardRuntime></BoardRuntime>
-                <BoardStatus></BoardStatus>
+                <BoardStatus serverName={serverName}></BoardStatus>
                 <BoardResspeed></BoardResspeed>
             </div>
             <div className={style.boardBody}>
                 <BoardPorts></BoardPorts>
                 <BoardPacket></BoardPacket>
-                <BoardUsers></BoardUsers>
+                <BoardUsers serverName={serverName}></BoardUsers>
             </div>
         </div>
     </div>
