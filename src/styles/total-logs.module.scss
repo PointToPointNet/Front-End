@@ -20,6 +20,7 @@
         background-color: variables.$background-Header;
         border-bottom: 1px solid variables.$border-Boxes;
         text-align: center;
+        font-weight: 900;
         div {
             flex: 1;
             padding: 15px;
@@ -33,9 +34,9 @@
         div {
             flex: 1;
             border-bottom: 1px solid variables.$border-Boxes;
-            font-size: 14px;
+            font-size: 20px;
             padding: 10px 15px;
-            color: rgba(255,255,255,0.6);
+            color: rgba(255,0,0,0.6);
             text-align: center;
             &+div {
                 border-left: 1px solid variables.$border-Boxes;
@@ -44,12 +45,12 @@
     }
 }
 
-::-webkit-scrollbar{
+.body::-webkit-scrollbar{
     width: 10px;
     // height: 1px;
 }
 
-::-webkit-scrollbar-thumb {
+.body::-webkit-scrollbar-thumb {
     background: variables.$primary-color; /* 스크롤바 막대 색상 */
     // border: 2px solid #9b6a2f; /* 스크롤바 막대 테두리 설정  */
     border-radius: 12px 12px 12px 12px;
