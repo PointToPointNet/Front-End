@@ -1,4 +1,4 @@
-import style from '../styles/Board-runtime.module.scss';
+import style from '../styles/board-runtime.module.scss';
 import { useEffect, useState } from "react";
 
 const BoardRuntime: React.FC = () => {

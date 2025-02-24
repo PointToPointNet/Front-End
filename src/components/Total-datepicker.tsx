@@ -1,4 +1,4 @@
-import style from "../styles/total-datePicker.module.scss";
+import style from "../styles/total-datepicker.module.scss";
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
