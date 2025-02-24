@@ -8,7 +8,7 @@ import style from './styles/dashboard-detail.module.scss';
 
 const App: React.FC = () => {
 
-  const serverList = ["test", "c1", "c2", "c3", "test4"];  
+  const serverList = ["test", "c1", "c2", "c3", "c4"];  
   const [ activeServer, setActiveServer ] = useState<string | null>("c2");
   const [ mode, setMode ] = useState<string | null>("detail");
   

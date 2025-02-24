@@ -66,6 +66,52 @@ const BoardUsers: React.FC<BoardUsersProps> = ({ serverName }) => {
     return () => clearInterval(interval);
   }, [serverName]);
 
+
+
+  const disconnectUser = (index: number) => {
+    const username = userList[index].username;
+    console.log({[serverName] : {username}})
+    const newUserList = [...userList];
+    newUserList[index].connecting = false;
+    setUserList(newUserList);
+    // 만약 아래코드를 주석 풀면 백쪽에서 원격 실제로 끊을 수 있게 해줘야 하는데 어떡하징징
+    // fetch("http://localhost:3000/force_disconnect", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify({ [serverName]: { username } }),
+    // })
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     if (data.success) {
+    //       const newUserList = [...userList];
+    //       newUserList[index].connecting = false;
+    //       setUserList(newUserList);
+    //     } else {
+    //       console.error("Failed to disconnect user:", data.message);
+    //     }
+    //   })
+    //   .catch((error) => console.error("Error disconnecting user:", error));
+
+
+// 이게 실제로 백쪽에서 접속 끊을 수 있는 코드라는데데
+//     const { exec } = require("child_process");
+
+// const disconnectUser = (username) => {
+//   exec(`sudo pkill -KILL -u ${username}`, (err, stdout, stderr) => {
+//     if (err) {
+//       console.error("Error disconnecting user:", stderr);
+//       return;
+//     }
+//     console.log(`${username} disconnected successfully.`);
+//   });
+// };
+// disconnectUser("username");
+//   };
+
+  }
+
   return (
     <div className={style.body}>
       <div className={style.tableHeader}>
@@ -83,8 +129,10 @@ const BoardUsers: React.FC<BoardUsersProps> = ({ serverName }) => {
           <div>{user.terminal}</div>
           <div>{user.ip}</div>
           <div>{user.loginTime} / {user.logoutTime}</div>
-          <div>{user.connecting ? "🟢" : "🔴"}</div>
-          <div><button>연결끊기</button></div>
+          <div id="connecting">{user.connecting ? "🟢" : "🔴"}</div>
+          <div>
+            {user.connecting ? (<button onClick={() => disconnectUser(index)}>❌</button>) : ""}
+          </div>
         </div>
       ))}
     </div>
