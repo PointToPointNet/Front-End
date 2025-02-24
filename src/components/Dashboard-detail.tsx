@@ -24,13 +24,13 @@ const DashboardDetail: React.FC<ParentProps> = ({ serverName, setPage }) => {
         </div>
         <div className={style.board}>
             <div className={style.boardTop}>
-                <BoardRuntime></BoardRuntime>
+                <BoardRuntime serverName={serverName}></BoardRuntime>
                 <BoardStatus serverName={serverName}></BoardStatus>
-                <BoardResspeed></BoardResspeed>
+                <BoardResspeed serverName={serverName}></BoardResspeed>
             </div>
             <div className={style.boardBody}>
-                <BoardPorts></BoardPorts>
-                <BoardPacket></BoardPacket>
+                <BoardPorts serverName={serverName}></BoardPorts>
+                <BoardPacket serverName={serverName}></BoardPacket>
                 <BoardUsers serverName={serverName}></BoardUsers>
             </div>
         </div>

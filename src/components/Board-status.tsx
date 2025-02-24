@@ -20,8 +20,8 @@ const BoardStatus: React.FC<BoardStatusProps> = ({serverName}) => {
     .then((data) => {
       for(let i=0; i<data.length; i++){
         const serverNameData = Object.keys(data[i])[0];
-        console.log("serverName:", serverName);
-        console.log("serverNameData:", serverNameData);
+        // console.log("serverName:", serverName);
+        // console.log("serverNameData:", serverNameData);
 
         if(serverNameData == serverName) {
           const { memory, cpu, disk } = data[i][serverNameData];
