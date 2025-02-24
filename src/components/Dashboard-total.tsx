@@ -16,13 +16,10 @@ interface DashboardTotalProps {
   setPage: () => void;
 }
 
-// 2025.02.23 END **SDH**
-
 const DashboardTotal: React.FC<DashboardTotalProps> = ({
   serverName,
   setPage
 }) => {
-  // 2025.02.23 **SDH**
 
   //임시 서버 매핑!!
   const serverMapping: { [key: string]: number } = {
@@ -36,7 +33,9 @@ const DashboardTotal: React.FC<DashboardTotalProps> = ({
   //State Area
 
   const [totalPageDate, setTotalPageDate] = useState<any | null>(null);
-  const [startDate, setStartDate] = useState<Date | null>(new Date("2025-02-01"));
+  const [startDate, setStartDate] = useState<Date | null>(
+    new Date("2025-02-01")
+  );
   const [endDate, setEndDate] = useState<Date | null>(new Date("2025-02-07"));
 
   const [memData, setMemData] = useState<any[] | null>(null);
@@ -48,6 +47,12 @@ const DashboardTotal: React.FC<DashboardTotalProps> = ({
   const [loginData, setLoginData] = useState<any[] | null>(null);
 
   const [criticalErrData, setCriticalErrData] = useState<any[] | null>(null);
+
+  const [apacheErr, setApacheErr] = useState<any[] | null>(null);
+  const [authErr, setAuthErr] = useState<any[] | null>(null);
+  const [mysqlErr, setMysqlErr] = useState<any[] | null>(null);
+  const [ufwErr, setUfwErr] = useState<any[] | null>(null);
+
   //END State Area
 
   const handleDateChange = (newStart: Date | null, newEnd: Date | null) => {
@@ -84,19 +89,29 @@ const DashboardTotal: React.FC<DashboardTotalProps> = ({
 
   //Data Parsing!
   const dataParsing = (totalPageData: any): void => {
-    const { total_info } = totalPageData;
-    const { login_info } = totalPageData;
-    setLoginData( login_info );
-    const { critical_log } = totalPageData;
-    setCriticalErrData( critical_log );
+    const {
+      login_info,
+      critical_log,
+      total_info,
+      select_apache_err,
+      select_auth_err,
+      select_mysql_err,
+      select_ufw_err
+    } = totalPageData;
+    setLoginData(login_info);
+    setCriticalErrData(critical_log);
+    setApacheErr(select_apache_err);
+    setAuthErr(select_auth_err);
+    setMysqlErr(select_mysql_err);
+    setUfwErr(select_ufw_err);
+
     const tempMemData: any[] = [];
     const tempCpuData: any[] = [];
     const tempPacketData: any[] = [];
-    
+
     const tempWebConnectData: any[] = [];
     const tempErrGraphData: any[] = [];
     // const tempLoginData: any[] = [];
-
 
     total_info.forEach((info: any) => {
       const parsedDate = info.recorded_date.split("T")[0];
@@ -113,10 +128,10 @@ const DashboardTotal: React.FC<DashboardTotalProps> = ({
         rxData: Number(info.rx_data),
         txData: Number(info.tx_data)
       });
-      tempWebConnectData.push( {
+      tempWebConnectData.push({
         date: parsedDate,
-        value: Number(info.web_access_count) * 13,
-      } );
+        value: Number(info.web_access_count) * 13
+      });
 
       tempErrGraphData.push({
         date: parsedDate,
@@ -141,12 +156,10 @@ const DashboardTotal: React.FC<DashboardTotalProps> = ({
     if (!totalPageDate) return;
     dataParsing(totalPageDate);
   }, [totalPageDate]);
-  // 2025.02.23 END **SDH**
   return (
     <div className={style.dashboard}>
       <div className={style.header}>
         <h1 className={style.title}>Network Dashboard - {serverName}</h1>
-        {/*2025.02.23 **SDH**   */}
         <TotalDatepicker onDateChange={handleDateChange}></TotalDatepicker>
         <button
           onClick={() => {
@@ -155,7 +168,6 @@ const DashboardTotal: React.FC<DashboardTotalProps> = ({
         >
           조회
         </button>
-        {/*2025.02.23 END **SDH** */}
         <a
           href="#"
           onClick={(e) => {
@@ -175,7 +187,7 @@ const DashboardTotal: React.FC<DashboardTotalProps> = ({
         </div>
         <div className={style.section2}>
           <TotalConnect webConnectData={webConnectData}></TotalConnect>
-          <TotalError errGraphData={errGraphData}></TotalError>
+          <TotalError errGraphData={errGraphData} apacheErr={apacheErr} ></TotalError>
           <TotalLogin loginData={loginData}></TotalLogin>
         </div>
         <div className={style.section3}>
