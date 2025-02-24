@@ -4,6 +4,8 @@
 .body {
     @include mixin.box-item;
     padding: 0;
+    @media (max-width: 1600px) {
+    }
     [class*=table]{
         display: grid;
         grid-template-columns: 
@@ -39,6 +41,7 @@
             &+div {
                 border-left: 1px solid variables.$border-Boxes;
             }
+            overflow: hidden;
         }
     }
     

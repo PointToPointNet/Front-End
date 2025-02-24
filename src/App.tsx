@@ -10,7 +10,7 @@ const App: React.FC = () => {
 
   const serverList = ["test", "c1", "c2", "c3", "c4"];  
   const [ activeServer, setActiveServer ] = useState<string | null>("c2");
-  const [ mode, setMode ] = useState<string | null>("total");
+  const [ mode, setMode ] = useState<string | null>("detail");
   
   let myScreen; 
   switch(mode){
