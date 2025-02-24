@@ -13,25 +13,14 @@ interface TotalMemoryProps {
 
 const TotalMemory: React.FC<TotalMemoryProps> = ({ memData }) => {
 
-const tempData = [
-    { date: "2022-01-01", value: 70 },
-    { date: "2022-01-02", value: 55 },
-    { date: "2022-01-03", value: 88 },
-    { date: "2022-01-04", value: 22 },
-    { date: "2022-01-05", value: 33 },
-    { date: "2022-01-06", value: 44 },
-    { date: "2022-01-07", value: 77 },
-]; //임시데이터(나중에 tempData를 memData로 변경합니다)
 
 const memRef = useRef<SVGSVGElement | null>(null);
-
-
+const colorValue = '#BE9CF4';
 
 
 const drawGraph = (
     svgRef: React.RefObject<SVGSVGElement>, 
-    data: MemoryData[], 
-    title: string
+    data: MemoryData[] 
     ) => {
     if (!svgRef.current || data.length === 0) return;
  
@@ -55,7 +44,7 @@ const drawGraph = (
   
     const yScale = d3
       .scaleLinear()
-      .domain([0, d3.max(data, d => d.value) || 100]) // Math.max 제거
+      .domain([0, d3.max(data, d => d.value) || 100]) 
       .nice()
       .range([innerHeight, 0]);
  
@@ -119,7 +108,7 @@ const drawGraph = (
     .transition()
     .duration(500)
     .attr("fill", "none")
-    .attr("stroke", "#564499")
+    .attr("stroke", colorValue+"90")
     .attr("stroke-width", 2)
     .attr("d", lineGenerator);
 
@@ -137,7 +126,7 @@ const drawGraph = (
     .attr("cx", (_, i) => xScale(i))
     .attr("cy", (d) => yScale(d.value))
     .attr("r", 4) // 점의 크기
-    .attr("fill", "#BE9CF4");
+    .attr("fill", colorValue);
 
     points.exit().remove();
   
@@ -146,31 +135,21 @@ const drawGraph = (
   
 
   useEffect(() => {
-    drawGraph(memRef, tempData, "memory");
-  }, []);
-
-
-
-
-
-
-
-
-
-
+    drawGraph(memRef, memData);
+  }, [memData]);
 
 
 
 
   if (!memData) {
-    //return <div className={style.body}>Loading...</div>;
+    return <div className={style.body}>Loading...</div>;
   }
   return (
     <div className={style.body}>
       <h2 className={style.title}>total mem.</h2>
       <div>
         <svg ref={memRef}></svg>
-        {/* {tempData.map((data, index) => (
+        {/* {memData.map((data, index) => (
           <div key={index}>
             <span>{data.date}</span>: <span>{data.value}</span>
           </div>

@@ -169,8 +169,7 @@ const DashboardTotal: React.FC<DashboardTotalProps> = ({
 
       <div className={style.total}>
         <div className={style.section1}>
-          {/* <TotalMemory memData={memData}></TotalMemory> */}
-          <TotalMemory></TotalMemory>
+          <TotalMemory memData={memData}></TotalMemory>
           <TotalCpu cpuData={cpuData}></TotalCpu>
           <TotalPacket packetData={packetData}></TotalPacket>
         </div>

@@ -2,6 +2,27 @@
 @use 'mixin';
 
 .body {
+    position: relative;
     @include mixin.box-item;
     flex: 1;
+    .title {
+        @include mixin.title;
+        text-align: left;
+    }
+    .btn {
+        position: absolute;
+        right: 15px;
+        top: 14px;
+        padding: 6px 10px 4px;
+        font-size: 13px;
+        border: 1px solid rgba(255,255,255,0.3);
+        background-color: transparent;
+        color: #fff;
+        border-radius: 4px;
+        transition: 0.2s;
+        cursor: pointer;
+        &:hover {
+            background-color: #9747FF;
+        }
+    }
 }
