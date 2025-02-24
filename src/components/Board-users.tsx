@@ -16,7 +16,7 @@ interface BoardUsersProps {
 
 const BoardUsers: React.FC<BoardUsersProps> = ({ serverName }) => {
   const [userList, setUserList] = useState<UserData[]>([]);
-
+  const [visible, setVisible] = useState<number | null>(null);
   useEffect(() => {
     //최초 실행
     fetch("http://localhost:3000/user_list")
@@ -24,6 +24,7 @@ const BoardUsers: React.FC<BoardUsersProps> = ({ serverName }) => {
     .then((data) => {
       for (let i=0; i<data.length; i++) {
         const serverNameData = data[i][serverName];
+        // console.log(data[i][serverName])
         if (serverNameData) {
           const users = serverNameData.map((user: UserData) => ({
             username: user.username,
@@ -69,11 +70,12 @@ const BoardUsers: React.FC<BoardUsersProps> = ({ serverName }) => {
 
 
   const disconnectUser = (index: number) => {
-    const username = userList[index].username;
-    console.log({[serverName] : {username}})
-    const newUserList = [...userList];
-    newUserList[index].connecting = false;
-    setUserList(newUserList);
+      const username = userList[index].username;
+      console.log({ [serverName]: { username } });
+      const newUserList = [...userList];
+      newUserList[index].connecting = false;
+      setUserList(newUserList);
+      setVisible(null);
     // 만약 아래코드를 주석 풀면 백쪽에서 원격 실제로 끊을 수 있게 해줘야 하는데 어떡하징징
     // fetch("http://localhost:3000/force_disconnect", {
     //   method: "POST",
@@ -131,12 +133,22 @@ const BoardUsers: React.FC<BoardUsersProps> = ({ serverName }) => {
           <div>{user.loginTime} / {user.logoutTime}</div>
           <div id="connecting">{user.connecting ? "🟢" : "🔴"}</div>
           <div>
-            {user.connecting ? (<button onClick={() => disconnectUser(index)}>❌</button>) : ""}
+            {user.connecting ? (<button onClick={() => setVisible(index)}>❌</button>) : ""}
           </div>
+          {visible === index && (
+            <div className={style.popup}>
+              <p>해당 유저의 상태를 비활성화 하시겠습니까?</p>
+              <p>유저의 원격격 연결이 끊깁니다.</p>
+              <p className={style.popupBtn}>
+                <button onClick={() => disconnectUser(index)}>⭕</button>
+                <button onClick={() => setVisible(null)}>❌</button>
+              </p>
+            </div>
+          )}
         </div>
       ))}
     </div>
   );
-};
+}
 
 export default BoardUsers;
