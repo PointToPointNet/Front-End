@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import * as d3 from "d3";
-import style from "../styles/Board-resspeed.module.scss";
+import style from "../styles/board-resspeed.module.scss";
 
 const BoardResspeed: React.FC = () => {
   const [PingData, setPingData] = useState<number[]>([
