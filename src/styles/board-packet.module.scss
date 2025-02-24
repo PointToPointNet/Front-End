@@ -7,6 +7,9 @@
     @media (max-width: 1600px) {
         flex-direction: row;
     }
+    @media(max-width: 650px){
+        flex-direction: column;
+    }
     .body {
         @include mixin.box-item;
         flex: 1;

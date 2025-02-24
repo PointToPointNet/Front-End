@@ -8,8 +8,6 @@ const BoardPacket: React.FC = () => {
     bytes: number;
   }
 
-  //test....
-
   const [RXData, setRXData] = useState<NetworkData[]>([
     { "packets": 32243693, "bytes": 14873201.798 },
     { "packets": 12243693, "bytes": 24873201.798 },
@@ -57,7 +55,7 @@ const BoardPacket: React.FC = () => {
             const tempRX = [...prevRXData];
             tempRX.push({
               packets: data[0].test.enp0s25.RX.packets,
-              bytes: data[0].test.enp0s25.RX.bytes / 1000, // bytes 값을 1/1000로 변환
+              bytes: data[0].test.enp0s25.RX.bytes / 100, // bytes 값을 1/1000로 변환
             });
             tempRX.shift();
             return tempRX;
@@ -67,7 +65,7 @@ const BoardPacket: React.FC = () => {
             const tempTX = [...prevTXData];
             tempTX.push({
               packets: data[0].test.enp0s25.TX.packets,
-              bytes: data[0].test.enp0s25.TX.bytes / 1000, // bytes 값을 1/1000로 변환
+              bytes: data[0].test.enp0s25.TX.bytes / 100, // bytes 값을 1/1000로 변환
             });
             tempTX.shift();
             return tempTX;
@@ -87,7 +85,8 @@ const BoardPacket: React.FC = () => {
   const drawGraph = (svgRef: React.RefObject<SVGSVGElement>, data: NetworkData[], title: string) => {
     if (!svgRef.current || data.length === 0) return;
   
-    const width = 500;
+    //const width = 500;
+    const width = parseInt(d3.select('#packetBox').style('width'), 10) - 40;
     const height = 200;
     const margin = { top: 10, right: 10, bottom: 20, left: 35 };
   
@@ -211,7 +210,7 @@ const BoardPacket: React.FC = () => {
 
   return (
     <div className={style.packetbox}>
-      <div className={style.body}>
+      <div className={style.body} id="packetBox">
         <h2 className={style.title}>Receive</h2>
         <svg ref={rxsvgRef}></svg>
       </div>

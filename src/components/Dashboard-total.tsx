@@ -145,17 +145,7 @@ const DashboardTotal: React.FC<DashboardTotalProps> = ({
   return (
     <div className={style.dashboard}>
       <div className={style.header}>
-        <h1 className={style.title}>Network Dashboard - {serverName}</h1>
-        {/*2025.02.23 **SDH**   */}
-        <TotalDatepicker onDateChange={handleDateChange}></TotalDatepicker>
-        <button
-          onClick={() => {
-            getTotalPageData();
-          }}
-        >
-          조회
-        </button>
-        {/*2025.02.23 END **SDH** */}
+        <h1 className={style.title}>Total - {serverName}</h1>
         <a
           href="#"
           onClick={(e) => {
@@ -165,6 +155,18 @@ const DashboardTotal: React.FC<DashboardTotalProps> = ({
         >
           <FiPlayCircle /> 실시간 모니터링
         </a>
+        {/*2025.02.23 **SDH**   */}
+        <div className={style.searchbox}>
+        <TotalDatepicker onDateChange={handleDateChange}></TotalDatepicker>
+        <button
+          onClick={() => {
+            getTotalPageData();
+          }}
+        >
+          조회
+        </button>
+        </div>
+        {/*2025.02.23 END **SDH** */}
       </div>
 
       <div className={style.total}>
@@ -172,8 +174,6 @@ const DashboardTotal: React.FC<DashboardTotalProps> = ({
           <TotalMemory memData={memData}></TotalMemory>
           <TotalCpu cpuData={cpuData}></TotalCpu>
           <TotalPacket packetData={packetData}></TotalPacket>
-        </div>
-        <div className={style.section2}>
           <TotalConnect webConnectData={webConnectData}></TotalConnect>
           <TotalError errGraphData={errGraphData}></TotalError>
           <TotalLogin loginData={loginData}></TotalLogin>

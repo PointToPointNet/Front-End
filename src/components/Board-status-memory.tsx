@@ -14,14 +14,14 @@ const BoardStatusMemory: React.FC<BoardStatusMemoryProps> = (props) => {
 
   let percent = 0;
   if (usingMemory !== null && totalMemory !== null) {
-    percent = Math.round((usingMemory / totalMemory) * 100 * 10) / 10;
+    percent = (Math.round((usingMemory / totalMemory) * 100 * 10) / 10).toFixed(1);
   }
 
   useEffect(() => {
     if (!memorySvgRef.current || usingMemory === null || totalMemory === null) return;
 
     const data = [usingMemory, totalMemory - usingMemory];
-    const width = 250;
+    const width = parseInt(d3.select('#memorybox').style('width'), 10) - 20;
     const height = 180;
     const radius = Math.min(width, height) / 2;
 
@@ -44,7 +44,7 @@ const BoardStatusMemory: React.FC<BoardStatusMemoryProps> = (props) => {
 
     const memoryArcData = memoryPie(data);
 
-    const memoryArc = d3.arc<d3.PieArcDatum<number>>().innerRadius(60).outerRadius(radius);
+    const memoryArc = d3.arc<d3.PieArcDatum<number>>().innerRadius(radius-25).outerRadius(radius);
 
     memorySvg
       .selectAll("path")
@@ -60,7 +60,7 @@ const BoardStatusMemory: React.FC<BoardStatusMemoryProps> = (props) => {
   }
 
   return (
-    <div className={style.memory}>
+    <div className={style.memory} id="memorybox">
       <h2 className={style.title}>MEMORY</h2>
       <p className={style.data}>{!percent ? 0 : percent } %</p>
       <svg ref={memorySvgRef}></svg>

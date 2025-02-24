@@ -9,14 +9,19 @@ interface BoardStatusDiskProps {
 const BoardStatusDisk: React.FC<BoardStatusDiskProps> = ({ usingDisk }) => {
   const diskSvgRef = useRef<SVGSVGElement | null>(null);
 
+  let percent = 0;
+    if (usingDisk !== null) {
+      percent = (usingDisk).toFixed(1);
+    }
   useEffect(() => {
     if (!diskSvgRef.current || usingDisk === null) return;
 
+    
 
     d3.select(diskSvgRef.current).selectAll("*").remove();
 
     const data = [usingDisk, 100 - usingDisk];
-    const width = 250;
+    const width = parseInt(d3.select('#diskbox').style('width'), 10) - 20;
     const height = 180;
     const radius = Math.min(width, height) / 2;
 
@@ -41,7 +46,7 @@ const BoardStatusDisk: React.FC<BoardStatusDiskProps> = ({ usingDisk }) => {
 
     // arc 설정
     const diskArc = d3.arc<d3.PieArcDatum<number>>()
-      .innerRadius(60)
+      .innerRadius(radius-25)
       .outerRadius(radius);
 
     diskSvg
@@ -54,9 +59,9 @@ const BoardStatusDisk: React.FC<BoardStatusDiskProps> = ({ usingDisk }) => {
   }, [usingDisk]);
 
   return (
-    <div className={style.disk}>
+    <div className={style.disk} id="diskbox">
       <h2 className={style.title}>DISK</h2>
-      <p className={style.data}>{usingDisk} %</p>
+      <p className={style.data}>{percent} %</p>
       <svg ref={diskSvgRef}></svg>
     </div>
   );

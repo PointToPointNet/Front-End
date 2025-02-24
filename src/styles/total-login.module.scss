@@ -4,9 +4,9 @@
 .body {
     
     @include mixin.box-item;
-    
+    height: 320px; 
     // padding:0;
-    overflow-y: auto;
+    overflow-y: scroll;
     flex: 1;
     [class*=table]{
         display: grid;

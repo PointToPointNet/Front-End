@@ -16,6 +16,9 @@
             15%
             15%
         ;
+        @media(max-width: 650px){
+            grid-template-columns: 1fr 1.5fr 1fr 1fr;
+        }
     }
     .tableHeader {
         background-color: variables.$background-Header;
@@ -23,10 +26,17 @@
         text-align: center;
         div {
             flex: 1;
-            padding: 15px;
+            padding: 15px 0;
             
             &+div {
                 border-left: 1px solid variables.$border-Boxes;
+            }
+            @media(max-width: 650px){
+                &:nth-child(2),
+                &:nth-child(4) {
+                    display: none;
+                }
+                font-size: 12px;
             }
         } 
     }
@@ -35,13 +45,22 @@
             flex: 1;
             border-bottom: 1px solid variables.$border-Boxes;
             font-size: 14px;
-            padding: 10px 15px;
+            padding: 10px 0 ;
             color: rgba(255,255,255,0.6);
             text-align: center;
             &+div {
                 border-left: 1px solid variables.$border-Boxes;
             }
             overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            @media(max-width: 650px){
+                &:nth-child(2),
+                &:nth-child(4){
+                    display: none;
+                }
+            }
         }
     }
     

@@ -25,7 +25,7 @@ const TotalConnect: React.FC<TotalConnectProps> = ({webConnectData}) => {
     if (!svgRef.current || data.length === 0) return;
  
     // 그래프의 크기 세팅
-    const width = 530;
+    const width = parseInt(d3.select('#connectbox').style('width'), 10) - 20;
     const height = 240;
     const margin = { top: 20, right:40, bottom: 20, left: 30 };
     const svg = d3
@@ -140,7 +140,7 @@ const TotalConnect: React.FC<TotalConnectProps> = ({webConnectData}) => {
 
 
   if(!webConnectData){ return <div className={style.body}>Loading...</div> }
-  return  <div className={style.body}>
+  return  <div className={style.body} id="connectbox">
   <h2 className={style.title}>total web server. connect.</h2>
   <svg ref={connectRef}></svg>
   {/* {webConnectData.map( (data,index)=>{

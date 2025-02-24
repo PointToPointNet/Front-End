@@ -28,16 +28,20 @@ const BoardResspeed: React.FC = () => {
     return () => clearInterval(interval);
   }, []);
 
+  
+  
   const drawGraph = (
     svgRef: React.RefObject<SVGSVGElement>,
-    data: number[],
-    title: string
+    data: number[]
   ) => {
     if (!svgRef.current || data.length === 0) return;
 
-    const width = 360;
+    //const width = 360;
     const height = 130;
-    const margin = { top: 10, right: 10, bottom: 20, left: 30 };
+    const margin = { top: 15, right: 10, bottom: 15, left: 30 };
+
+    const width = parseInt(d3.select('#resspeedBox').style('width'), 10) - 40;
+    //const height = parseInt(d3.select('#my_dataviz').style('height'), 10);
 
     const svg = d3
       .select(svgRef.current)
@@ -108,11 +112,11 @@ const BoardResspeed: React.FC = () => {
   };
 
   useEffect(() => {
-    drawGraph(pingRef, PingData, "Ping");
+    drawGraph(pingRef, PingData);
   }, [PingData]);
 
   return (
-    <div className={style.body}>
+    <div className={style.body} id="resspeedBox">
       <h2 className={style.title}>Response Speed</h2>
       <svg ref={pingRef}></svg>
     </div>

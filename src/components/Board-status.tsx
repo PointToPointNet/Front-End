@@ -69,7 +69,7 @@ const BoardStatus: React.FC<BoardStatusProps> = ({serverName}) => {
 
   
   return (
-    <div className={style.body}>
+    <div className={style.body} id="statusbox">
       <BoardStatusMemory usingMemory={usingMemory} totalMemory={totalMemory}></BoardStatusMemory>
       <BoardStatusCpu cpuUtilization={cpuUtilization}></BoardStatusCpu>
       <BoardStatusDisk usingDisk={usingDisk}></BoardStatusDisk>

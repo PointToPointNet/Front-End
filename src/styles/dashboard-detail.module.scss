@@ -13,6 +13,7 @@
         width: 100px;
         background-color: variables.$background-Navbar;
         border-right: 1px solid variables.$border-Boxes;
+        z-index: 1500;
         @media (max-width: 920px) {
             width: 100%;
             height: 50px;

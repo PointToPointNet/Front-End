@@ -26,7 +26,7 @@ const TotalError: React.FC<TotalErrorProps> = ({ errGraphData }) => {
     if (!svgRef.current || data.length === 0) return;
  
     // 그래프의 크기 세팅
-    const width = 530;
+    const width = parseInt(d3.select('#errorbox').style('width'), 10) - 20;
     const height = 240;
     const margin = { top: 20, right:40, bottom: 20, left: 30 };
     const svg = d3
@@ -267,7 +267,7 @@ const TotalError: React.FC<TotalErrorProps> = ({ errGraphData }) => {
     return <div className={style.body}></div>;
   }
   return (
-    <div className={style.body}>
+    <div className={style.body} id="errorbox">
       <h2 className={style.title}>total. error graph</h2>
       <svg ref={ErrorRef}></svg>
       {/* {errGraphData.map((data, index) => {

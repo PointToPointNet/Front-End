@@ -9,17 +9,19 @@
     @media (max-width: 1600px) {
         flex-direction: row;
     }
+    @media(max-width: 650px){
+        flex-direction: column;
+    }
     .body {
         @include mixin.box-item;
         //flex: 1;
-        &:last-of-type {
-            padding-right: 5px;
+        &:first-of-type {
+            padding-right: 5px; 
         }
         @media (max-width: 1600px) {
             &:last-of-type {
                 flex: 1;
                 height: 300px;
-                overflow: scroll;
             }
         }
         .title {
@@ -34,7 +36,7 @@
         .list {
             height: 230px;
             overflow: scroll;
-            padding-right: 20px;
+            padding-right: 10px;
             li {
                 display: flex;
                 justify-content: space-between;
