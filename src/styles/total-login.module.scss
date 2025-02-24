@@ -11,10 +11,9 @@
     [class*=table]{
         display: grid;
         grid-template-columns: 
-            30%
-            20%
+            25%
+            25%
             50%
-        ;
     }
     .tableHeader {
         padding:0;

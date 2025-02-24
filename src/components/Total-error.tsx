@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import * as d3 from "d3";
 import style from "../styles/total-error.module.scss";
-
+import TotalErrorGraphPopup from './Total-error-graph-popup'; 
 interface ErrGraphData {
   date: string;
   web: number;
@@ -13,8 +13,15 @@ interface TotalErrorProps {
   errGraphData: ErrGraphData[];
 }
 
-const TotalError: React.FC<TotalErrorProps> = ({ errGraphData }) => {
+const TotalError: React.FC = ({ errGraphData ,apacheErr}) => {
+  /* START Popup을 위한 코드 START */
+  const [selectedDetail, setSelectedDetail] = useState(false);
+  const closePopup = () =>{
+    setSelectedDetail(false);
+  }
 
+
+  /* END Popup을 위한 코드 END*/
   const ErrorRef = useRef<SVGSVGElement | null>(null);
   const colorValues = ['#C3E1FF', '#B91293', '#9747FF', '#FFD7A3' ];
 
@@ -268,16 +275,15 @@ const TotalError: React.FC<TotalErrorProps> = ({ errGraphData }) => {
   }
   return (
     <div className={style.body} id="errorbox">
+
+      {selectedDetail && <TotalErrorGraphPopup closePopup = { closePopup } apacheErr={apacheErr}></TotalErrorGraphPopup>}
       <h2 className={style.title}>total. error graph</h2>
       <svg ref={ErrorRef}></svg>
-      {/* {errGraphData.map((data, index) => {
-        return (
-          <div key={index}>
-            <span>{data.date}: web: {data.web} ufw: {data.ufw} auth: {data.auth} mysql: {data.mysql}</span>
-          </div>
-        );
-      })} */}
-      <button className={style.btn}>에러 로그 자세히 보기</button>
+      <button className={style.btn} onClick={ 
+        ()=>{
+          setSelectedDetail(true);
+        }
+       }>에러 로그 자세히 보기</button>
     </div>
   );
 };

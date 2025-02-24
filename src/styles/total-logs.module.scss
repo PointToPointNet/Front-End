@@ -34,9 +34,9 @@
         div {
             flex: 1;
             border-bottom: 1px solid variables.$border-Boxes;
-            font-size: 20px;
+            font-size: 16px;
             padding: 10px 15px;
-            color: rgba(255,0,0,0.6);
+            color: #FF6060;
             text-align: center;
             &+div {
                 border-left: 1px solid variables.$border-Boxes;
