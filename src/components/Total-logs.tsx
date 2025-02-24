@@ -18,12 +18,27 @@ const TotalLogs: React.FC<TotalLogsProps> = ({ criticalErrData }) => {
   }
   return (
     <div className={style.body}>
-      <p>total logs</p>
-      {criticalErrData.map((data, index) => {
-        return (<div key={index}>
-          <span>{data.log_time} {data.service} {data.log_level} {data.message}</span>
-        </div>)
-      })}
+      <div className={style.body}>
+        <div className={style.tableHeader}>
+          <div>LOG_TIME</div>
+          <div>SERVICE</div>
+          <div>LOG_LEVEL</div>
+          <div>MESSAGE</div>
+        </div>
+        {criticalErrData.map((data, index) => {
+          return (
+            <div key={index} className={style.tableBody}>
+              <div>
+                {data.log_time.split("T")[0]}{" "}
+                {data.log_time.split("T")[1].substring(0, 8)}
+              </div>
+              <div>{data.service}</div>
+              <div>{data.log_level}</div>
+              <div>{data.message}</div>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };
