@@ -11,6 +11,13 @@
         flex-direction: column;
     }
     .body {
+        .helpBtn {
+            @include mixin.helpBtn; 
+            top: 10px;
+        }
+        .helper {
+            @include mixin.helper;
+        }
         @include mixin.box-item;
         flex: 1;
         display: flex;

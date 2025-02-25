@@ -11,7 +11,7 @@
 
     .helpBtn {
         @include mixin.helpBtn; 
-
+        top: -6px;
     }
     .helper {
         @include mixin.helper;
