@@ -13,16 +13,27 @@
         flex-wrap: wrap;
         align-items: center;
         padding: 30px 30px 0 30px;
+        @media (max-width: 550px) {
+            padding: 15px 15px 0 15px;
+        }
+        h1 {
+            @include mixin.pagetitle;
+        }
         a {
             order: 3;
             display: flex;
-            padding: 7px 20px;
+            padding: 5px 20px;
             background-color: variables.$primary-color;
             color: #fff;
             text-decoration: none;
             border-radius: 5px;
             gap: 5px;
             align-items: center;
+            @media (max-width: 550px) {
+                padding: 5px 10px;
+                font-size: 12px;
+                margin-top: 3px;
+            }
             @media (max-width: 1200px) {
                 order: 1;
             }
@@ -77,6 +88,9 @@
         height: 100%;
         padding: 15px 30px 15px 30px;
         gap: 20px;
+        @media (max-width: 550px) {
+            padding: 15px 15px;
+        }
         .section1 {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
