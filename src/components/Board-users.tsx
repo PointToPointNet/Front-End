@@ -1,5 +1,8 @@
-import style from '../styles/board-users.module.scss';
 import { useEffect, useState } from 'react';
+import { IoClose } from "react-icons/io5";
+import { IoAlertCircle } from "react-icons/io5";
+import style from '../styles/board-users.module.scss';
+import Popup from './Popup';
 
 interface UserData {
   username: string;
@@ -136,13 +139,17 @@ const BoardUsers: React.FC<BoardUsersProps> = ({ serverName }) => {
             {user.connecting ? (<button onClick={() => setVisible(index)} className={style.disconnectbtn}>Disconnect</button>) : ""}
           </div>
           {visible === index && (
+            <div className={style.modal}>
             <div className={style.popup}>
-              <p>해당 유저의 상태를 비활성화 하시겠습니까?</p>
-              <p>유저의 원격격 연결이 끊깁니다.</p>
-              <p className={style.popupBtn}>
-                <button onClick={() => disconnectUser(index)}>⭕</button>
-                <button onClick={() => setVisible(null)}>❌</button>
-              </p>
+              <p>해당 유저의 상태를 <span>비활성화</span> 하시겠습니까?</p>
+              <p>유저의 원격연결이 끊깁니다.</p>
+              <div className={style.popupBtn}>
+                <button onClick={() => setVisible(null)}>Cancel</button>
+                <button onClick={() => disconnectUser(index)}>Yes! Disconnect</button>
+              </div>
+              <div className={style.close} onClick={() => setVisible(null)}><IoClose /></div>
+              <div className={style.alert}><IoAlertCircle /></div>
+            </div>
             </div>
           )}
         </div>
