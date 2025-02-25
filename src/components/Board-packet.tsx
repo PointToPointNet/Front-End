@@ -162,7 +162,7 @@ const BoardPacket: React.FC<BoardPacket> = ({serverName}) => {
     graphGroup.select(".y-axis").remove();
     graphGroup.append("g")
       .attr("class", "y-axis")
-      .call(d3.axisLeft(yScale).tickFormat(d => Math.floor(d * Math.pow(10,-5))));
+      .call(d3.axisLeft(yScale).ticks(10));
   
     const areaPackets = d3.area<NetworkData>()
       .x((_, i) => xScale(i))

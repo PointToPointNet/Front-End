@@ -3,7 +3,8 @@
 // Nav-bar-add.tsx, Nav-bar-button.tsx
 
 //import NavBarAdd from './Nav-bar-add.tsx';
-
+import github from '../assets/github.png';
+import pdf from '../assets/pdf.png';
 import NavBarButton from './Nav-bar-button.tsx';
 import style from '../styles/nav-bar.module.scss';
 
@@ -30,6 +31,17 @@ const NavBar: React.FC<NavBarProps> = (props) => {
       }}
       serverList={props.serverList}
       ></NavBarButton>
+
+      <div className={style.source}>
+        <a href="#" className={style.btn}>
+          <img src={github} alt="깃허브 코드보기" />
+          깃허브
+        </a>
+        <a href="#" className={style.btn} >
+          <img src={pdf} alt="문서보기" />
+          문서보기
+        </a>
+      </div>
   </div>
 
 }
