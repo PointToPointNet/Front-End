@@ -4,6 +4,8 @@ import BoardStatusMemory from './Board-status-memory'
 import BoardStatusCpu from './Board-status-cpu'
 import BoardStatusDisk from './Board-status-disk'
 
+import url from "../assets/config/url.ts";
+
 interface BoardStatusProps {
   serverName: string;
 }
@@ -15,7 +17,7 @@ const BoardStatus: React.FC<BoardStatusProps> = ({ serverName }) => {
 
   useEffect(() => {
     const fetchData = (): void => {
-      fetch("http://localhost:3000/status")
+      fetch(`${url.url}/status`)
         .then((response) => response.json())
         .then((data) => {
           for (let i = 0; i < data.length; i++) {

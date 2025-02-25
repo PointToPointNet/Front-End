@@ -2,6 +2,8 @@ import { useEffect, useState, useRef } from "react";
 import * as d3 from "d3";
 import style from "../styles/board-resspeed.module.scss";
 
+import url from "../assets/config/url.ts";
+
 interface BoardResspeed {
   serverName: string;
 }
@@ -17,7 +19,7 @@ const BoardResspeed: React.FC<BoardResspeed> = ({ serverName }) => {
 
   useEffect(() => {
     const fetchData = (): void => {
-      fetch("http://localhost:3000/ping")
+      fetch(`${url.url}/ping`)
         .then((response) => response.json())
         .then((data) => {
           setPingData((prevPingData) => {

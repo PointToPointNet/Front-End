@@ -2,6 +2,8 @@ import style from '../styles/board-runtime.module.scss';
 import { useEffect, useState } from "react";
 import { IoMdHelpCircleOutline } from "react-icons/io";
 
+import url from "../assets/config/url.ts";
+
 interface BoardRuntime {
   serverName: string;
 }
@@ -14,7 +16,7 @@ const BoardRuntime: React.FC<BoardRuntime> = ({ serverName }) => {
     let timeoutId: NodeJS.Timeout;
     // setInterval을 setTimeout으로 변경.
     const fetchData = () => {
-      fetch("http://localhost:3000/runtime")
+      fetch(`${url.url}/runtime`)
         .then((response) => response.json())
         .then((runtimeData) => {
           const server_runtime = runtimeData.find((server_sep: { [key: string]: number }) => serverName in server_sep);

@@ -6,6 +6,8 @@ import DashboardDetail from './components/Dashboard-detail.tsx';
 import DashboardTotal from './components/Dashboard-total.tsx';
 import style from './styles/dashboard-detail.module.scss';
 
+import url from "./assets/config/url.ts";
+
 const App: React.FC = () => {
 
  
@@ -16,7 +18,7 @@ const App: React.FC = () => {
 
   useEffect(() => {
     const getServerList = async () => {
-      const response = await fetch("http://localhost:3000/server");
+      const response = await fetch(`${url.url}/server`);
       const serverList = await response.json();
 
       if (serverList) {

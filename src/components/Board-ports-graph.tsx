@@ -3,6 +3,8 @@ import { useEffect, useState, useRef } from "react";
 import * as d3 from "d3";
 import style from '../styles/board-ports.module.scss';
 
+import url from "../assets/config/url.ts";
+
 interface BoardPortsGraphProps {
   propsServerName: string;
 }
@@ -34,7 +36,7 @@ const BoardPortsGraph: React.FC<BoardPortsGraphProps> = ({propsServerName}) => {
 
 
   const fetchUsedPort = () => {
-    fetch("http://localhost:3000/used_port")
+    fetch(`${url.url}/used_port`)
       .then((response) => response.json())
       .then((data) => {
         for (let i=0; i<data.length; i++) {
