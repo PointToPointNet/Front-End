@@ -89,7 +89,7 @@ const BoardPacket: React.FC<BoardPacket> = ({ serverName }) => {
     fetchData();
     const interval = setInterval(() => {
       fetchData();
-    }, 3000);
+    }, 1500);
 
     return () => clearInterval(interval);
 

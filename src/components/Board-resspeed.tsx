@@ -35,7 +35,7 @@ const BoardResspeed: React.FC<BoardResspeed> = ({ serverName }) => {
     fetchData();
     const interval = setInterval(() => {
       fetchData();
-    }, 3000);
+    }, 1500);
     return () => clearInterval(interval);
   }, [serverName]);
 
