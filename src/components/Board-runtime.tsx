@@ -1,12 +1,13 @@
 import style from '../styles/board-runtime.module.scss';
 import { useEffect, useState } from "react";
+import { IoMdHelpCircleOutline } from "react-icons/io";
 
 interface BoardRuntime {
   serverName: string;
 }
 
 const BoardRuntime: React.FC<BoardRuntime> = ({ serverName }) => {
-
+  const [helperVisible, setHelperVisible] = useState(false);
   const [runtimeData, setRuntimeData] = useState<number | null>(null);
 
   useEffect(() => {
@@ -55,6 +56,10 @@ const BoardRuntime: React.FC<BoardRuntime> = ({ serverName }) => {
         </div>
       </div>
       {/* <p className={style.contents}>{runtimeData !== null ? `${Math.floor(runtimeData / 60 / 24)}d : ${Math.floor(runtimeData / 60 - (24 * Math.floor(runtimeData / 60 / 24)))}h : ${runtimeData % 60}m` : "Loading..."}</p> */}
+      <button className={style.helpBtn} onClick={()=>{setHelperVisible(!helperVisible)}}><IoMdHelpCircleOutline /></button>
+      <div className={style.helper} style={{ display: helperVisible ? "inline-block" : "none" }}>
+        <p className={style.help}>서버가 구동된 후 얼마나 지났는지 나타내는 데이터입니다.</p>
+      </div>
     </div>
   );
 };

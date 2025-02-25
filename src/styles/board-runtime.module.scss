@@ -2,6 +2,7 @@
 @use 'mixin';
 
 .body {
+    position:relative;
     @include mixin.box-item;
     width: 200px;
     display: flex;
@@ -35,5 +36,24 @@
     }
     .contents{
         font-size: 20px;
+    }
+    .helpBtn {
+        position: absolute;
+        right: 5%;
+        top: 5%;
+        text-align: center;
+        line-height: 15px;
+        font-size: 20px;
+        background: none;
+        border:0;
+        color: #666;
+
+    }
+    .helper{
+        width: 80%;
+        height: 80%;
+        position: absolute;
+        display: inline-block;
+        background-color: rgba(0,0,0,0.9);
     }
 }
