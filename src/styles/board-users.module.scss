@@ -61,6 +61,9 @@
                     display: none;
                 }
             }
+            .disconnectbtn {
+               @include mixin.disconnect; 
+            }
         }
     }
     
@@ -69,18 +72,18 @@
     align-items:center;
     flex-direction: column;
     justify-content: center;
-    width: 275px;
-    height: 230px;
+    width: 400px;
+    height: 200px;
     position: absolute;
     top: 50%;
     left: 50%;
-    margin-top: -75px;
-    margin-left: 100px -137.5px;
+    transform: translate(-50%, -50%);
     gap: 45px;
     background-color: #010101;
     padding: 10px;
     border-radius: 10px;
-    border: 3px solid white;
+    border: 1px solid variables.$border-Boxes;
+    box-shadow: 0 0 10px rgba(0,0,0,0.7);
 }
 .popupBtn {
     width: 200px;

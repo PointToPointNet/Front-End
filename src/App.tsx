@@ -9,7 +9,7 @@ import style from './styles/dashboard-detail.module.scss';
 const App: React.FC = () => {
 
   const [serverList, setServerList] = useState<string[]>(["kkms","peter","lauren","JUH","SHJ"]);
-  const [activeServer, setActiveServer] = useState<string>("kkms");
+  const [activeServer, setActiveServer] = useState<string>("home");
   const [mode, setMode] = useState<string>("home");
 
   useEffect(() => {

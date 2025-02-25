@@ -133,7 +133,7 @@ const BoardUsers: React.FC<BoardUsersProps> = ({ serverName }) => {
           <div>{user.loginTime} / {user.logoutTime}</div>
           <div id="connecting">{user.connecting ? "🟢" : "🔴"}</div>
           <div>
-            {user.connecting ? (<button onClick={() => setVisible(index)}>❌</button>) : ""}
+            {user.connecting ? (<button onClick={() => setVisible(index)} className={style.disconnectbtn}>Disconnect</button>) : ""}
           </div>
           {visible === index && (
             <div className={style.popup}>
