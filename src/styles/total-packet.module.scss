@@ -4,4 +4,8 @@
 .body {
     @include mixin.box-item;
     flex: 1;
+    .title {
+        @include mixin.title;
+        text-align: left;
+    }
 }

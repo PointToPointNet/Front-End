@@ -17,14 +17,14 @@ const TotalLogs: React.FC<TotalLogsProps> = ({ criticalErrData }) => {
   }
   return (
     <div className={style.body}>
-      <h2>Critical Logs</h2>
-      <div className={style.conainer}>
+      <h2>🚨Weekly Critical Error Log Status</h2>
         <div className={style.tableHeader}>
           <div>LOG_TIME</div>
           <div>SERVICE</div>
           <div>LOG_LEVEL</div>
           <div>MESSAGE</div>
         </div>
+        <div className={style.container}>
         {criticalErrData.map((data, index) => {
           return (
             <div key={index} className={style.tableBody}>
