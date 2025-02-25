@@ -33,11 +33,11 @@ const NavBar: React.FC<NavBarProps> = (props) => {
       ></NavBarButton>
 
       <div className={style.source}>
-        <a href="#" className={style.btn}>
-          <img src={github} alt="깃허브 코드보기" />
+        <a href="https://github.com/PointToPointNet" className={style.btn} target='_blank'>
+          <img src={github} alt="깃허브 코드보기" className={style.git} />
           깃허브
         </a>
-        <a href="#" className={style.btn} >
+        <a href="#" className={style.btn}  target='_blank'>
           <img src={pdf} alt="문서보기" />
           문서보기
         </a>

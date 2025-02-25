@@ -58,8 +58,8 @@ const BoardPacket: React.FC<BoardPacket> = ({serverName}) => {
           setRXData(prevRXData => {
             const tempRX = [...prevRXData];
             tempRX.push({
-              packets: data.find(((server_sep: {[key: string]: object}) => serverName in server_sep))[serverName].enp0s25.RX.packets,
-              bytes: data.find(((server_sep: {[key: string]: object}) => serverName in server_sep))[serverName].enp0s25.RX.bytes / 100, // bytes 값을 1/1000로 변환
+              packets: data[0][serverName].enp0s25.RX.packets,
+              bytes: data[0][serverName].enp0s25.RX.bytes / 100, // bytes 값을 1/1000로 변환
             });
             tempRX.shift();
             return tempRX;
@@ -68,8 +68,8 @@ const BoardPacket: React.FC<BoardPacket> = ({serverName}) => {
           setTXData(prevTXData => {
             const tempTX = [...prevTXData];
             tempTX.push({
-              packets: data.find(((server_sep: {[key: string]: object}) => serverName in server_sep))[serverName].enp0s25.TX.packets,
-              bytes: data.find(((server_sep: {[key: string]: object}) => serverName in server_sep))[serverName].enp0s25.TX.bytes / 100, // bytes 값을 1/1000로 변환
+              packets: data[0][serverName].enp0s25.TX.packets,
+              bytes: data[0][serverName].enp0s25.TX.bytes / 100, // bytes 값을 1/1000로 변환
             });
             tempTX.shift();
             return tempTX;
@@ -162,7 +162,7 @@ const BoardPacket: React.FC<BoardPacket> = ({serverName}) => {
     graphGroup.select(".y-axis").remove();
     graphGroup.append("g")
       .attr("class", "y-axis")
-      .call(d3.axisLeft(yScale).ticks(10));
+      .call(d3.axisLeft(yScale).tickFormat(d => Math.floor(d * Math.pow(10,-5))));
   
     const areaPackets = d3.area<NetworkData>()
       .x((_, i) => xScale(i))

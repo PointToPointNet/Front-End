@@ -7,7 +7,8 @@
     @media (max-width: 920px) {
         display: flex;
         margin-top: 0;
-        justify-content: center;
+        justify-content: flex-start;
+        margin-left: 20px;
     }
     li {
         padding: 10px 15px 10px 20px;
@@ -17,7 +18,7 @@
         cursor: pointer;
         @media (max-width: 920px) {
             font-size: 20px;
-            padding: 5px 15px;
+            padding: 5px 10px;
         }
         &.on {
             color: variables.$font-color;
@@ -37,9 +38,23 @@
     bottom: 10px;
     width: 100%;
     transform: translateX(-50%);
+    .git {
+        filter: invert(100%);
+    }
+    @media (max-width: 920px) {
+        left: auto;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        bottom: auto;
+        width: auto;
+        display: flex;
+        gap: 10px;
+
+    }
 }
 .btn {
-    background-color: #fff;
+    background-color: #123851;
     display: block;
     border-radius: 5px;
     margin: 10px;
@@ -47,12 +62,28 @@
     text-align: center;
     font-size: 14px;
     padding: 10px 0;
-    color: #212121;
+    color: #fff;
     font-weight: 500;
     letter-spacing: -0.5px;
+    transition: 0.2s;
+    @media (max-width: 920px) {
+        font-size: 0;
+        padding: 5px 10px;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center; 
+    }
     img {
         display: block;
         margin: 0 auto 6px;
         width: 50%;
+        @media (max-width: 920px) {
+            width: 25px;
+            margin: 0;
+        }
+    }
+    &:hover {
+        background-color: #5d2eae;
     }
 }
