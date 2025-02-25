@@ -239,7 +239,7 @@ const BoardPacket: React.FC<BoardPacket> = ({ serverName }) => {
         <svg ref={rxsvgRef}></svg>
         <button className={style.helpBtn} onClick={()=>{setHelperVisibleR(!helperVisibleR)}}><IoMdHelpCircleOutline /></button>
         <div className={style.helper} style={{ display: helperVisibleR ? "flex" : "none" }} onClick={()=>{setHelperVisibleR(!helperVisibleR)}}>
-        <p className={style.help}>패킷(Packet)은 인터넷을 통해 데이터를 주고받을 때 쪼개지는 작은 조각입니다. Packet은 택배상자로 비유 가능하며, 큰 데이터를를 보내려면, 작은 상자(Packet)로 나눠서 보내야 합니다.</p>
+        <p className={style.help}>패킷(Packet)은 인터넷을 통해 데이터를 주고받을 때 쪼개지는 작은 조각입니다.</p> <p className={style.help}>Packet은 택배상자로 비유 가능하며, 큰 데이터를를 보내려면, 작은 상자(Packet)로 나누어어서 보내야 합니다.</p>
           <p className={style.help}>Transimit Packet(TX, Upload)은 Packet의 송신량을 나타내며 내가 데이터를 보낼 때 수치가 증가합니다.</p>
         </div>
       </div>
@@ -248,7 +248,7 @@ const BoardPacket: React.FC<BoardPacket> = ({ serverName }) => {
         {<svg ref={txsvgRef}></svg>}
         <button className={style.helpBtn} onClick={()=>{setHelperVisibleT(!helperVisibleT)}}><IoMdHelpCircleOutline /></button>
         <div className={style.helper} style={{ display: helperVisibleT ? "flex" : "none" }} onClick={()=>{setHelperVisibleT(!helperVisibleT)}}>
-          <p className={style.help}>패킷(Packet)은 인터넷을 통해 데이터를 주고받을 때 쪼개지는 작은 조각입니다. Packet은 택배상자로 비유 가능합니다.</p>
+          <p className={style.help}>패킷(Packet)은 인터넷을 통해 데이터를 주고받을 때 쪼개지는 작은 조각입니다.</p> <p className={style.help}>Packet은 택배상자로 비유 가능합니다.</p>
           <p className={style.help}>Receive Packet(RX, Download)은 패킷의 수신량을 나타내며 내가 데이터를 받을 때 수치가 증가합니다.</p>
 
         </div>
