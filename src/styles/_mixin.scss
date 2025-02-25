@@ -1,6 +1,7 @@
 @use 'variables';
 
 @mixin box-item {
+    position: relative;
     background-color: variables.$background-Boxes;
     border: 1px solid variables.$border-Boxes;
     padding: 20px;
