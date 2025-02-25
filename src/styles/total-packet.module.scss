@@ -8,4 +8,11 @@
         @include mixin.title;
         text-align: left;
     }
+    .helpBtn {
+        @include mixin.helpBtn; 
+
+    }
+    .helper {
+        @include mixin.helper;
+    }
 }
