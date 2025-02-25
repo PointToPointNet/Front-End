@@ -3,7 +3,7 @@
 
 .body {
     @include mixin.box-item;
-    height:200px;
+    height:300px;
     padding:10;
     overflow-y: hidden;
     flex: 1;
@@ -40,7 +40,7 @@
     .container{
         overflow-y: auto;
         overflow-x: hidden;
-        height:calc(100% - 80px);
+        height:calc(100% - 100px);
 
         @include mixin.scrollbar;
 

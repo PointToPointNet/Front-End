@@ -277,9 +277,9 @@ const TotalError: React.FC = ({ errGraphData ,apacheErr, authErr, mysqlErr, ufwE
     <div className={style.body} id="errorbox">
 
       {selectedDetail && <TotalErrorGraphPopup closePopup = { closePopup } apacheErr={apacheErr} authErr={authErr} mysqlErr={mysqlErr} ufwErr={ufwErr}></TotalErrorGraphPopup>}
-      <h2 className={style.title}>total. error graph</h2>
+      <h2 className={style.title}>⚠️Daily Service Error Count</h2>
       <svg ref={ErrorRef}></svg>
-      <button className={style.btn} onClick={ 
+      <button className={style.btn} onClick={
         ()=>{
           setSelectedDetail(true);
         }
