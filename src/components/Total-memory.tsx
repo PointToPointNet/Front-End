@@ -26,7 +26,7 @@ const drawGraph = (
  
     // 그래프의 크기 세팅
     const width = parseInt(d3.select('#membody').style('width'), 10) - 20;
-    const height = 240;
+    const height = 220;
     const margin = { top: 20, right:40, bottom: 20, left: 30 };
     const svg = d3
       .select(svgRef.current)

@@ -21,7 +21,7 @@ const TotalCpu: React.FC<TotalCpuProps> = ({cpuData}) => {
     if (!svgRef.current || data.length === 0) return;
 
     const width = parseInt(d3.select('#cpubox').style('width'), 10) - 20;
-    const height = 240;
+    const height = 220;
     const margin = { top: 20, right:40, bottom: 20, left: 30 };
     const svg = d3
       .select(svgRef.current)
