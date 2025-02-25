@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import style from "../styles/board-status.module.scss";
-import BoardStatusMemory from './Board-status-memory'
-import BoardStatusCpu from './Board-status-cpu'
-import BoardStatusDisk from './Board-status-disk'
+import BoardStatusMemory from "./Board-status-memory";
+import BoardStatusCpu from "./Board-status-cpu";
+import BoardStatusDisk from "./Board-status-disk";
+import { IoMdHelpCircleOutline } from "react-icons/io";
 
 import url from "../assets/config/url.ts";
 
@@ -14,6 +15,8 @@ const BoardStatus: React.FC<BoardStatusProps> = ({ serverName }) => {
   const [totalMemory, setTotalMemory] = useState<number | null>(0);
   const [cpuUtilization, setCpuUtilization] = useState<number | null>(0);
   const [usingDisk, setUsingDisk] = useState<number | null>(0);
+
+  const [helperVisible, setHelperVisible] = useState(false);
 
   useEffect(() => {
     const fetchData = (): void => {
@@ -30,7 +33,7 @@ const BoardStatus: React.FC<BoardStatusProps> = ({ serverName }) => {
               const usingMemory = memory.usingMemory;
               const totalMemory = memory.totalMemory;
               const cpuUtilization = parseFloat(cpu.cpuUtilization);
-              const usingDisk = Number(disk.diskUtilization.replace('%', ''));
+              const usingDisk = Number(disk.diskUtilization.replace("%", ""));
 
               setUsingMemory(usingMemory);
               setTotalMemory(totalMemory);
@@ -40,7 +43,7 @@ const BoardStatus: React.FC<BoardStatusProps> = ({ serverName }) => {
           }
         })
         .catch((error) => console.error("Error fetching data:", error));
-    }
+    };
     // 맨처음에 불러오기기
     fetchData();
     const interval = setInterval(() => {
@@ -50,12 +53,33 @@ const BoardStatus: React.FC<BoardStatusProps> = ({ serverName }) => {
     return () => clearInterval(interval);
   }, [serverName]);
 
-
   return (
     <div className={style.body} id="statusbox">
-      <BoardStatusMemory usingMemory={usingMemory} totalMemory={totalMemory}></BoardStatusMemory>
+      <BoardStatusMemory
+        usingMemory={usingMemory}
+        totalMemory={totalMemory}
+      ></BoardStatusMemory>
       <BoardStatusCpu cpuUtilization={cpuUtilization}></BoardStatusCpu>
       <BoardStatusDisk usingDisk={usingDisk}></BoardStatusDisk>
+      <button
+        className={style.helpBtn}
+        onClick={() => {
+          setHelperVisible(!helperVisible);
+        }}
+      >
+        <IoMdHelpCircleOutline />
+      </button>
+      <div
+        className={style.helper}
+        style={{ display: helperVisible ? "flex" : "none" }}
+        onClick={() => {
+          setHelperVisible(!helperVisible);
+        }}
+      >
+        <p className={style.help}>MEMORY: 현재 메모리 사용률을 나타냅니다.</p>
+        <p className={style.help}>CPU: 현재 CPU 사용률을 나타냅니다.</p>
+        <p className={style.help}>DISK: 현재 디스크 사용률을 나타냅니다.</p>
+      </div>
     </div>
   );
 };

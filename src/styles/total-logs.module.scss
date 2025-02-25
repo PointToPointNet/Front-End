@@ -7,13 +7,19 @@
     padding:10;
     overflow-y: hidden;
     flex: 1;
+    @media (max-width: 550px) {
+        height: auto;
+    }
     [class*=table]{
         display: grid;
         grid-template-columns: 
             15%
             15%
             15%
-            65%
+            65%;
+        @media (max-width: 550px) {
+            grid-template-columns: 35% 1fr;
+        }
     }
     h2{
         @include mixin.title;
@@ -28,10 +34,18 @@
         border-bottom: 1px solid variables.$border-Boxes;
         text-align: center;
         font-weight: 900;
+        @media (max-width: 550px) {
+            font-weight: 500;
+            font-size: 14px;   
+        }
         div {
             flex: 1;
             padding: 15px;
-            
+            @media (max-width: 550px) {
+               &:nth-child(2), &:nth-child(3) {
+                display: none;
+               } 
+            } 
             &+div {
                 border-left: 1px solid variables.$border-Boxes;
             }
@@ -52,8 +66,18 @@
                 padding: 10px 15px;
                 color: #FF6060;
                 text-align: center;
+                @media (max-width: 550px) {
+                    &:nth-child(2), &:nth-child(3) {
+                     display: none;
+                    }
+                    font-size: 13px;
+                    text-align: left; 
+                 } 
                 &+div {
                     border-left: 1px solid variables.$border-Boxes;
+                }
+                &:last-child {
+                    text-align: left;
                 }
             }
         }

@@ -23,6 +23,9 @@
     text-align: center;
     font-weight: bold;
     font-size: 17px;
+    @media (max-width: 550px) {
+        margin-bottom: 10px;
+    }
 }
 
 @mixin contents {
