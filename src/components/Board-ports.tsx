@@ -123,12 +123,15 @@ const [visible, setVisible] = useState(false);
   }, [portType]); // memoryData가 변경될 때마다 실행
 
 
-  const processDown = (index: number)=> {
-    const selectedPort = activePortList[index].address
+
+  const [ delIndex, setDelIndex ] = useState(0)
+
+  const processDown = ()=> {
+    const selectedPort = activePortList[delIndex].address
     const regex = selectedPort.match(/:(6553[0-5]|655[0-2][0-9]|65[0-4][0-9]{2}|6[0-4][0-9]{3}|[1-5]?[0-9]{1,4})/g)
     const disconnectPort = regex[0].replace(":","")
     console.log(disconnectPort)
-    const newActivePortList = [...activePortList.slice(0, index), ...activePortList.slice(index + 1)];
+    const newActivePortList = [...activePortList.slice(0, delIndex), ...activePortList.slice(delIndex + 1)];
     setActivePortList(newActivePortList)
     //user_list와 방식은 같음음
     //const { exec } = require("child_process");
@@ -165,13 +168,13 @@ const [visible, setVisible] = useState(false);
               </div>
               <div className={style.protocol}>{port.protocol}</div>
               <div className={style.ip}>{port.address}</div>
-              <div className={style.button}><button onClick={() => {setVisible(!visible)}}>❌</button></div>
+              <div className={style.button}><button id={"btn"+index} onClick={(e) => {setVisible(!visible), setDelIndex(Number(e.target.id.substring(3)))}}>❌</button></div>
               <div className={style.popup} style={{
                 display: visible ? "flex" : "none"
               }}>
                 <p>포트를 비활성화 하시겠습니까?</p>
                 <p>해당 포트를 사용하는 모든 프로세스의 연결이 끊깁니다.</p>
-                <p className={style.popupBtn}><button onClick={() => {processDown(index), setVisible(!visible)}}>⭕</button><button onClick={() => {setVisible(!visible)}}>❌</button></p>
+                <p className={style.popupBtn}><button onClick={() => {processDown(), setVisible(!visible)}}>⭕</button><button onClick={() => {setVisible(!visible)}}>❌</button></p>
               </div>
             </li>
           ))}
