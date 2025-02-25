@@ -35,8 +35,18 @@
         }
         .list {
             height: 230px;
-            overflow: scroll;
+            overflow-y: scroll;
             padding-right: 10px;
+            &::-webkit-scrollbar{
+                width: 10px;
+                // height: 1px;
+            }
+            
+            &::-webkit-scrollbar-thumb {
+                background: variables.$primary-color; /* 스크롤바 막대 색상 */
+                // border: 2px solid #9b6a2f; /* 스크롤바 막대 테두리 설정  */
+                border-radius: 12px 12px 12px 12px;
+            }
             li {
                 display: flex;
                 justify-content: space-between;
