@@ -49,40 +49,65 @@ const BoardPacket: React.FC<BoardPacket> = ({ serverName }) => {
 
   const [helperVisibleR, setHelperVisibleR] = useState(false);
   const [helperVisibleT, setHelperVisibleT] = useState(false);
-  const [RXData, setRXData] = useState<NetworkData[]>(initialData);
 
+  const [RXData, setRXData] = useState<NetworkData[]>(initialData);
   const [TXData, setTXData] = useState<NetworkData[]>(initialData);
 
   const rxsvgRef = useRef<SVGSVGElement | null>(null);
   const txsvgRef = useRef<SVGSVGElement | null>(null);
 
-
   useEffect(() => {
+    const prevRX = { packets: 0, bytes: 0 };
+    const prevTX = { packets: 0, bytes: 0 };
+
     const fetchData = (): void => {
       fetch(`${url.url}/network`)
         .then((response) => response.json())
         .then((data) => {
+
+          const curRX = {
+            packets: Number(data.find(((server_sep: { [key: string]: object }) => serverName in server_sep))[serverName].enp0s25.RX.packets),
+            bytes: Number(data.find(((server_sep: { [key: string]: object }) => serverName in server_sep))[serverName].enp0s25.RX.bytes) / 100,
+          };
+          const curTX = {
+            packets: Number(data.find(((server_sep: { [key: string]: object }) => serverName in server_sep))[serverName].enp0s25.TX.packets),
+            bytes: Number(data.find(((server_sep: { [key: string]: object }) => serverName in server_sep))[serverName].enp0s25.TX.bytes) / 100,
+          };
+
+          const diffRX = {
+            packets: prevRX.packets === 0 ? 0 : Math.abs(curRX.packets - prevRX.packets),
+            bytes: prevRX.bytes === 0 ? 0 : Math.abs(curRX.bytes - prevRX.bytes),
+          }
+          const diffTX = {
+            packets: prevTX.packets === 0 ? 0 : Math.abs(curTX.packets - prevTX.packets),
+            bytes: prevTX.bytes === 0 ? 0 : Math.abs(curTX.bytes - prevTX.bytes),
+          }
+
+          prevRX.packets = curRX.packets;
+          prevRX.bytes = curRX.bytes;
+          prevTX.packets = curTX.packets;
+          prevTX.bytes = curTX.bytes;
+
+          console.log(diffRX);
+          console.log(diffTX);
+
           setRXData(prevRXData => {
             const tempRX = [...prevRXData];
-            tempRX.push({
-              packets: data.find(((server_sep: { [key: string]: object }) => serverName in server_sep))[serverName].enp0s25.RX.packets,
-              bytes: data.find(((server_sep: { [key: string]: object }) => serverName in server_sep))[serverName].enp0s25.RX.bytes / 100, // bytes 값을 1/1000로 변환
-            });
+
+            tempRX.push(diffRX);
             tempRX.shift();
             return tempRX;
           });
 
           setTXData(prevTXData => {
             const tempTX = [...prevTXData];
-            tempTX.push({
-              packets: data.find(((server_sep: { [key: string]: object }) => serverName in server_sep))[serverName].enp0s25.TX.packets,
-              bytes: data.find(((server_sep: { [key: string]: object }) => serverName in server_sep))[serverName].enp0s25.TX.bytes / 100, // bytes 값을 1/1000로 변환
-            });
+
+            tempTX.push(diffTX);
             tempTX.shift();
             return tempTX;
           });
 
-          console.log(RXData)
+          // console.log(RXData)
         })
         .catch((error) => {
           console.error("Error fetching data:", error);
@@ -175,14 +200,14 @@ const BoardPacket: React.FC<BoardPacket> = ({ serverName }) => {
         d3.axisBottom(xScale).ticks(5)
           .tickFormat((d): string => {
             const tickTime = (data.length - 1) - Number(d);
-            return tickTime <= 0 ? "Now" : `${tickTime * 3}s ago`;
+            return tickTime <= 0 ? "Now" : `${tickTime * 1.5}s ago`;
           })
       );
 
     graphGroup.select(".y-axis").remove();
     graphGroup.append("g")
       .attr("class", "y-axis")
-      .call(d3.axisLeft(yScale).tickFormat(d => Math.floor(d * Math.pow(10, -5))));
+      .call(d3.axisLeft(yScale).tickFormat(d => Math.floor(d )));
 
     const areaPackets = d3.area<NetworkData>()
       .x((_, i) => xScale(i))
