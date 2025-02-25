@@ -2,7 +2,11 @@ import { useEffect, useState, useRef } from "react";
 import * as d3 from "d3";
 import style from "../styles/board-resspeed.module.scss";
 
-const BoardResspeed: React.FC = () => {
+interface BoardResspeed {
+  serverName: string;
+}
+
+const BoardResspeed: React.FC<BoardResspeed> = ({serverName}) => {
   const [PingData, setPingData] = useState<number[]>([
     32.1, 33.6, 26.7, 33.3, 22.1, 25.9, 15.3, 44.2, 22.3, 11,
   ]);
@@ -16,7 +20,7 @@ const BoardResspeed: React.FC = () => {
         .then((data) => {
           setPingData((prevPingData) => {
             const tempPing = [...prevPingData];
-            tempPing.push(data[0].test.pingResponse);
+            tempPing.push(data[0][serverName]?.pingResponse);
             tempPing.shift();
             return tempPing;
           });

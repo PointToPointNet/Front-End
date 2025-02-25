@@ -11,6 +11,7 @@ import style from '../styles/dashboard-detail.module.scss';
 
 interface ParentProps {
     serverName: string;
+    setPage: () => void;
 }
 
 const DashboardDetail: React.FC<ParentProps> = ({ serverName, setPage }) => {

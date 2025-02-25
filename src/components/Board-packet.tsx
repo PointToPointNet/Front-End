@@ -2,7 +2,11 @@ import { useEffect, useState, useRef } from "react";
 import * as d3 from "d3";
 import style from '../styles/board-packet.module.scss';
 
-const BoardPacket: React.FC = () => {
+interface BoardPacket {
+  serverName: string;
+}
+
+const BoardPacket: React.FC<BoardPacket> = ({serverName}) => {
   interface NetworkData {
     packets: number;
     bytes: number;
@@ -54,8 +58,8 @@ const BoardPacket: React.FC = () => {
           setRXData(prevRXData => {
             const tempRX = [...prevRXData];
             tempRX.push({
-              packets: data[0].test.enp0s25.RX.packets,
-              bytes: data[0].test.enp0s25.RX.bytes / 100, // bytes 값을 1/1000로 변환
+              packets: data[0][serverName].enp0s25.RX.packets,
+              bytes: data[0][serverName].enp0s25.RX.bytes / 100, // bytes 값을 1/1000로 변환
             });
             tempRX.shift();
             return tempRX;
@@ -64,8 +68,8 @@ const BoardPacket: React.FC = () => {
           setTXData(prevTXData => {
             const tempTX = [...prevTXData];
             tempTX.push({
-              packets: data[0].test.enp0s25.TX.packets,
-              bytes: data[0].test.enp0s25.TX.bytes / 100, // bytes 값을 1/1000로 변환
+              packets: data[0][serverName].enp0s25.TX.packets,
+              bytes: data[0][serverName].enp0s25.TX.bytes / 100, // bytes 값을 1/1000로 변환
             });
             tempTX.shift();
             return tempTX;
