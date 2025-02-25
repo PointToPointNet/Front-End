@@ -20,7 +20,7 @@ const BoardResspeed: React.FC<BoardResspeed> = ({serverName}) => {
         .then((data) => {
           setPingData((prevPingData) => {
             const tempPing = [...prevPingData];
-            tempPing.push(data[0][serverName]?.pingResponse);
+            tempPing.push(data.find(((server_sep: {[key: string]: object}) => serverName in server_sep))[serverName]?.pingResponse);
             tempPing.shift();
             return tempPing;
           });
