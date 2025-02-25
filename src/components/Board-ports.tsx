@@ -1,8 +1,13 @@
 // 포트사용현황, 활성포트 확인 컴포넌트트
 import { useEffect, useState, useRef } from "react";
+
 import * as d3 from "d3";
+import { FaRegCircleStop } from "react-icons/fa6";
+import { IoAlertCircle } from "react-icons/io5";
+import { IoClose } from "react-icons/io5";
 import style from '../styles/board-ports.module.scss';
-import BoardPortsGraph from './Board-ports-graph';
+//import BoardPortsGraph from './Board-ports-graph';
+import Popup from './Popup';
 
 
 
@@ -93,7 +98,7 @@ const fetchActivePort = () => {
 
   return (
     <div className={style.portsbody}>
-      <BoardPortsGraph propsServerName={propsServerName}></BoardPortsGraph>
+      {/* <BoardPortsGraph propsServerName={propsServerName}></BoardPortsGraph> */}
       <div className={style.body}>
         <h2 className={style.title}>Active Ports</h2>
         <ul className={style.list}>
@@ -104,16 +109,26 @@ const fetchActivePort = () => {
               </div>
               <div className={style.protocol}>{port.protocol}</div>
               <div className={style.ip}>{port.address}</div>
-              <div className={style.button}><button id={"btn"+index} onClick={(e) => {setVisible(!visible), setDelIndex(Number(e.target.id.substring(3)))}}>❌</button></div>
-              <div className={style.popup} style={{
-                display: visible ? "flex" : "none"
-              }}>
-                <p>포트를 비활성화 하시겠습니까?</p>
-                <p>해당 포트를 사용하는 모든 프로세스의 연결이 끊깁니다.</p>
-                <p className={style.popupBtn}><button onClick={() => {processDown(), setVisible(!visible)}}>⭕</button><button onClick={() => {setVisible(!visible)}}>❌</button></p>
-              </div>
+              <div className={style.button}><button id={"btn"+index} onClick={(e) => {setVisible(!visible), setDelIndex(Number(e.target.id.substring(3)))}}>
+              <FaRegCircleStop />
+              </button></div>
+              
             </li>
           ))}
+              <div className={style.modal} style={{
+                  display: visible ? "block" : "none"
+                }}>
+                <div className={style.popup}>
+                  <p>포트를 <span>비활성화</span> 하시겠습니까?</p>
+                  <p>해당 포트를 사용하는 모든 프로세스의 연결이 끊깁니다.</p>
+                  <p className={style.popupBtn}>
+                    <button onClick={() => {setVisible(!visible)}}>Cancel</button>
+                    <button onClick={() => {processDown(), setVisible(!visible)}}>Yes, Disconnect</button>
+                  </p>
+                  <div className={style.alert}><IoAlertCircle /></div>
+                  <div className={style.close} onClick={() => setVisible(null)}><IoClose /></div>
+                </div>
+              </div>
         </ul>
       </div>
     </div>
