@@ -6,7 +6,7 @@ import { FaRegCircleStop } from "react-icons/fa6";
 import { IoAlertCircle } from "react-icons/io5";
 import { IoClose } from "react-icons/io5";
 import style from '../styles/board-ports.module.scss';
-//import BoardPortsGraph from './Board-ports-graph';
+import BoardPortsGraph from './Board-ports-graph';
 import Popup from './Popup';
 
 
@@ -98,7 +98,7 @@ const fetchActivePort = () => {
 
   return (
     <div className={style.portsbody}>
-      {/* <BoardPortsGraph propsServerName={propsServerName}></BoardPortsGraph> */}
+      <BoardPortsGraph propsServerName={propsServerName}></BoardPortsGraph>
       <div className={style.body}>
         <h2 className={style.title}>Active Ports</h2>
         <ul className={style.list}>

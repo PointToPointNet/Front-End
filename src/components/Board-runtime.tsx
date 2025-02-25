@@ -5,19 +5,18 @@ interface BoardRuntime {
   serverName: string;
 }
 
-const BoardRuntime: React.FC<BoardRuntime> = ({serverName}) => {
-  
+const BoardRuntime: React.FC<BoardRuntime> = ({ serverName }) => {
+
   const [runtimeData, setRuntimeData] = useState<number | null>(null);
 
   useEffect(() => {
     let timeoutId: NodeJS.Timeout;
-
     // setInterval을 setTimeout으로 변경.
     const fetchData = () => {
       fetch("http://localhost:3000/runtime")
         .then((response) => response.json())
         .then((runtimeData) => {
-          const server_runtime = runtimeData.find((server_sep: {[key: string]: number}) => serverName in server_sep);
+          const server_runtime = runtimeData.find((server_sep: { [key: string]: number }) => serverName in server_sep);
           const runtime = server_runtime[serverName]["runtime"];
           setRuntimeData(runtime);
         })
@@ -32,26 +31,24 @@ const BoardRuntime: React.FC<BoardRuntime> = ({serverName}) => {
 
     fetchData(); // 최초에 실행해서 처음 값이 일단 나오도록 세팅
 
-    return () => clearTimeout(timeoutId); 
-  }, []);
+    return () => clearTimeout(timeoutId);
+  }, [serverName]);
 
-  
+
   const addZero = (value) => {
-    if(value<10){
+    if (value < 10) {
       return `0${value}`;
-    }else{
+    } else {
       return value;
     }
   }
-    
-  
 
   return (
     <div className={style.body}>
       <h2 className={style.title}>RUN TIME</h2>
       <div className={style.timebox}>
         <div className={style.time}>
-        {`${addZero(Math.floor(runtimeData / 60 - (24 * Math.floor(runtimeData / 60 / 24))))}:${addZero(runtimeData % 60)}`} 
+          {`${addZero(Math.floor(runtimeData / 60 - (24 * Math.floor(runtimeData / 60 / 24))))}:${addZero(runtimeData % 60)}`}
         </div>
         <div className={style.day}>
           {`${Math.floor(runtimeData / 60 / 24)} days`}
