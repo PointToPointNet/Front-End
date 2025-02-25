@@ -145,7 +145,10 @@ const DashboardMainBox: React.FC<DashBoardMainBoxProps> = ({ server, runtime, me
                 .attr("transform", `translate(0, ${innerHeight})`)
                 .call(d3.axisBottom(xScalePing)
                     .ticks(5)  // 5개의 눈금만 표시
-                    .tickFormat(d => `${d}`)  // 초 단위 표시
+                    .tickFormat(d => {
+                        const tickTime = (pingHistory.length - 1) - Number(d);
+                        return tickTime <= 0 ? "Now" : `${tickTime * 3}`;
+                    })  // 초 단위 표시
                 );
         }
 

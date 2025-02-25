@@ -6,21 +6,23 @@ interface BoardResspeed {
   serverName: string;
 }
 
-const BoardResspeed: React.FC<BoardResspeed> = ({serverName}) => {
-  const [PingData, setPingData] = useState<number[]>([
-    32.1, 33.6, 26.7, 33.3, 22.1, 25.9, 15.3, 44.2, 22.3, 11,
-  ]);
+const BoardResspeed: React.FC<BoardResspeed> = ({ serverName }) => {
+  // const [PingData, setPingData] = useState<number[]>([
+  //   32.1, 33.6, 26.7, 33.3, 22.1, 25.9, 15.3, 44.2, 22.3, 11,
+  // ]);
+  const initialData = new Array(10).fill(0)
+  const [PingData, setPingData] = useState<number[]>(initialData);
 
   const pingRef = useRef<SVGSVGElement | null>(null);
 
   useEffect(() => {
-    const interval = setInterval(() => {
+    const fetchData = (): void => {
       fetch("http://localhost:3000/ping")
         .then((response) => response.json())
         .then((data) => {
           setPingData((prevPingData) => {
             const tempPing = [...prevPingData];
-            tempPing.push(data.find(((server_sep: {[key: string]: object}) => serverName in server_sep))[serverName]?.pingResponse);
+            tempPing.push(data.find(((server_sep: { [key: string]: object }) => serverName in server_sep))[serverName]?.pingResponse);
             tempPing.shift();
             return tempPing;
           });
@@ -28,12 +30,17 @@ const BoardResspeed: React.FC<BoardResspeed> = ({serverName}) => {
         .catch((error) => {
           console.error("Error fetching data:", error);
         });
+    }
+    setPingData(initialData); // 초기화
+    fetchData();
+    const interval = setInterval(() => {
+      fetchData();
     }, 3000);
     return () => clearInterval(interval);
-  }, []);
+  }, [serverName]);
 
-  
-  
+
+
   const drawGraph = (
     svgRef: React.RefObject<SVGSVGElement>,
     data: number[]
@@ -63,7 +70,7 @@ const BoardResspeed: React.FC<BoardResspeed> = ({serverName}) => {
 
     const yScale = d3
       .scaleLinear()
-      .domain([0, d3.max(data) || 100])
+      .domain([0, d3.max(data) || 50])
       .nice()
       .range([innerHeight, 0]);
 
@@ -80,7 +87,13 @@ const BoardResspeed: React.FC<BoardResspeed> = ({serverName}) => {
       .append("g")
       .attr("class", "x-axis")
       .attr("transform", `translate(0, ${innerHeight})`)
-      .call(d3.axisBottom(xScale).ticks(5));
+      .call(
+        d3.axisBottom(xScale).ticks(5)
+          .tickFormat((d): string => {
+            const tickTime = (data.length - 1) - Number(d);
+            return tickTime <= 0 ? "Now" : `${tickTime * 3}s ago`;
+          })
+      );
 
     graphGroup.append("g").attr("class", "y-axis").call(d3.axisLeft(yScale));
 
