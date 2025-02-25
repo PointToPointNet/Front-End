@@ -155,7 +155,7 @@ const BoardPortsGraph: React.FC<BoardPortsGraphProps> = ({propsServerName}) => {
   return (
     <div className={style.portsbody}>
       <div className={style.body}>
-        <h2 className={style.title}>Port Type</h2>
+        <h2 className={style.title}>Active Port Top 4</h2>
         <svg ref={svgRef}></svg>
         <button className={style.helpBtn} onClick={()=>{setHelperVisible(!helperVisible)}}><IoMdHelpCircleOutline /></button>
         <div className={style.helper} style={{ display: helperVisible ? "flex" : "none" }} onClick={()=>{setHelperVisible(!helperVisible)}}>

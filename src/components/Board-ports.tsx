@@ -102,7 +102,7 @@ const fetchActivePort = () => {
       <BoardPortsGraph propsServerName={propsServerName}></BoardPortsGraph>
       
       <div className={style.body}>
-        <h2 className={style.title}>Active Port TOP 4</h2>
+        <h2 className={style.title}>Active Port</h2>
         <ul className={style.list}>
           {activePortList.map((port, index) => (
             <li key={index}>
