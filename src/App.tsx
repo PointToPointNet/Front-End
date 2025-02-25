@@ -9,12 +9,12 @@ import style from './styles/dashboard-detail.module.scss';
 import url from "./assets/config/url.ts";
 
 const App: React.FC = () => {
-
- 
-
-  const [serverList, setServerList] = useState<string[]>(["kkms","peter","lauren","JUH","SHJ"]);
+  const [serverList, setServerList] = useState<string[]>(["kkms", "peter", "lauren", "JUH", "SHJ"]);
+  // const [serverList, setServerList] = useState<string[]>([]);
   const [activeServer, setActiveServer] = useState<string>("home");
   const [mode, setMode] = useState<string>("home");
+
+  const [modeTSX, setModeTSX] = useState<React.ReactElement | null>(null);
 
   useEffect(() => {
     const getServerList = async () => {
@@ -28,42 +28,46 @@ const App: React.FC = () => {
       }
     }
     getServerList();
+
   }, []);
-  let myScreen;
-  if (serverList) {
-    switch (mode) {
-      case "home":
-        myScreen = <DashboardMain
-          serverList={serverList}
-          setPage={(page) => {
-            setMode(page);
-          }}
-          changeServer={(server) => {
-            setActiveServer(server);
-          }}
-        ></DashboardMain>
-        break;
-      case "detail":
-        myScreen = <DashboardDetail serverName={activeServer}
-          setPage={() => {
-            setMode("total");
-          }}
-        ></DashboardDetail>
-        break;
-      case "total":
-        myScreen = <DashboardTotal serverName={activeServer}
-          setPage={() => {
-            setMode("detail");
-          }}
-        ></DashboardTotal>
-        break;
+
+  useEffect(() => {
+    if (serverList) {
+      switch (mode) {
+        case "home":
+          setModeTSX(<DashboardMain
+            serverList={serverList}
+            setPage={(page) => {
+              setMode(page);
+            }}
+            changeServer={(server) => {
+              setActiveServer(server);
+            }}
+          ></DashboardMain>)
+          break;
+        case "detail":
+          setModeTSX(<DashboardDetail serverName={activeServer}
+            setPage={() => {
+              setMode("total");
+            }}
+          ></DashboardDetail>)
+          break;
+        case "total":
+          setModeTSX(<DashboardTotal serverName={activeServer}
+            setPage={() => {
+              setMode("detail");
+            }}
+          ></DashboardTotal>)
+          break;
+      }
+      console.log(serverList);
     }
-    console.log(serverList)
-  }
+
+  }, [serverList, mode, activeServer]);
 
   return <div className={`${style.container} light`}>
     <div className={style.navbar}>
-      <NavBar 
+      <NavBar
         activeServer={activeServer}
         changeServer={(serverName) => {
           setActiveServer(serverName);
@@ -74,7 +78,7 @@ const App: React.FC = () => {
         serverList={serverList}
       ></NavBar>
     </div>
-    {myScreen}
+    {modeTSX}
   </div>
 
 }
