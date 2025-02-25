@@ -141,7 +141,7 @@ const TotalConnect: React.FC<TotalConnectProps> = ({webConnectData}) => {
 
   if(!webConnectData){ return <div className={style.body}>Loading...</div> }
   return  <div className={style.body} id="connectbox">
-  <h2 className={style.title}>total web server. connect.</h2>
+  <h2 className={style.title}>🌐Daily Website Visitor Count</h2>
   <svg ref={connectRef}></svg>
   {/* {webConnectData.map( (data,index)=>{
     return(

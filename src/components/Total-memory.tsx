@@ -146,7 +146,8 @@ const drawGraph = (
   }
   return (
     <div className={style.body} id="membody">
-      <h2 className={style.title}>total mem.</h2>
+      <h2 className={style.title}>💾Daily Memory Usage(%)
+      </h2>
       <div>
         <svg ref={memRef}></svg>
         {/* {memData.map((data, index) => (
