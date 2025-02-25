@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import './App.css';
 import NavBar from './components/Nav-bar.tsx';
 import DashboardMain from './components/Dashboard-main.tsx';
@@ -28,7 +28,6 @@ const App: React.FC = () => {
       }
     }
     getServerList();
-
   }, []);
 
   useEffect(() => {
@@ -62,7 +61,6 @@ const App: React.FC = () => {
       }
       console.log(serverList);
     }
-
   }, [serverList, mode, activeServer]);
 
   return <div className={`${style.container} light`}>
@@ -80,7 +78,6 @@ const App: React.FC = () => {
     </div>
     {modeTSX}
   </div>
-
 }
 
 export default App;
