@@ -84,7 +84,7 @@ const BoardPortsGraph: React.FC<BoardPortsGraphProps> = ({propsServerName}) => {
   
     // 사용량과 남은 용량 ()
     const data = [ type1, type2, type3, type4 ]; 
-    const width = 200;
+    const width = 250;
     const height = 200;
     const radius = Math.min(width, height) / 2;
   
