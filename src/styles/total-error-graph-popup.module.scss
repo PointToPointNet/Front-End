@@ -40,6 +40,7 @@
             background-color: variables.$background-Header;
             border-bottom: 1px solid variables.$border-Boxes;
             text-align: center;
+
             // justify-content: center;
             // align-items: center;
             button {
@@ -61,13 +62,24 @@
                 background-color: variables.$primary_color;
             }
 
-            .closeBtn {
-                width:80%;
-                height:80%;
-                
-                color: red !important;
+            .closeBtnCantainer {
+                cursor: pointer;
+                display:flex;
+                justify-content: center;
+                align-items: center;
+                .closeBtn {
+                    width: 40%;
+                    height: 40%;
+                    color: red;
+                }
+                .closeBtn:hover {
+                    width: 40%;
+                    height: 40%;
+                    color: variables.$primary-color;
+                }
             }
 
+            
         }
 
         .contentArea {
@@ -145,6 +157,6 @@
     }
 }
 
-.active{
+.active {
     background-color: variables.$primary_color !important;
 }

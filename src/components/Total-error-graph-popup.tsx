@@ -22,11 +22,6 @@ const TotalErrorGraphPopup = ({
   useEffect(() => {
     switch (selectedBtn) {
       case "apache":
-        // <div className={style.tableHeader}>
-        //     {titles.map((title, index) => {
-        //       return <div key={index}>{title}</div>;
-        //     })}
-        //   </div>
         setTitles(
           titleObj.apacheTitle.map((title, index) => {
             return <div key={index}>{title}</div>;
@@ -149,7 +144,7 @@ const TotalErrorGraphPopup = ({
           >
             AUTH_ERROR
           </button>
-          <button
+          <div className={style.closeBtnCantainer}
             onClick={() => {
               closePopup();
             }}
@@ -157,7 +152,7 @@ const TotalErrorGraphPopup = ({
             <IoIosCloseCircle
               className={style.closeBtn}
             ></IoIosCloseCircle>
-          </button>
+          </div>
         </div>
         <div className={style.contentArea}>
           <div className={style.tableHeader}>{titles}</div>
