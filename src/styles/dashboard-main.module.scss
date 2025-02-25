@@ -90,6 +90,12 @@
                     color: #FBB214;
                 }
             }
+            &:last-of-type {
+                dd {
+                    font-weight: 600;
+                    color: #53f336;
+                }
+            }
         }
 
     }
