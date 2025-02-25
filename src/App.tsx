@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import './App.css';
 import NavBar from './components/Nav-bar.tsx';
 import DashboardMain from './components/Dashboard-main.tsx';
@@ -7,6 +7,8 @@ import DashboardTotal from './components/Dashboard-total.tsx';
 import style from './styles/dashboard-detail.module.scss';
 
 const App: React.FC = () => {
+
+ 
 
   const [serverList, setServerList] = useState<string[]>(["kkms","peter","lauren","JUH","SHJ"]);
   const [activeServer, setActiveServer] = useState<string>("home");
@@ -59,7 +61,7 @@ const App: React.FC = () => {
 
   return <div className={`${style.container} light`}>
     <div className={style.navbar}>
-      <NavBar
+      <NavBar 
         activeServer={activeServer}
         changeServer={(serverName) => {
           setActiveServer(serverName);

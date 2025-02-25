@@ -38,9 +38,10 @@ const drawGraph = (
 
 
     const xScale = d3
-      .scaleLinear()
-      .domain([0, data.length - 1])
-      .range([0, innerWidth]);
+    .scaleBand()
+    .domain(data.map((_, i) => i.toString())) 
+      .range([0, innerWidth])
+      .padding(0.6)
   
     const yScale = d3
       .scaleLinear()
@@ -59,7 +60,7 @@ const drawGraph = (
     graphGroup.append("g")
       .attr("class", "x-axis")
       .attr("transform", `translate(0, ${innerHeight})`)
-      .call(d3.axisBottom(xScale).ticks(data.length).tickFormat((d, i) => data[i]?.date))
+      .call(d3.axisBottom(xScale).tickFormat((d, i) => data[+d]?.date))
       .style("stroke", "#aaa");
   
     //y축입니다
@@ -87,14 +88,30 @@ const drawGraph = (
 
     gridLines.exit().remove();
 
+    //막대그래프 생성
+    const bars = graphGroup.selectAll(".bar").data(data);
+  
+    bars
+      .enter()
+      .append("rect")
+      .attr("class", "bar")
+      .merge(bars)
+      .transition()
+      .duration(500)
+      .attr("x", (_, i) => xScale(i.toString()) || 0)
+      .attr("y", (d) => yScale(d.value))
+      .attr("width", xScale.bandwidth())
+      .attr("height", (d) => innerHeight - yScale(d.value))
+      .attr("fill", colorValue + "70"); // Bar color
 
+    bars.exit().remove();
 
 
   
     //선그래프 생성 
     const lineGenerator = d3
     .line<MemoryData>()
-    .x((_, i) => xScale(i)) // X축 좌표
+    .x((_, i) => (xScale(i.toString()) || 0) + xScale.bandwidth() / 2) // Align line with bar centers
     .y((d) => yScale(d.value)) // Y축 좌표
     .curve(d3.curveMonotoneX); // 부드러운 곡선
 
@@ -123,7 +140,7 @@ const drawGraph = (
     .merge(points)
     .transition()
     .duration(500)
-    .attr("cx", (_, i) => xScale(i))
+    .attr("cx", (_, i) => (xScale(i.toString()) || 0) + xScale.bandwidth() / 2)
     .attr("cy", (d) => yScale(d.value))
     .attr("r", 4) // 점의 크기
     .attr("fill", colorValue);

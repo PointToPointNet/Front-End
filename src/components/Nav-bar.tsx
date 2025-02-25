@@ -21,6 +21,7 @@ const NavBar: React.FC<NavBarProps> = (props) => {
 
   return <div className={style.navbar}>
     {/*<NavBarAdd></NavBarAdd>*/}
+    <div>{props.love}</div>
     <NavBarButton 
       activeServer={props.activeServer} 
       changeServer={(server)=>{

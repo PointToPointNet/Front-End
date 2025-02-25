@@ -1,5 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 import * as d3 from "d3";
+import { MdKeyboardDoubleArrowRight } from "react-icons/md";
+import style from '../styles/dashboard-main.module.scss';
 interface DashBoardMainBoxProps {
     server: string,
     runtime: string,
@@ -26,9 +28,9 @@ const DashboardMainBox: React.FC<DashBoardMainBoxProps> = ({ server, runtime, me
         if (!boxGraph.current) return;
 
         // 기본 설정
-        const width = 360;
+        const width = parseInt(d3.select(`#box`+server).style('width'), 10);
         const height = 200;
-        const margin = { top: 10, right: 50, bottom: 20, left: 40 };
+        const margin = { top: 10, right: 40, bottom: 20, left: 40 };
         const innerWidth = width - margin.left - margin.right;
         const innerHeight = height - margin.top - margin.bottom;
 
@@ -50,7 +52,7 @@ const DashboardMainBox: React.FC<DashBoardMainBoxProps> = ({ server, runtime, me
         const xScaleBar = d3.scaleBand()
             .domain(barData.map(d => d.name))
             .range([0, innerWidth])
-            .padding(0.4);
+            .padding(0.5);
 
         const yScaleBar = d3.scaleLinear()
             .domain([0, 100])
@@ -168,16 +170,36 @@ const DashboardMainBox: React.FC<DashBoardMainBoxProps> = ({ server, runtime, me
         const hour = Math.floor(Number(runtime) / 60) % 24;
         const minute = Number(runtime) % 60;
         const days = Math.floor(Number(runtime) / (24 * 60));
-        const runtimeText = `${hour < 10 ? `0${hour}` : hour}:${minute < 10 ? `0${minute}` : minute} ${days}days`;
+        const runtimeText = `${days}days ${hour < 10 ? `0${hour}` : hour}:${minute < 10 ? `0${minute}` : minute} `;
         setRuntimeText(runtimeText);
     }, [runtime]);
 
     return (
-        <div>
-            <h2>{server}</h2>
-
-            <svg ref={boxGraph}></svg>
-            <h3 style={{textAlign: "right"}}>{runtimeText}</h3>
+        <div className={style.serverbox}>
+            <div className={style.serverinfo}>
+                <dl>
+                    <dt>Server Name. </dt>
+                    <dd>{server}</dd>
+                </dl>
+                <dl>
+                    <dt>Run Time.</dt>
+                    <dd>{runtimeText}</dd>
+                </dl>
+                <dl>
+                    <dt>Server Status.</dt>
+                    <dd>Running</dd>
+                </dl>
+            </div>
+            {/* <h2>{server}</h2> */}
+            <div className={style.svgbox} id={`box`+server}>
+                <svg ref={boxGraph}></svg>
+            </div>
+            
+            {/* <h3 style={{textAlign: "right"}}>{runtimeText}</h3> */}
+            <div className={style.readmore}>
+                <p>View more</p>
+                <MdKeyboardDoubleArrowRight />
+            </div>
         </div>
     );
 }
