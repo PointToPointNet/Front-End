@@ -38,51 +38,10 @@
         font-size: 20px;
     }
     .helpBtn {
-        position: absolute;
-        right: 5%;
-        top: 5%;
-        text-align: center;
-        line-height: 15px;
-        font-size: 20px;
-        background: none;
-        border:0;
-        color: #666;
-        cursor: pointer;
-        transition: 0.2s;
-        &:hover {
-            color: #fff;
-        }
+        @include mixin.helpBtn; 
 
     }
-    .helper{
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        left: 0;
-        top: 0;
-        text-align: center;
-        padding: 20px;
-        letter-spacing: -0.5px;
-        color: rgba(255,255,255,0.9);
-        font-size: 14px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        background-color: rgba(0,0,0,0.9);
-        word-break: keep-all;  /*단어 중간에 짤리지않게 */
-        text-shadow: 0 0 10px rgba(0,0,0,0.8);
-        cursor: pointer;
-        &::before {
-            content: "?";
-            width: 20px;
-            height: 20px;
-            border: 2px solid rgba(255,255,255,0.9);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 10px;
-
-        }
+    .helper {
+        @include mixin.helper;
     }
 }
