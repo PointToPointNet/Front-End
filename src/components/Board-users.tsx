@@ -159,8 +159,11 @@ const BoardUsers: React.FC<BoardUsersProps> = ({ serverName }) => {
       ))}
     <button className={style.helpBtn} onClick={()=>{setHelperVisible(!helperVisible)}}><IoMdHelpCircleOutline /></button>
       <div className={style.helper} style={{ display: helperVisible ? "flex" : "none" }} onClick={()=>{setHelperVisible(!helperVisible)}}>
-        <p className={style.help}>PORT는 컴퓨터가 외부와 통신할 때 사용하는 출입구(문)입니다.</p>
-        <p className={style.help}>Active Port TOP 4는 현재 사용 중인 PORT중에 상의 4개의 PORT 사용 및 접속량 나타냅니다.</p>
+        <p className={style.help}>유저가 원격으로 접속한 정보를를 리스트 형식으로 나타냅니다.</p>
+        <p className={style.help}>Name : User Id 정보를 나타냅니다.</p>
+        <p className={style.help}>IP/HOST : User IP 정보를 나타냅니다.</p>
+        <p className={style.help}>Connecting : 유저가 서버에 원격 접속 중인지 여부를 나타냅니다.(초록 : 접속중 / 빨강 : 미접속중)</p>
+        <p className={style.help}>Disconnect : 원격 접속 상태의 유저를 강제로 연결 해제하는 버튼입니다.</p>
       </div>
     </div>
   );
