@@ -17,7 +17,8 @@ const TotalLogs: React.FC<TotalLogsProps> = ({ criticalErrData }) => {
   }
   return (
     <div className={style.body}>
-      <div className={style.body}>
+      <h2>Critical Logs</h2>
+      <div className={style.conainer}>
         <div className={style.tableHeader}>
           <div>LOG_TIME</div>
           <div>SERVICE</div>

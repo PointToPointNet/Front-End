@@ -5,7 +5,7 @@
     
     @include mixin.box-item;
     height: 320px; 
-    // padding:0;
+    padding:0;
     overflow-y: scroll;
     flex: 1;
     [class*=table]{
@@ -15,6 +15,20 @@
             25%
             50%
     }
+    h2{
+        @include mixin.title;
+        text-align: left;
+    }
+    &::-webkit-scrollbar{
+        width: 10px;
+        // height: 1px;
+    }
+    &::-webkit-scrollbar-thumb {
+        background: variables.$primary-color; /* 스크롤바 막대 색상 */
+        // border: 2px solid #9b6a2f; /* 스크롤바 막대 테두리 설정  */
+        border-radius: 12px 12px 12px 12px;
+    }
+
     .tableHeader {
         padding:0;
         background-color: variables.$background-Header;
@@ -45,13 +59,13 @@
     }
 }
 
-.body::-webkit-scrollbar{
-    width: 10px;
-    // height: 1px;
-}
+// .body::-webkit-scrollbar{
+//     width: 10px;
+//     // height: 1px;
+// }
 
-.body::-webkit-scrollbar-thumb {
-    background: variables.$primary-color; /* 스크롤바 막대 색상 */
-    // border: 2px solid #9b6a2f; /* 스크롤바 막대 테두리 설정  */
-    border-radius: 12px 12px 12px 12px;
-}
+// .body::-webkit-scrollbar-thumb {
+//     background: variables.$primary-color; /* 스크롤바 막대 색상 */
+//     // border: 2px solid #9b6a2f; /* 스크롤바 막대 테두리 설정  */
+//     border-radius: 12px 12px 12px 12px;
+// }

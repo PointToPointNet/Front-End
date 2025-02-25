@@ -42,6 +42,8 @@ const TotalDatepicker: React.FC<DateRangePickerProps> = ({ onDateChange }) => {
       {/* <div> */}
       <div>
         <DatePicker
+          // readOnly
+          onChangeRaw={(e) => e?.preventDefault()} // 수동 입력 방지
           selected={startDate}
           onChange={handleStartDateChange}
           selectsStart
@@ -55,6 +57,7 @@ const TotalDatepicker: React.FC<DateRangePickerProps> = ({ onDateChange }) => {
       <div>
         <label></label>
         <DatePicker
+          onChangeRaw={(e) => e?.preventDefault()} // 수동 입력 방지
           selected={endDate}
           onChange={handleEndDateChange}
           selectsEnd
