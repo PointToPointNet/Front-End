@@ -20,7 +20,7 @@ const TotalLogin: React.FC<SomeComponentProps> = ({ loginData }) => {
 
   return (
     <div className={style.body}>
-      <h2>👤Weekly User Login Status</h2>
+      <h2>👤 Weekly User Login Status</h2>
         <div className={style.tableHeader}>
           <div>USER</div>
           <div>ACCESS_CNT</div>

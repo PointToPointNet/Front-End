@@ -160,7 +160,7 @@ const TotalMemory: React.FC<TotalMemoryProps> = ({ memData }) => {
   }
   return (
     <div className={style.body} id="membody">
-      <h2 className={style.title}>💾Daily Memory Usage(%)</h2>
+      <h2 className={style.title}>💾 Daily Memory Usage(%)</h2>
       <div>
         <svg ref={memRef}></svg>
       </div>

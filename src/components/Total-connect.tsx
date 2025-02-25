@@ -160,7 +160,7 @@ const TotalConnect: React.FC<TotalConnectProps> = ({ webConnectData }) => {
   }
   return (
     <div className={style.body} id="connectbox">
-      <h2 className={style.title}>🌐Daily Website Visitor Count</h2>
+      <h2 className={style.title}>🌐 Daily Website Visitor Count</h2>
       <svg ref={connectRef}></svg>
       <button
         className={style.helpBtn}

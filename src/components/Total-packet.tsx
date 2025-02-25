@@ -188,7 +188,7 @@ const TotalPacket: React.FC<TotalPacketProps> = ({ packetData }) => {
 
   return (
     <div className={style.body} id="packetbox">
-      <h2 className={style.title}>🔌Daily Interface Usage(Byte)</h2>
+      <h2 className={style.title}>🔌 Daily Interface Usage(Byte)</h2>
       <svg ref={packetRef}></svg>
       <button
         className={style.helpBtn}

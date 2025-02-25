@@ -287,7 +287,7 @@ const TotalError: React.FC = ({
           ufwErr={ufwErr}
         ></TotalErrorGraphPopup>
       )}
-      <h2 className={style.title}>⚠️Daily Service Error Count</h2>
+      <h2 className={style.title}>⚠️ Daily Service Error Count</h2>
       <svg ref={ErrorRef}></svg>
       {/* <button className={style.btn} onClick={
         ()=>{

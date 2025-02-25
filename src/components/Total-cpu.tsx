@@ -155,7 +155,7 @@ const TotalCpu: React.FC<TotalCpuProps> = ({cpuData}) => {
   };
   return (
     <div className={style.body} id="cpubox">
-      <h2 className={style.title}>💻Daily CPU Usage(%) </h2>
+      <h2 className={style.title}>💻 Daily CPU Usage(%) </h2>
       <svg ref={cpuRef}></svg>
       <button
         className={style.helpBtn}
