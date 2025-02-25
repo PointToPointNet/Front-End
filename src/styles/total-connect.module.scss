@@ -4,8 +4,18 @@
 .body {
     @include mixin.box-item;
     flex: 1;
+
     .title {
         @include mixin.title;
         text-align: left;
+    }
+
+    .helpBtn {
+        @include mixin.helpBtn;
+
+    }
+
+    .helper {
+        @include mixin.helper;
     }
 }

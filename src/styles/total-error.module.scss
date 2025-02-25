@@ -5,6 +5,13 @@
     position: relative;
     @include mixin.box-item;
     flex: 1;
+    .helpBtn {
+        @include mixin.helpBtn; 
+
+    }
+    .helper {
+        @include mixin.helper;
+    }
     .title {
         @include mixin.title;
         text-align: left;
