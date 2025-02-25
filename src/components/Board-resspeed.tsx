@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import * as d3 from "d3";
 import style from "../styles/board-resspeed.module.scss";
+import { IoMdHelpCircleOutline } from "react-icons/io";
 
 import url from "../assets/config/url.ts";
 
@@ -12,10 +13,12 @@ const BoardResspeed: React.FC<BoardResspeed> = ({ serverName }) => {
   // const [PingData, setPingData] = useState<number[]>([
   //   32.1, 33.6, 26.7, 33.3, 22.1, 25.9, 15.3, 44.2, 22.3, 11,
   // ]);
-  const initialData = new Array(10).fill(0)
+  const initialData = new Array(10).fill(0);
   const [PingData, setPingData] = useState<number[]>(initialData);
 
   const pingRef = useRef<SVGSVGElement | null>(null);
+
+  const [helperVisible, setHelperVisible] = useState(false);
 
   useEffect(() => {
     const fetchData = (): void => {
@@ -24,7 +27,12 @@ const BoardResspeed: React.FC<BoardResspeed> = ({ serverName }) => {
         .then((data) => {
           setPingData((prevPingData) => {
             const tempPing = [...prevPingData];
-            tempPing.push(data.find(((server_sep: { [key: string]: object }) => serverName in server_sep))[serverName]?.pingResponse);
+            tempPing.push(
+              data.find(
+                (server_sep: { [key: string]: object }) =>
+                  serverName in server_sep
+              )[serverName]?.pingResponse
+            );
             tempPing.shift();
             return tempPing;
           });
@@ -32,7 +40,7 @@ const BoardResspeed: React.FC<BoardResspeed> = ({ serverName }) => {
         .catch((error) => {
           console.error("Error fetching data:", error);
         });
-    }
+    };
     setPingData(initialData); // 초기화
     fetchData();
     const interval = setInterval(() => {
@@ -40,8 +48,6 @@ const BoardResspeed: React.FC<BoardResspeed> = ({ serverName }) => {
     }, 1500);
     return () => clearInterval(interval);
   }, [serverName]);
-
-
 
   const drawGraph = (
     svgRef: React.RefObject<SVGSVGElement>,
@@ -53,7 +59,7 @@ const BoardResspeed: React.FC<BoardResspeed> = ({ serverName }) => {
     const height = 130;
     const margin = { top: 15, right: 10, bottom: 15, left: 30 };
 
-    const width = parseInt(d3.select('#resspeedBox').style('width'), 10) - 40;
+    const width = parseInt(d3.select("#resspeedBox").style("width"), 10) - 40;
     //const height = parseInt(d3.select('#my_dataviz').style('height'), 10);
 
     const svg = d3
@@ -90,9 +96,11 @@ const BoardResspeed: React.FC<BoardResspeed> = ({ serverName }) => {
       .attr("class", "x-axis")
       .attr("transform", `translate(0, ${innerHeight})`)
       .call(
-        d3.axisBottom(xScale).ticks(5)
+        d3
+          .axisBottom(xScale)
+          .ticks(5)
           .tickFormat((d): string => {
-            const tickTime = (data.length - 1) - Number(d);
+            const tickTime = data.length - 1 - Number(d);
             return tickTime <= 0 ? "Now" : `${tickTime * 3}s ago`;
           })
       );
@@ -138,6 +146,23 @@ const BoardResspeed: React.FC<BoardResspeed> = ({ serverName }) => {
     <div className={style.body} id="resspeedBox">
       <h2 className={style.title}>Response Speed</h2>
       <svg ref={pingRef}></svg>
+      <button
+        className={style.helpBtn}
+        onClick={() => {
+          setHelperVisible(!helperVisible);
+        }}
+      >
+        <IoMdHelpCircleOutline />
+      </button>
+      <div
+        className={style.helper}
+        style={{ display: helperVisible ? "flex" : "none" }}
+        onClick={() => {
+          setHelperVisible(!helperVisible);
+        }}
+      >
+        <p className={style.help}>서버의 평균 응답 속도를 나타내는 데이터입니다.</p>
+      </div>
     </div>
   );
 };

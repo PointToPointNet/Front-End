@@ -59,7 +59,7 @@ const BoardRuntime: React.FC<BoardRuntime> = ({ serverName }) => {
       </div>
       {/* <p className={style.contents}>{runtimeData !== null ? `${Math.floor(runtimeData / 60 / 24)}d : ${Math.floor(runtimeData / 60 - (24 * Math.floor(runtimeData / 60 / 24)))}h : ${runtimeData % 60}m` : "Loading..."}</p> */}
       <button className={style.helpBtn} onClick={()=>{setHelperVisible(!helperVisible)}}><IoMdHelpCircleOutline /></button>
-      <div className={style.helper} style={{ display: helperVisible ? "flex" : "none" }}>
+      <div className={style.helper} style={{ display: helperVisible ? "flex" : "none" }} onClick={()=>{setHelperVisible(!helperVisible)}}>
         <p className={style.help}>서버가 구동된 후 얼마나 지났는지 나타내는 데이터입니다.</p>
       </div>
     </div>
