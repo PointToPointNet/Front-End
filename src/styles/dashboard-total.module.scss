@@ -78,6 +78,10 @@
                 &:hover {
                     background-color: variables.$primary-color;
                 }
+                @media (max-width: 550px) {
+                    font-size: 13px;
+                    padding: 5px 10px 3px;
+                }
             }
             // 2025.02.23 END **SDH**
         } 
