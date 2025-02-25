@@ -33,3 +33,16 @@
         transform: scale(1.05);
     }
 }
+
+@mixin scrollbar{
+    &::-webkit-scrollbar {
+        width: 5px;
+        height: 5px !important;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: variables.$primary-color;
+        border-radius: 10px 10px ;
+    }
+
+}

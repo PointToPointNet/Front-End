@@ -16,13 +16,13 @@ const TotalLogin: React.FC<SomeComponentProps> = ({ loginData }) => {
   }
   return (
     <div className={style.body}>
-      <h2>Login Logs</h2>
-      <div className={style.container}>
+      <h2>👤Weekly User Login Status</h2>
         <div className={style.tableHeader}>
           <div>USER</div>
-          <div>ACCESS_COUNT</div>
+          <div>ACCESS_CNT</div>
           <div>LAST_LOGIN_TIME</div>
         </div>
+        <div className={style.container}>
         {loginData.map((data, index) => {
           return (
             <div key={index} className={style.tableBody}>
