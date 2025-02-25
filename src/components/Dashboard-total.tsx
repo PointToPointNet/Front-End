@@ -15,22 +15,18 @@ interface DashboardTotalProps {
   serverName: string;
   setPage: () => void;
 }
+interface ServerMapping{
+   [key: string]: number 
+}
 
 const DashboardTotal: React.FC<DashboardTotalProps> = ({
   serverName,
   setPage
 }) => {
 
-  //임시 서버 매핑!!
-  const serverMapping: { [key: string]: number } = {
-    test: 1,
-    c1: 2,
-    c2: 3,
-    c3: 4,
-    c4: 5
-  };
-
   //State Area
+
+  const [serverMapping,setServerMapping] = useState<ServerMapping | null>(null);
 
   const [totalPageDate, setTotalPageDate] = useState<any | null>(null);
   const [startDate, setStartDate] = useState<Date | null>(
@@ -60,6 +56,23 @@ const DashboardTotal: React.FC<DashboardTotalProps> = ({
     setEndDate(newEnd);
   };
 
+  const getServerData = () => {
+    const url = "http://localhost:3000/server";
+    fetch(url)
+      .then((res) => res.json())
+      .then((data) => {
+        setServerData(data);
+      });
+  };
+
+  const setServerData = (data) => {
+    const tempObj = {}
+    data.forEach( server=>{
+      tempObj[server["name"]]=server["id"];
+    } )
+    setServerMapping(tempObj);
+  };
+
   const getTotalPageData = () => {
     const url = "http://localhost:3000/get_total_page_info";
     fetch(url, {
@@ -76,7 +89,6 @@ const DashboardTotal: React.FC<DashboardTotalProps> = ({
       .then((res) => res.json())
       .then((data) => {
         setTotalPageDate(data);
-        console.log(data);
       });
   };
 
@@ -149,8 +161,17 @@ const DashboardTotal: React.FC<DashboardTotalProps> = ({
   };
   //End Data Parsing!
   useEffect(() => {
-    getTotalPageData();
+    const fetchData = async () => {
+      await getServerData();
+    };
+    fetchData();
   }, []);
+
+  useEffect( ()=>{
+    if(serverMapping){
+      getTotalPageData();
+    }
+  } ,[serverMapping]);
 
   useEffect(() => {
     if (!totalPageDate) return;
@@ -160,14 +181,6 @@ const DashboardTotal: React.FC<DashboardTotalProps> = ({
     <div className={style.dashboard}>
       <div className={style.header}>
         <h1 className={style.title}>Total - {serverName}</h1>
-        {/* <TotalDatepicker onDateChange={handleDateChange}></TotalDatepicker>
-        <button
-          onClick={() => {
-            getTotalPageData();
-          }}
-        >
-          조회
-        </button> */}
         <a
           href="#"
           onClick={(e) => {
@@ -179,14 +192,14 @@ const DashboardTotal: React.FC<DashboardTotalProps> = ({
         </a>
         {/*2025.02.23 **SDH**   */}
         <div className={style.searchbox}>
-        <TotalDatepicker onDateChange={handleDateChange}></TotalDatepicker>
-        <button
-          onClick={() => {
-            getTotalPageData();
-          }}
-        >
-          조회
-        </button>
+          <TotalDatepicker onDateChange={handleDateChange}></TotalDatepicker>
+          <button
+            onClick={() => {
+              getTotalPageData();
+            }}
+          >
+            조회
+          </button>
         </div>
         {/*2025.02.23 END **SDH** */}
       </div>
@@ -197,7 +210,13 @@ const DashboardTotal: React.FC<DashboardTotalProps> = ({
           <TotalCpu cpuData={cpuData}></TotalCpu>
           <TotalPacket packetData={packetData}></TotalPacket>
           <TotalConnect webConnectData={webConnectData}></TotalConnect>
-          <TotalError errGraphData={errGraphData} apacheErr={apacheErr} ></TotalError>
+          <TotalError
+            errGraphData={errGraphData}
+            apacheErr={apacheErr}
+            authErr={authErr}
+            mysqlErr={mysqlErr}
+            ufwErr={ufwErr}
+          ></TotalError>
           <TotalLogin loginData={loginData}></TotalLogin>
         </div>
         <div className={style.section3}>

@@ -13,7 +13,7 @@ interface TotalErrorProps {
   errGraphData: ErrGraphData[];
 }
 
-const TotalError: React.FC = ({ errGraphData ,apacheErr}) => {
+const TotalError: React.FC = ({ errGraphData ,apacheErr, authErr, mysqlErr, ufwErr}) => {
   /* START Popup을 위한 코드 START */
   const [selectedDetail, setSelectedDetail] = useState(false);
   const closePopup = () =>{
@@ -276,7 +276,7 @@ const TotalError: React.FC = ({ errGraphData ,apacheErr}) => {
   return (
     <div className={style.body} id="errorbox">
 
-      {selectedDetail && <TotalErrorGraphPopup closePopup = { closePopup } apacheErr={apacheErr}></TotalErrorGraphPopup>}
+      {selectedDetail && <TotalErrorGraphPopup closePopup = { closePopup } apacheErr={apacheErr} authErr={authErr} mysqlErr={mysqlErr} ufwErr={ufwErr}></TotalErrorGraphPopup>}
       <h2 className={style.title}>total. error graph</h2>
       <svg ref={ErrorRef}></svg>
       <button className={style.btn} onClick={ 

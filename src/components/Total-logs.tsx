@@ -12,7 +12,6 @@ interface TotalLogsProps {
 }
 
 const TotalLogs: React.FC<TotalLogsProps> = ({ criticalErrData }) => {
-  console.log(criticalErrData);
   if (!criticalErrData) {
     return <div className={style.body}>Loading...</div>;
   }

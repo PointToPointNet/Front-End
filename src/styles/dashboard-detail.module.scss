@@ -65,7 +65,7 @@
             }
             .boardBody {
                 display: grid;
-                grid-template-columns: 1fr 1.5fr 2.5fr;
+                grid-template-columns: 400px 550px 2.5fr;
                 min-height: 400px;
                 gap: 20px;
                 @media (max-width: 1600px) {

@@ -1,13 +1,12 @@
 import style from '../styles/board-runtime.module.scss';
 import { useEffect, useState } from "react";
 
-const BoardRuntime: React.FC = () => {
-  
-  interface Runtime {
-    test: { runtime: number };
-  }
-  type RuntimeResponse = Runtime[];
+interface BoardRuntime {
+  serverName: string;
+}
 
+const BoardRuntime: React.FC<BoardRuntime> = ({serverName}) => {
+  
   const [runtimeData, setRuntimeData] = useState<number | null>(null);
 
   useEffect(() => {
@@ -17,7 +16,9 @@ const BoardRuntime: React.FC = () => {
     const fetchData = () => {
       fetch("http://localhost:3000/runtime")
         .then((response) => response.json())
-        .then(([{ test: { runtime } }]: RuntimeResponse) => {
+        .then((runtimeData) => {
+          const server_runtime = runtimeData.find((server_sep: {[key: string]: number}) => serverName in server_sep);
+          const runtime = server_runtime[serverName]["runtime"];
           setRuntimeData(runtime);
         })
         .catch((error) => {

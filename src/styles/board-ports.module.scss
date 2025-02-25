@@ -15,7 +15,8 @@
         @include mixin.box-item;
         //flex: 1;
         &:first-of-type {
-            padding-right: 5px; 
+            padding-right: 5px;
+             
         }
         @media (max-width: 1600px) {
             &:last-of-type {
