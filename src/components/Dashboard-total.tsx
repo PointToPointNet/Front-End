@@ -11,6 +11,8 @@ import style from "../styles/dashboard-total.module.scss";
 import { useState, useEffect } from "react";
 import TotalDatepicker from "./Total-datepicker.tsx";
 
+import url from "../assets/config/url.ts";
+
 interface DashboardTotalProps {
   serverName: string;
   setPage: () => void;
@@ -57,8 +59,7 @@ const DashboardTotal: React.FC<DashboardTotalProps> = ({
   };
 
   const getServerData = () => {
-    const url = "http://localhost:3000/server";
-    fetch(url)
+    fetch(`${url.url}/server`)
       .then((res) => res.json())
       .then((data) => {
         setServerData(data);
@@ -74,8 +75,7 @@ const DashboardTotal: React.FC<DashboardTotalProps> = ({
   };
 
   const getTotalPageData = () => {
-    const url = "http://localhost:3000/get_total_page_info";
-    fetch(url, {
+    fetch(`${url.url}/get_total_page_info`, {
       method: "POST",
       headers: {
         "content-type": "application/json"

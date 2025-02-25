@@ -9,7 +9,7 @@ import style from '../styles/board-ports.module.scss';
 import BoardPortsGraph from './Board-ports-graph';
 import Popup from './Popup';
 
-
+import url from "../assets/config/url.ts";
 
 interface BoardPortsProps {
   serverName: string;
@@ -39,7 +39,7 @@ const [visible, setVisible] = useState(false);
 const propsServerName = serverName
 
 const fetchActivePort = () => {
-  fetch("http://localhost:3000/active_port")
+  fetch(`${url.url}/active_port`)
     .then((response) => response.json())
     .then((data) => {
       for (let i=0; i<data.length; i++) {

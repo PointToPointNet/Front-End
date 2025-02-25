@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import style from '../styles/dashboard-main.module.scss';
 
 import DashboardMainBox from './Dashboard-mainbox';
+import url from "../assets/config/url.ts";
 
 interface DashBoardMainProps {
     serverList: string[];
@@ -13,7 +14,7 @@ interface DashBoardMainProps {
 const DashboardMain: React.FC<DashBoardMainProps> = ({ serverList, setPage, changeServer }) => {
     const [serverBody, setServerBody] = useState<React.ReactElement[]>([]);
     // const mainGraph = useRef<SVGSVGElement | null>(null);
-
+    console.log(url)
     useEffect(() => {
         const getData = (data: { [key: string]: string }[], serverName: string, key: string) => {
             const server = data.find((serverData) => serverName in serverData);
@@ -22,8 +23,8 @@ const DashboardMain: React.FC<DashBoardMainProps> = ({ serverList, setPage, chan
             }
             return server[serverName][key];
         };
-        const fetchData = async (url: string) => {
-            const res = await fetch(`http://localhost:3000/${url}`);
+        const fetchData = async (path: string) => {
+            const res = await fetch(`${url.url}/${path}`);
             return res.json();
         }
         const displayServers = async () => {

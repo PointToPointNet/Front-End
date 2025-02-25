@@ -4,6 +4,8 @@ import { IoAlertCircle } from "react-icons/io5";
 import style from '../styles/board-users.module.scss';
 import Popup from './Popup';
 
+import url from "../assets/config/url.ts";
+
 interface UserData {
   username: string;
   terminal: string;
@@ -22,7 +24,7 @@ const BoardUsers: React.FC<BoardUsersProps> = ({ serverName }) => {
   const [visible, setVisible] = useState<number | null>(null);
   useEffect(() => {
     //최초 실행
-    fetch("http://localhost:3000/user_list")
+    fetch(`${url.url}/user_list`)
     .then((response) => response.json())
     .then((data) => {
       for (let i=0; i<data.length; i++) {

@@ -2,6 +2,8 @@ import { useEffect, useState, useRef } from "react";
 import * as d3 from "d3";
 import style from '../styles/board-packet.module.scss';
 
+import url from "../assets/config/url.ts";
+
 interface BoardPacket {
   serverName: string;
 }
@@ -54,7 +56,7 @@ const BoardPacket: React.FC<BoardPacket> = ({ serverName }) => {
 
   useEffect(() => {
     const fetchData = (): void => {
-      fetch("http://localhost:3000/network")
+      fetch(`${url.url}/network`)
         .then((response) => response.json())
         .then((data) => {
           setRXData(prevRXData => {
