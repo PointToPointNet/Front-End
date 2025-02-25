@@ -2,6 +2,13 @@
 @use 'mixin';
 
 .body {
+    .helpBtn {
+        @include mixin.helpBtn; 
+        
+    }
+    .helper {
+        @include mixin.helper;
+    }
     @include mixin.box-item;
     padding: 0;
     @media (max-width: 1600px) {

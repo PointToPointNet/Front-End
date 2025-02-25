@@ -2,7 +2,7 @@
 import { useEffect, useState, useRef } from "react";
 import * as d3 from "d3";
 import style from '../styles/board-ports.module.scss';
-
+import { IoMdHelpCircleOutline } from "react-icons/io";
 import url from "../assets/config/url.ts";
 
 interface BoardPortsGraphProps {
@@ -22,6 +22,7 @@ interface PortType {
 }
 
 const BoardPortsGraph: React.FC<BoardPortsGraphProps> = ({propsServerName}) => {
+  const [helperVisible, setHelperVisible] = useState(false);
   const [usedPortList, setUsedPortList] = useState<portData[]>([]);
   const [usedPortTop4, setUsedPortTop4] = useState<portData[]>([]);
   const [portType, setPortType] = useState<PortType | null>({
@@ -156,6 +157,11 @@ const BoardPortsGraph: React.FC<BoardPortsGraphProps> = ({propsServerName}) => {
       <div className={style.body}>
         <h2 className={style.title}>Port Type</h2>
         <svg ref={svgRef}></svg>
+        <button className={style.helpBtn} onClick={()=>{setHelperVisible(!helperVisible)}}><IoMdHelpCircleOutline /></button>
+        <div className={style.helper} style={{ display: helperVisible ? "flex" : "none" }} onClick={()=>{setHelperVisible(!helperVisible)}}>
+          <p className={style.help}>PORT는 컴퓨터가 외부와 통신할 때 사용하는 통로(문)입니다.</p>
+          <p className={style.help}>Active Port TOP 4는 현재 사용 중인 port중에 상의 4개의 port 및 접속량(ea)을 나타냅니다.</p>
+        </div>
       </div>
     </div>
   )

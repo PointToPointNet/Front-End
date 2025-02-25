@@ -3,7 +3,7 @@ import { IoClose } from "react-icons/io5";
 import { IoAlertCircle } from "react-icons/io5";
 import style from '../styles/board-users.module.scss';
 import Popup from './Popup';
-
+import { IoMdHelpCircleOutline } from "react-icons/io";
 import url from "../assets/config/url.ts";
 
 interface UserData {
@@ -20,6 +20,7 @@ interface BoardUsersProps {
 }
 
 const BoardUsers: React.FC<BoardUsersProps> = ({ serverName }) => {
+  const [helperVisible, setHelperVisible] = useState(false);
   const [userList, setUserList] = useState<UserData[]>([]);
   const [visible, setVisible] = useState<number | null>(null);
   useEffect(() => {
@@ -156,6 +157,11 @@ const BoardUsers: React.FC<BoardUsersProps> = ({ serverName }) => {
           )}
         </div>
       ))}
+    <button className={style.helpBtn} onClick={()=>{setHelperVisible(!helperVisible)}}><IoMdHelpCircleOutline /></button>
+      <div className={style.helper} style={{ display: helperVisible ? "flex" : "none" }} onClick={()=>{setHelperVisible(!helperVisible)}}>
+        <p className={style.help}>PORT는 컴퓨터가 외부와 통신할 때 사용하는 출입구(문)입니다.</p>
+        <p className={style.help}>Active Port TOP 4는 현재 사용 중인 PORT중에 상의 4개의 PORT 사용 및 접속량 나타냅니다.</p>
+      </div>
     </div>
   );
 }
