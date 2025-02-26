@@ -135,6 +135,18 @@
         text-align: left;
         color: rgba(255,255,255,0.7);
         font-size: 19px;
+        @media (max-width: 800px) {
+            font-size: 15px;
+            padding: 40px 40px 20px;
+        }
+        @media (max-width: 700px) {
+            width: 70%;
+        }
+        @media (max-width: 550px) {
+            width: 85%;
+            padding: 30px 22px 17px;
+            font-size: 13px;
+        }
         span {
             color: #fff;
             font-weight: 500;
@@ -161,6 +173,10 @@
             transform: translateX(-50%);
             color: #FF6060 !important;
             animation: scale_ani 0.5s alternate infinite;
+            @media (max-width: 600px) {
+                font-size: 30px !important;
+                top: -18px;
+            }
         }
         svg {
             margin: 0;
@@ -177,6 +193,9 @@
         gap: 20px;
         border: 0 !important;
         margin-top: 25px;
+        @media (max-width: 700px) {
+            gap: 10px;
+        }
         button {
             padding: 9px 0px;
             flex-grow: 1;
@@ -197,6 +216,13 @@
             }
             &:last-child:hover {
                 background-color: #E43C3C;
+            }
+            @media (max-width: 800px) {
+                font-size: 13px;
+                 
+            }
+            @media (max-width: 550px) {
+                 font-size: 12px;
             }
         }
     }
