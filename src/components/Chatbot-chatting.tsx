@@ -10,6 +10,7 @@ const ChatbotChatting = () => {
     const questionToBot = async () => {
         if (question !== "") {
             setChatting((prevChat) => [...prevChat, { role: "user", content: question }]);
+            setQuestion("");
             const response = await fetch(`${url.url}/chat_bot`, {
                 method: "POST",
                 headers: {
@@ -49,7 +50,12 @@ const ChatbotChatting = () => {
                 {chattingTSX}
             </div>
             <div className={style.promptArea}>
-                <textarea onChange={(e) => { setQuestion(e.target.value.trim()); }}></textarea>
+                <textarea onChange={(e) => { setQuestion(e.target.value.trim()); }} onKeyDown={(e) => {
+                    if (e.key === "Enter" && !e.shiftKey) {
+                        e.preventDefault(); // ✅ 엔터 입력 방지 (줄바꿈 대신 전송)
+                        questionToBot();   // ✅ 전송 함수 실행
+                    }
+                }}></textarea>
                 <button onClick={() => { questionToBot(); }}>전송</button>
             </div>
 
