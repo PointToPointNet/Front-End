@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import style from "../styles/chatbot-chatting.module.scss";
 import url from "../assets/config/url.ts";
 
@@ -13,9 +13,13 @@ const ChatbotChatting: React.FC<ChatbotChatting> = ({ setUsingChatting }) => {
     const [question, setQuestion] = useState<string>("");
     const [chatting, setChatting] = useState<{ [key: string]: string }[]>([]);
     const [chattingTSX, setChattingTSX] = useState<React.ReactElement[]>([]);
+    const [waitAnswer, setWaitAnswer] = useState<boolean>(false);
+
+    const chatScroll = useRef<HTMLDivElement | null>(null);
 
     const questionToBot = async () => {
-        if (question !== "") {
+        if (question !== "" && !waitAnswer) {
+            setWaitAnswer(true); // 대기 시작
             setChatting((prevChat) => [...prevChat, { role: "user", content: question }]);
             setQuestion("");
 
@@ -32,6 +36,7 @@ const ChatbotChatting: React.FC<ChatbotChatting> = ({ setUsingChatting }) => {
                 const { role, content } = answer;
                 setChatting((prevChat) => [...prevChat, { "role": role, "content": content }]);
             }
+            setWaitAnswer(false); // 대기 종료
         }
     }
 
@@ -51,7 +56,14 @@ const ChatbotChatting: React.FC<ChatbotChatting> = ({ setUsingChatting }) => {
             // console.log(tsx);
             setChattingTSX(tsx);
         }
-    }, [chatting])
+    }, [chatting]);
+
+    useEffect(() => {
+        chatScroll.current?.scrollTo({
+            top: chatScroll.current.scrollHeight,
+            behavior: "smooth",
+        });
+    }, [chattingTSX]);
 
     return (
         <div className={style.chattingRoom}>
@@ -60,7 +72,7 @@ const ChatbotChatting: React.FC<ChatbotChatting> = ({ setUsingChatting }) => {
                     <IoIosCloseCircle className={style.closeIcon} size="30" />
                 </button>
             </div>
-            <div className={style.chattingArea}>
+            <div className={style.chattingArea} ref={chatScroll}>
                 {/* 채팅 공간 */}
                 {chattingTSX}
             </div>
