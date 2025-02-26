@@ -60,11 +60,11 @@ const DashboardAllTotal: React.FC<DashboardAllTotalProps> = ({
   const correctDate = (inputDate, startDate, recordedDate) => {
     let parseDate = "";
     if (inputDate === getLocalDateString(startDate)) {
-      console.log("KST표준시간");
+      // console.log("KST표준시간");
       parseDate = recordedDate.split("T")[0];
       return parseDate;
     } else {
-      console.log("UTC표준시간");
+      // console.log("UTC표준시간");
       const utcDate = new Date(recordedDate.split("T")[0]);
       const kstDate = new Date(utcDate.getTime() + 15 * 60 * 60 * 1000);
       const year = kstDate.getFullYear();
@@ -82,7 +82,6 @@ const DashboardAllTotal: React.FC<DashboardAllTotalProps> = ({
       tempObj[server["id"]] = server["name"];
     });
     setServerMapping(tempObj);
-    console.log(tempObj);
   };
 
   const getTotalPageData = () => {
@@ -99,7 +98,6 @@ const DashboardAllTotal: React.FC<DashboardAllTotalProps> = ({
       .then((res) => res.json())
       .then((data) => {
         setTotalPageDate(data);
-        console.log(data);
       })
       .catch((err) => {
         console.log(err);
@@ -116,7 +114,6 @@ const DashboardAllTotal: React.FC<DashboardAllTotalProps> = ({
   ///////////////////////DataParsing//////////////////////////////
 
   const dataParsing = (totalPageData) => {
-    console.log(totalPageData);
     const { total_all_page } = totalPageData;
     //UTC인지 아닌지 데이터 체크를 위한 변수
     const checkData = total_all_page[0].recorded_date.split("T")[0];
@@ -129,7 +126,6 @@ const DashboardAllTotal: React.FC<DashboardAllTotalProps> = ({
         if (!acc[date]) {
           acc[date] = {};
         }
-
         acc[date][serverMapping[cur.server_id]] = Number(cur[attr] * number);
         return acc;
       }, {});
@@ -144,8 +140,6 @@ const DashboardAllTotal: React.FC<DashboardAllTotalProps> = ({
     setCpuData(groupedCpu);
     setWebData(groupedWeb);
     setPacketData(groupedPacket);
-
-    console.log(cpuData);
   };
 
   ///////////////////////DataParsing//////////////////////////////
