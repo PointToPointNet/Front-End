@@ -60,7 +60,7 @@ const DashboardMain: React.FC<DashBoardMainProps> = ({ serverList, setPage, chan
         displayServers();
         const interval = setInterval(() => {
             displayServers();
-        }, 1500);
+        }, 2000);
         return () => { clearInterval(interval); }
     }, []);
 

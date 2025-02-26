@@ -149,7 +149,7 @@ const DashboardMainBox: React.FC<DashBoardMainBoxProps> = ({ server, runtime, me
                     .ticks(5)  // 5개의 눈금만 표시
                     .tickFormat(d => {
                         const tickTime = (pingHistory.length - 1) - Number(d);
-                        return tickTime <= 0 ? "Now" : `${tickTime * 1.5}s ago`;
+                        return tickTime <= 0 ? "Now" : `${tickTime * 2}s ago`;
                     })  // 초 단위 표시
                 );
         }

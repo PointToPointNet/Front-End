@@ -11,7 +11,7 @@ interface ChatbotChatting {
 
 const ChatbotChatting: React.FC<ChatbotChatting> = ({ setUsingChatting }) => {
     const [question, setQuestion] = useState<string>("");
-    const [chatting, setChatting] = useState<{ [key: string]: string }[]>([]);
+    const [chatting, setChatting] = useState<{ [key: string]: string }[]>([{ role: "assistant", content: "안녕하세요. 네트워크에 대해 궁금한게 있으신가요?" }]);
     const [chattingTSX, setChattingTSX] = useState<React.ReactElement[]>([]);
     const [waitAnswer, setWaitAnswer] = useState<boolean>(false);
 
