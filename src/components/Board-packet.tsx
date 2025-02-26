@@ -9,109 +9,6 @@ interface BoardPacket {
 }
 
 const BoardPacket: React.FC<BoardPacket> = ({ serverName }) => {
-  // interface NetworkData {
-  //   packets: number;
-  //   bytes: number;
-  // }
-
-  // // const [RXData, setRXData] = useState<NetworkData[]>([
-  // //   { "packets": 32243693, "bytes": 14873201.798 },
-  // //   { "packets": 12243693, "bytes": 24873201.798 },
-  // //   { "packets": 12243693, "bytes": 24873201.798 },
-  // //   { "packets": 62243693, "bytes": 34827301.798 },
-  // //   { "packets": 12243693, "bytes": 24873201.798 },
-  // //   { "packets": 42243693, "bytes": 24872301.798 },
-  // //   { "packets": 52243693, "bytes": 84872301.798 },
-  // //   { "packets": 32243693, "bytes": 44872301.798 },
-  // //   { "packets": 22243693, "bytes": 34873201.798 },
-  // //   { "packets": 12243693, "bytes": 24873201.798 },
-  // //   { "packets": 72243693, "bytes": 24873201.798 },
-  // //   { "packets": 22243693, "bytes": 64873201.798 },
-  // //   { "packets": 12243693, "bytes": 24873201.798 },
-  // // ]);
-
-  // // const [TXData, setTXData] = useState<NetworkData[]>([
-  // //   { "packets": 22243693, "bytes": 34817301.798 },
-  // //   { "packets": 12243693, "bytes": 24872301.798 },
-  // //   { "packets": 32243693, "bytes": 64873301.798 },
-  // //   { "packets": 2243693, "bytes": 14873301.798 },
-  // //   { "packets": 12243693, "bytes": 24873201.798 },
-  // //   { "packets": 72243693, "bytes": 34873301.797 },
-  // //   { "packets": 92243693, "bytes": 14873301.797 },
-  // //   { "packets": 12243693, "bytes": 24873301.797 },
-  // //   { "packets": 22243693, "bytes": 94873301.797 },
-  // //   { "packets": 12243693, "bytes": 24873201.798 },
-  // //   { "packets": 32243693, "bytes": 24873301.797 },
-  // //   { "packets": 22243693, "bytes": 14873301.797 },
-  // //   { "packets": 12243693, "bytes": 24873201.798 },
-  // // ]);
-  // const initialData = new Array(13).fill({ "packets": 0, "bytes": 0 })
-  // const [RXData, setRXData] = useState<NetworkData[]>(initialData);
-  // const [TXData, setTXData] = useState<NetworkData[]>(initialData);
-
-  // const [prevRX, setPrevRX] = useState<number>(0);
-  // const [prevTX, setPrevTX] = useState<number>(0);
-
-  // const rxsvgRef = useRef<SVGSVGElement | null>(null);
-  // const txsvgRef = useRef<SVGSVGElement | null>(null);
-
-
-  // useEffect(() => {
-  //   const fetchData = (): void => {
-  //     fetch(`${url.url}/network`)
-  //       .then((response) => response.json())
-  //       .then((data) => {
-
-  //         const curRX = data.find(((server_sep: { [key: string]: object }) => serverName in server_sep))[serverName].enp0s25.RX.packets;
-  //         const curTX = data.find(((server_sep: { [key: string]: object }) => serverName in server_sep))[serverName].enp0s25.TX.packets;
-
-  //         const diffRX = prevRX === 0 ? 0 : curRX - prevRX;
-  //         const diffTX = prevTX === 0 ? 0 : curTX - prevTX;
-
-  //         setPrevRX(curRX);
-  //         setPrevTX(curTX);
-
-  //         console.log(diffRX);
-  //         console.log(diffTX);
-
-  //         setRXData(prevRXData => {
-  //           const tempRX = [...prevRXData];
-  //           tempRX.push({
-  //             packets: data.find(((server_sep: { [key: string]: object }) => serverName in server_sep))[serverName].enp0s25.RX.packets,
-  //             bytes: data.find(((server_sep: { [key: string]: object }) => serverName in server_sep))[serverName].enp0s25.RX.bytes / 100, // bytes 값을 1/1000로 변환
-  //           });
-  //           tempRX.shift();
-  //           return tempRX;
-  //         });
-
-  //         setTXData(prevTXData => {
-  //           const tempTX = [...prevTXData];
-  //           tempTX.push({
-  //             packets: data.find(((server_sep: { [key: string]: object }) => serverName in server_sep))[serverName].enp0s25.TX.packets,
-  //             bytes: data.find(((server_sep: { [key: string]: object }) => serverName in server_sep))[serverName].enp0s25.TX.bytes / 100, // bytes 값을 1/1000로 변환
-  //           });
-  //           tempTX.shift();
-  //           return tempTX;
-  //         });
-
-  //         // console.log(RXData)
-  //       })
-  //       .catch((error) => {
-  //         console.error("Error fetching data:", error);
-  //       });
-  //   }
-  //   //json데이터를 읽어오자
-  //   setRXData(initialData);
-  //   setTXData(initialData);
-  //   fetchData();
-  //   const interval = setInterval(() => {
-  //     fetchData();
-  //   }, 1500);
-
-  //   return () => clearInterval(interval);
-
-  // }, [serverName]);
-
   interface NetworkData {
     packets: number;
     bytes: number;
@@ -155,18 +52,6 @@ const BoardPacket: React.FC<BoardPacket> = ({ serverName }) => {
 
   const [RXData, setRXData] = useState<NetworkData[]>(initialData);
   const [TXData, setTXData] = useState<NetworkData[]>(initialData);
-
-  // 이전 누적 값을 저장하기 위한 상태
-  const [prevRXPackets, setPrevRXPackets] = useState<number>(0);
-  const [prevTXPackets, setPrevTXPackets] = useState<number>(0);
-  const [prevRXBytes, setPrevRXBytes] = useState<number>(0);
-  const [prevTXBytes, setPrevTXBytes] = useState<number>(0);
-
-  // 차이 값을 저장하기 위한 상태 추가
-  const [diffRXPackets, setDiffRXPackets] = useState<number>(1);
-  const [diffTXPackets, setDiffTXPackets] = useState<number>(1);
-  const [diffRXBytes, setDiffRXBytes] = useState<number>(1);
-  const [diffTXBytes, setDiffTXBytes] = useState<number>(1);
 
   const rxsvgRef = useRef<SVGSVGElement | null>(null);
   const txsvgRef = useRef<SVGSVGElement | null>(null);
@@ -214,7 +99,6 @@ const BoardPacket: React.FC<BoardPacket> = ({ serverName }) => {
             return tempRX;
           });
 
-          // 현재 TX 데이터 업데이트 - 차이 값 사용
           setTXData(prevTXData => {
             const tempTX = [...prevTXData];
 
@@ -229,18 +113,16 @@ const BoardPacket: React.FC<BoardPacket> = ({ serverName }) => {
           console.error("Error fetching data:", error);
         });
     }
-
-    // 초기 데이터 설정
+    //json데이터를 읽어오자
     setRXData(initialData);
     setTXData(initialData);
     fetchData();
-
-    // 주기적으로 데이터 가져오기
     const interval = setInterval(() => {
       fetchData();
     }, 1500);
 
     return () => clearInterval(interval);
+
   }, [serverName]);
 
   const drawGraph = (svgRef: React.RefObject<SVGSVGElement>, data: NetworkData[], title: string) => {
@@ -325,7 +207,7 @@ const BoardPacket: React.FC<BoardPacket> = ({ serverName }) => {
     graphGroup.select(".y-axis").remove();
     graphGroup.append("g")
       .attr("class", "y-axis")
-      .call(d3.axisLeft(yScale).tickFormat(d => Math.floor(d )));
+      .call(d3.axisLeft(yScale).tickFormat(d => Math.floor(d)));
 
     const areaPackets = d3.area<NetworkData>()
       .x((_, i) => xScale(i))
@@ -380,17 +262,17 @@ const BoardPacket: React.FC<BoardPacket> = ({ serverName }) => {
       <div className={style.body} id="packetBox">
         <h2 className={style.title}>Receive Packet</h2>
         <svg ref={rxsvgRef}></svg>
-        <button className={style.helpBtn} onClick={()=>{setHelperVisibleR(!helperVisibleR)}}><IoMdHelpCircleOutline /></button>
-        <div className={style.helper} style={{ display: helperVisibleR ? "flex" : "none" }} onClick={()=>{setHelperVisibleR(!helperVisibleR)}}>
-        <p className={style.help}>패킷(Packet)은 인터넷을 통해 데이터를 주고받을 때 쪼개지는 작은 조각입니다.</p> <p className={style.help}>Packet은 택배상자로 비유 가능하며, 큰 데이터를를 보내려면, 작은 상자(Packet)로 나누어어서 보내야 합니다.</p>
+        <button className={style.helpBtn} onClick={() => { setHelperVisibleR(!helperVisibleR) }}><IoMdHelpCircleOutline /></button>
+        <div className={style.helper} style={{ display: helperVisibleR ? "flex" : "none" }} onClick={() => { setHelperVisibleR(!helperVisibleR) }}>
+          <p className={style.help}>패킷(Packet)은 인터넷을 통해 데이터를 주고받을 때 쪼개지는 작은 조각입니다.</p> <p className={style.help}>Packet은 택배상자로 비유 가능하며, 큰 데이터를를 보내려면, 작은 상자(Packet)로 나누어어서 보내야 합니다.</p>
           <p className={style.help}>Transimit Packet(TX, Upload)은 Packet의 송신량을 나타내며 내가 데이터를 보낼 때 수치가 증가합니다.</p>
         </div>
       </div>
       <div className={style.body}>
         <h2 className={style.title}>Transmit Packet</h2>
         {<svg ref={txsvgRef}></svg>}
-        <button className={style.helpBtn} onClick={()=>{setHelperVisibleT(!helperVisibleT)}}><IoMdHelpCircleOutline /></button>
-        <div className={style.helper} style={{ display: helperVisibleT ? "flex" : "none" }} onClick={()=>{setHelperVisibleT(!helperVisibleT)}}>
+        <button className={style.helpBtn} onClick={() => { setHelperVisibleT(!helperVisibleT) }}><IoMdHelpCircleOutline /></button>
+        <div className={style.helper} style={{ display: helperVisibleT ? "flex" : "none" }} onClick={() => { setHelperVisibleT(!helperVisibleT) }}>
           <p className={style.help}>패킷(Packet)은 인터넷을 통해 데이터를 주고받을 때 쪼개지는 작은 조각입니다.</p> <p className={style.help}>Packet은 택배상자로 비유 가능합니다.</p>
           <p className={style.help}>Receive Packet(RX, Download)은 패킷의 수신량을 나타내며 내가 데이터를 받을 때 수치가 증가합니다.</p>
 
