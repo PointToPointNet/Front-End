@@ -11,14 +11,42 @@ interface CriticalErrData {
 
 interface TotalLogsProps {
   criticalErrData: CriticalErrData[];
+  isUTC: boolean;
 }
 
-const TotalLogs: React.FC<TotalLogsProps> = ({ criticalErrData }) => {
+const TotalLogs: React.FC<TotalLogsProps> = ({ criticalErrData,isUTC }) => {
   const [helperVisible, setHelperVisible] = useState(false);
 
   if (!criticalErrData) {
     return <div className={style.body}>Loading...</div>;
   }
+
+  const formatLogTime = (date: Date) => {
+    const pad = (num: number) => num.toString().padStart(2, "0");
+    const year = date.getFullYear();
+    const month = pad(date.getMonth() + 1); // 월은 0부터 시작
+    const day = pad(date.getDate());
+    return `${year}${month}${day}`;
+  };
+
+  const content = criticalErrData.map((data, index) => {
+    // UTC 표시 여부에 따라 날짜 변환
+    const baseDate = new Date(data.log_time);
+    const displayDate = isUTC
+      ? new Date(baseDate.getTime() + 15 * 60 * 60 * 1000)
+      : baseDate;
+    const formattedDate = formatLogTime(displayDate);
+    
+    return (
+      <div key={index} className={style.tableBody}>
+        <div>{formattedDate}</div>
+        <div>{data.service}</div>
+        <div>{data.log_level}</div>
+        <div>{data.message}</div>
+      </div>
+    );
+  });
+
   return (
     <div className={style.body}>
       <h2>🚨 Weekly Critical Error Log Status</h2>
@@ -29,19 +57,7 @@ const TotalLogs: React.FC<TotalLogsProps> = ({ criticalErrData }) => {
         <div>MESSAGE</div>
       </div>
       <div className={style.container}>
-        {criticalErrData.map((data, index) => {
-          return (
-            <div key={index} className={style.tableBody}>
-              <div>
-                {data.log_time.split("T")[0]}{" "}
-                {data.log_time.split("T")[1].substring(0, 8)}
-              </div>
-              <div>{data.service}</div>
-              <div>{data.log_level}</div>
-              <div>{data.message}</div>
-            </div>
-          );
-        })}
+        {content}
       </div>
       <button
         className={style.helpBtn}
