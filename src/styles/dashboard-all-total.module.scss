@@ -95,14 +95,11 @@
         @media (max-width: 550px) {
             padding: 15px 15px;
         }
-        .section1 {
+        .section4 {
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-columns: 1fr 1fr;
             gap: 20px;
-            @media (max-width: 1750px) {
-                grid-template-columns: 1fr 1fr;
-            }
-            @media (max-width: 950px) {
+            @media (max-width: 1350px) {
                 grid-template-columns: 1fr;
             }
         }

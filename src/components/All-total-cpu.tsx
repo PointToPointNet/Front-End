@@ -14,7 +14,7 @@ const TotalCpu: React.FC = ({cpuData}) => {
   const drawGraph = (svgRef: React.RefObject<SVGSVGElement>, data: CpuData) => {
     if (!svgRef.current || Object.keys(data).length === 0) return;
 
-    const width = parseInt(d3.select("#cpubox").style("width"), 10) - 20;
+    const width = parseInt(d3.select("#allcpu").style("width"), 10) - 20;
     const height = 300;
     const margin = { top: 30, right: 40, bottom: 20, left: 30 };
     const svg = d3
@@ -143,7 +143,7 @@ const TotalCpu: React.FC = ({cpuData}) => {
   }, [cpuData]);
 
   return (
-    <div className={style.body} id="cpubox">
+    <div className={style.body} id="allcpu">
       <h2 className={style.title}>💻 Daily CPU Usage(%) </h2>
       <svg ref={cpuRef}></svg>
       <button
