@@ -2,13 +2,18 @@
 @use 'mixin';
 
 .body {
-
     @include mixin.box-item;
     height: 320px;
     padding: 1;
     // overflow-y: hidden;
     flex: 1;
+    .helpBtn {
+        @include mixin.helpBtn; 
 
+    }
+    .helper {
+        @include mixin.helper;
+    }
     [class*=table] {
         display: grid;
         grid-template-columns:
@@ -21,7 +26,7 @@
     h2 {
         @include mixin.title;
         text-align: left;
-        padding:10px;
+        padding:0px 0px 10px 0px;
     }
 
     .tableHeader {

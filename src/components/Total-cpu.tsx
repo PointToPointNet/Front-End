@@ -1,6 +1,8 @@
 import { useEffect, useState, useRef } from "react";
 import * as d3 from "d3";
 import style from "../styles/total-cpu.module.scss";
+import { IoMdHelpCircleOutline } from "react-icons/io";
+
 interface CpuData {
   date: string;
   value: number;
@@ -13,6 +15,8 @@ const TotalCpu: React.FC<TotalCpuProps> = ({cpuData}) => {
 
   const cpuRef = useRef<SVGSVGElement | null>(null);
   const colorValue = '#ADEBAC';
+
+  const [helperVisible, setHelperVisible] = useState(false);
 
   const drawGraph = (
     svgRef: React.RefObject<SVGSVGElement>, 
@@ -151,16 +155,30 @@ const TotalCpu: React.FC<TotalCpuProps> = ({cpuData}) => {
   };
   return (
     <div className={style.body} id="cpubox">
-      <h2 className={style.title}>💻Daily CPU Usage(%) </h2>
+      <h2 className={style.title}>💻 Daily CPU Usage(%) </h2>
       <svg ref={cpuRef}></svg>
-        {/* {cpuData.map((data, index) => {
-          return(
-          <div key={index}>
-            <span>
-              {data.date}: {data.value}
-            </span>
-          </div>)
-        })} */}
+      <button
+        className={style.helpBtn}
+        onClick={() => {
+          setHelperVisible(!helperVisible);
+        }}
+      >
+        <IoMdHelpCircleOutline />
+      </button>
+      <div
+        className={style.helper}
+        style={{ display: helperVisible ? "flex" : "none" }}
+        onClick={() => {
+          setHelperVisible(!helperVisible);
+        }}
+      >
+        <p className={style.help}>
+        그래프 하나당 하루의 CPU 사용률을 보여줍니다.
+        </p>
+        <p className={style.help}>
+        CPU 부하 상태를 확인하여 성능 저하가 발생하기 전에 대처할 수 있습니다.
+        </p>
+      </div>
     </div>
   );
 };

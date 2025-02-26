@@ -3,7 +3,7 @@ import { IoClose } from "react-icons/io5";
 import { IoAlertCircle } from "react-icons/io5";
 import style from '../styles/board-users.module.scss';
 import Popup from './Popup';
-
+import { IoMdHelpCircleOutline } from "react-icons/io";
 import url from "../assets/config/url.ts";
 
 interface UserData {
@@ -20,6 +20,7 @@ interface BoardUsersProps {
 }
 
 const BoardUsers: React.FC<BoardUsersProps> = ({ serverName }) => {
+  const [helperVisible, setHelperVisible] = useState(false);
   const [userList, setUserList] = useState<UserData[]>([]);
   const [visible, setVisible] = useState<number | null>(null);
   useEffect(() => {
@@ -156,6 +157,14 @@ const BoardUsers: React.FC<BoardUsersProps> = ({ serverName }) => {
           )}
         </div>
       ))}
+    <button className={style.helpBtn} onClick={()=>{setHelperVisible(!helperVisible)}}><IoMdHelpCircleOutline /></button>
+      <div className={style.helper} style={{ display: helperVisible ? "flex" : "none" }} onClick={()=>{setHelperVisible(!helperVisible)}}>
+        <p className={style.help}>유저가 원격으로 접속한 정보를를 리스트 형식으로 나타냅니다.</p>
+        <p className={style.help}>Name : User Id 정보를 나타냅니다.</p>
+        <p className={style.help}>IP/HOST : User IP 정보를 나타냅니다.</p>
+        <p className={style.help}>Connecting : 유저가 서버에 원격 접속 중인지 여부를 나타냅니다.(초록 : 접속중 / 빨강 : 미접속중)</p>
+        <p className={style.help}>Disconnect : 원격 접속 상태의 유저를 강제로 연결 해제하는 버튼입니다.</p>
+      </div>
     </div>
   );
 }
