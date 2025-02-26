@@ -56,6 +56,24 @@ const DashboardTotal: React.FC<DashboardTotalProps> = ({
 
   //END State Area
 
+  const correctDate = (inputDate, startDate, recordedDate) => {
+    let parseDate = "";
+    if (inputDate === getLocalDateString(startDate)) {
+      // console.log("KST표준시간");
+      parseDate = recordedDate.split("T")[0];
+      return parseDate;
+    } else {
+      // console.log("UTC표준시간");
+      const utcDate = new Date(recordedDate.split("T")[0]);
+      const kstDate = new Date(utcDate.getTime() + 15 * 60 * 60 * 1000);
+      const year = kstDate.getFullYear();
+      const month = String(kstDate.getMonth() + 1).padStart(2, "0");
+      const day = String(kstDate.getDate()).padStart(2, "0");
+      parseDate = `${year}-${month}-${day}`;
+      return parseDate;
+    }
+  };
+
   const handleDateChange = (newStart: Date | null, newEnd: Date | null) => {
     setStartDate(newStart);
     setEndDate(newEnd);
@@ -93,9 +111,6 @@ const DashboardTotal: React.FC<DashboardTotalProps> = ({
       .then((res) => res.json())
       .then((data) => {
         setTotalPageDate(data);
-        console.log('@@@@@@@@@@@@@@@@@@@');
-        console.log(data);
-        console.log('@@@@@@@@@@@@@@@@@@@');
       });
   };
 
@@ -132,8 +147,10 @@ const DashboardTotal: React.FC<DashboardTotalProps> = ({
     const tempErrGraphData: any[] = [];
     // const tempLoginData: any[] = [];
 
+    const checkData = total_info.recorded_date.split("T")[0];
+
     total_info.forEach((info: any) => {
-      const parsedDate = info.recorded_date.split("T")[0];
+      const parsedDate = correctDate(checkData, startDate, info.recorded_date);
       tempMemData.push({
         date: parsedDate,
         value: Number(info.mem_avg)
