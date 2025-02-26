@@ -18,14 +18,14 @@ interface ParentProps {
 const DashboardDetail: React.FC<ParentProps> = ({ serverName, setPage, goAllTotal }) => {
     return <div className={style.dashboard}>
             <div className={style.header}>
-            <h1 className={style.title}>Network Dashboard - {serverName}</h1>
+            <h1 className={style.title}>Network - {serverName}</h1>
             <div className={style.btngroup}>
             <a href="#" className={style.alltotal} 
             onClick={e=>{
               e.preventDefault();
               goAllTotal();
             }}
-          ><TbReportSearch /> 전체서버통계</a>
+          ><TbReportSearch /> 전체</a>
             <a href="#" onClick={ e=>{
                     e.preventDefault();
                     setPage();

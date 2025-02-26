@@ -165,7 +165,7 @@ const DashboardAllTotal: React.FC<DashboardAllTotalProps> = ({
   return (
     <div className={style.dashboard}>
       <div className={style.header}>
-        <h1 className={style.title}>AllTotal</h1>
+        <h1 className={style.title}>Server Insight</h1>
         
         <a
           href="#"

@@ -70,7 +70,7 @@ const DashboardMain: React.FC<DashBoardMainProps> = ({ serverList, setPage, chan
             <a href="#" onClick={ e=>{
                 e.preventDefault();
                 setPage("allTotal");
-            }}><TbReportSearch /> 전체서버통계</a>
+            }}><TbReportSearch /> 전체</a>
         </div>
         <div className={style.main}>
             {serverBody}

@@ -221,7 +221,7 @@ const DashboardTotal: React.FC<DashboardTotalProps> = ({
               goAllTotal();
             }}
           >
-            <TbReportSearch /> 전체서버통계
+            <TbReportSearch /> 전체
           </a>
           <a
             href="#"
@@ -271,4 +271,3 @@ const DashboardTotal: React.FC<DashboardTotalProps> = ({
 };
 
 export default DashboardTotal;
-이거일단

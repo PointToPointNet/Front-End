@@ -48,6 +48,11 @@
             }
         } 
     }
+    .tBody {
+        height: 580px;
+        overflow-y: scroll;
+        @include mixin.scrollbar;
+    }
     .tableBody {
         div:not(.popup) {
             flex: 1;
