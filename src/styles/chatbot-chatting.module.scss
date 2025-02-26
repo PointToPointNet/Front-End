@@ -1,3 +1,5 @@
+@use "variables";
+@use "mixin";
 
 .chattingRoom {
     width: 400px;
@@ -9,22 +11,79 @@
     position: fixed;
     bottom: 60px;
     right: 60px;
+    .titleArea {
+        height: 5%;
+        .closeButton {
+            background-color: transparent;
+            border: none;
+            color: variables.$primary-color;
+            .closeIcon {
+                // position: relative;
+                // top: 50%;
+                // left: 50%;
+                // transform: translate(-50%, -50%);
+            }
+        }
+    }
 
     .chattingArea {
         border: 1px solid red;
         width: 100%;
-        height: 90%;
+        height: 85%;
 
-        .userChat {
+        overflow-y: scroll;
+        @include mixin.scrollbar;
+
+        .chatLine {
+            width: 100%;
+            // display: flex;
+            margin: 3px 0;
+            border: 1px solid blue;
+
+            $chatBoxWidth: 80%;
+            .chatBox {
+                display: inline-block;
+                padding: 5px;
+                border-radius: 5px;
+                border: 1px solid red;
+                max-width: $chatBoxWidth;
+            }
+            .userChat {
+                text-align: right;
+                justify-self: flex-end;
+            }
+            .assistantChat {
+                
+                text-align: left;
+            }
+        }
+        .userLine {
             text-align: right;
         }
-        .assistantChat {
+        .assistantLine {
             text-align: left;
         }
+        
     }
 
     .promptArea {
         width: 100%;
+        height: 10%;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        // padding: 10px; 
+        .prompt {
+            width: 90%;
+            margin: auto;
+            resize: none;
+        }
+        .sendButton {
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
     }
 }
 

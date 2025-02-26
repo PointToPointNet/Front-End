@@ -10,9 +10,9 @@ const ChatBot = () => {
     return (
         <>
             <div className={style.chatBotArea} onClick={() => { setUsingChatting(!usingChatting) }}>
-                <TbMessageChatbotFilled className={style.chatBotIcon} size="3.5vw" />
+                <TbMessageChatbotFilled className={style.chatBotIcon} size="60" />
             </div>
-            {usingChatting ? <ChatbotChatting></ChatbotChatting> : null}
+            {usingChatting ? <ChatbotChatting setUsingChatting={setUsingChatting}></ChatbotChatting> : null}
         </>
 
     );
