@@ -51,12 +51,18 @@ const App: React.FC = () => {
             setPage={() => {
               setMode("total");
             }}
+            goAllTotal={()=>{
+              setMode("allTotal"); 
+            }}
           ></DashboardDetail>)
           break;
         case "total":
           setModeTSX(<DashboardTotal serverName={activeServer}
             setPage={() => {
               setMode("detail");
+            }}
+            goAllTotal={()=>{
+              setMode("allTotal"); 
             }}
           ></DashboardTotal>)
           break;

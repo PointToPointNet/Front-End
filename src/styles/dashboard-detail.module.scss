@@ -40,6 +40,13 @@
             h1 {
                 @include mixin.pagetitle;
             }
+            .btngroup {
+                display: flex;
+                gap: 10px;
+                .alltotal {
+                    background-color: variables.$all-total-color;
+                }
+            }
             a {
                 display: flex;
                 padding: 5px 20px;

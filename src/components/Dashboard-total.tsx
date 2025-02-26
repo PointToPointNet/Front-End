@@ -6,6 +6,7 @@ import TotalError from "./Total-error.tsx";
 import TotalLogin from "./Total-login.tsx";
 import TotalLogs from "./Total-logs.tsx";
 import { FiPlayCircle } from "react-icons/fi";
+import { TbReportSearch } from "react-icons/tb";
 import style from "../styles/dashboard-total.module.scss";
 // 2025.02.23 **SDH**
 import { useState, useEffect } from "react";
@@ -16,6 +17,7 @@ import url from "../assets/config/url.ts";
 interface DashboardTotalProps {
   serverName: string;
   setPage: () => void;
+  goAllTotal: () => void;
 }
 interface ServerMapping{
    [key: string]: number 
@@ -23,7 +25,8 @@ interface ServerMapping{
 
 const DashboardTotal: React.FC<DashboardTotalProps> = ({
   serverName,
-  setPage
+  setPage,
+  goAllTotal
 }) => {
 
   //State Area
@@ -186,7 +189,12 @@ const DashboardTotal: React.FC<DashboardTotalProps> = ({
       <div className={style.header}>
         <h1 className={style.title}>Total - {serverName}</h1>
         <div className={style.btngroup + " " + style.last}>
-          <a href="#" className={style.alltotal}>전체서버통계</a>
+          <a href="#" className={style.alltotal} 
+            onClick={e=>{
+              e.preventDefault();
+              goAllTotal();
+            }}
+          ><TbReportSearch /> 전체서버통계</a>
           <a
             href="#"
             onClick={(e) => {

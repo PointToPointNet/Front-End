@@ -12,16 +12,25 @@ import style from '../styles/dashboard-detail.module.scss';
 interface ParentProps {
     serverName: string;
     setPage: () => void;
+    goAllTotal: () => void;
 }
 
-const DashboardDetail: React.FC<ParentProps> = ({ serverName, setPage }) => {
+const DashboardDetail: React.FC<ParentProps> = ({ serverName, setPage, goAllTotal }) => {
     return <div className={style.dashboard}>
             <div className={style.header}>
             <h1 className={style.title}>Network Dashboard - {serverName}</h1>
-                <a href="#" onClick={ e=>{
+            <div className={style.btngroup}>
+            <a href="#" className={style.alltotal} 
+            onClick={e=>{
+              e.preventDefault();
+              goAllTotal();
+            }}
+          ><TbReportSearch /> 전체서버통계</a>
+            <a href="#" onClick={ e=>{
                     e.preventDefault();
                     setPage();
-                }}><TbReportSearch /> 통계</a>
+            }}><TbReportSearch /> 통계</a>
+            </div>
             </div>
         <div className={style.board}>
             <div className={style.boardTop}>
