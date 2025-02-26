@@ -14,7 +14,7 @@ interface DashBoardMainProps {
 const DashboardMain: React.FC<DashBoardMainProps> = ({ serverList, setPage, changeServer }) => {
     const [serverBody, setServerBody] = useState<React.ReactElement[]>([]);
     // const mainGraph = useRef<SVGSVGElement | null>(null);
-    console.log(url)
+    // console.log(url)
     useEffect(() => {
         const getData = (data: { [key: string]: string }[], serverName: string, key: string) => {
             const server = data.find((serverData) => serverName in serverData);

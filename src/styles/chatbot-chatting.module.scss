@@ -1,0 +1,30 @@
+
+.chattingRoom {
+    width: 400px;
+    height: 600px;
+
+    color: black;
+    background-color: white;
+
+    position: fixed;
+    bottom: 60px;
+    right: 60px;
+
+    .chattingArea {
+        border: 1px solid red;
+        width: 100%;
+        height: 90%;
+
+        .userChat {
+            text-align: right;
+        }
+        .assistantChat {
+            text-align: left;
+        }
+    }
+
+    .promptArea {
+        width: 100%;
+    }
+}
+
