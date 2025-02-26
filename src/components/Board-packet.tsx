@@ -154,37 +154,37 @@ const BoardPacket: React.FC<BoardPacket> = ({ serverName }) => {
 
 
 
-    // packet gradient정의
-    const gradient_packet = svg.append("defs")
-      .append("linearGradient")
-      .attr("id", `area-gradient-packet`)
-      .attr("gradientUnits", "userSpaceOnUse")
-      .attr("x1", 0).attr("y1", yScale(0))
-      .attr("x2", 0).attr("y2", yScale(d3.max(data, d => d.bytes) || 0));
+    // // packet gradient정의
+    // const gradient_packet = svg.append("defs")
+    //   .append("linearGradient")
+    //   .attr("id", `area-gradient-packet`)
+    //   .attr("gradientUnits", "userSpaceOnUse")
+    //   .attr("x1", 0).attr("y1", yScale(0))
+    //   .attr("x2", 0).attr("y2", yScale(d3.max(data, d => d.bytes) || 0));
 
-    gradient_packet.append("stop")
-      .attr("offset", "0%")
-      .attr("stop-color", "rgba(212,185,255,0)");
+    // gradient_packet.append("stop")
+    //   .attr("offset", "0%")
+    //   .attr("stop-color", "rgba(212,185,255,0)");
 
-    gradient_packet.append("stop")
-      .attr("offset", "100%")
-      .attr("stop-color", "rgba(212,185,255,0.8)");
+    // gradient_packet.append("stop")
+    //   .attr("offset", "100%")
+    //   .attr("stop-color", "rgba(212,185,255,0.8)");
 
-    // bytes gradient정의
-    const gradient = svg.append("defs")
-      .append("linearGradient")
-      .attr("id", `area-gradient-bytes`)
-      .attr("gradientUnits", "userSpaceOnUse")
-      .attr("x1", 0).attr("y1", yScale(0))
-      .attr("x2", 0).attr("y2", yScale(d3.max(data, d => d.bytes) || 0));
+    // // bytes gradient정의
+    // const gradient = svg.append("defs")
+    //   .append("linearGradient")
+    //   .attr("id", `area-gradient-bytes`)
+    //   .attr("gradientUnits", "userSpaceOnUse")
+    //   .attr("x1", 0).attr("y1", yScale(0))
+    //   .attr("x2", 0).attr("y2", yScale(d3.max(data, d => d.bytes) || 0));
 
-    gradient.append("stop")
-      .attr("offset", "0%")
-      .attr("stop-color", "rgba(17,37,69,0.7)");
+    // gradient.append("stop")
+    //   .attr("offset", "0%")
+    //   .attr("stop-color", "rgba(17,37,69,0.7)");
 
-    gradient.append("stop")
-      .attr("offset", "100%")
-      .attr("stop-color", "rgba(151,71,255,0.7)");
+    // gradient.append("stop")
+    //   .attr("offset", "100%")
+    //   .attr("stop-color", "rgba(151,71,255,0.7)");
 
 
     let graphGroup = svg.select(".graph-group");
@@ -229,7 +229,7 @@ const BoardPacket: React.FC<BoardPacket> = ({ serverName }) => {
       .merge(packetsPath)
       .transition()
       .duration(500)
-      .attr("fill", "url(#area-gradient-packet)")
+      .attr("fill", "rgba(212,185,255,0.8)")
       .attr("d", areaPackets);
 
     packetsPath.exit().remove();
@@ -242,7 +242,7 @@ const BoardPacket: React.FC<BoardPacket> = ({ serverName }) => {
       .merge(bytesPath)
       .transition()
       .duration(500)
-      .attr("fill", "url(#area-gradient-bytes)")
+      .attr("fill", "rgba(151,71,255,0.7)")
       .attr("d", areaBytes);
 
     bytesPath.exit().remove();

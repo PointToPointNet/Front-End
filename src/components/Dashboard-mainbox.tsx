@@ -178,7 +178,7 @@ const DashboardMainBox: React.FC<DashBoardMainBoxProps> = ({ server, runtime, me
         <div className={style.serverbox}>
             <div className={style.serverinfo}>
                 <dl>
-                    <dt>Server Name</dt>
+                    <dt>Server</dt>
                     <dd>{server}</dd>
                 </dl>
                 <dl>

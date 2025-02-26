@@ -52,6 +52,10 @@
         height: 580px;
         overflow-y: scroll;
         @include mixin.scrollbar;
+        @media (max-width: 650px) {
+            height: auto;
+            overflow: visible;
+        }
     }
     .tableBody {
         div:not(.popup) {
@@ -77,9 +81,7 @@
             }
             .disconnectbtn {
                @include mixin.disconnect;
-               @media (max-width: 650px) {
-                    font-size: 11px;
-               } 
+                
             }
         }
     }
