@@ -63,6 +63,7 @@ const DashboardTotal: React.FC<DashboardTotalProps> = ({
       .then((res) => res.json())
       .then((data) => {
         setServerData(data);
+        
       });
   };
 
@@ -89,6 +90,9 @@ const DashboardTotal: React.FC<DashboardTotalProps> = ({
       .then((res) => res.json())
       .then((data) => {
         setTotalPageDate(data);
+        console.log('@@@@@@@@@@@@@@@@@@@');
+        console.log(data);
+        console.log('@@@@@@@@@@@@@@@@@@@');
       });
   };
 
