@@ -4,6 +4,7 @@
 
 //import NavBarAdd from './Nav-bar-add.tsx';
 import github from '../assets/github.png';
+import print from '../assets/printer.png';
 import pdf from '../assets/pdf.png';
 import NavBarButton from './Nav-bar-button.tsx';
 import style from '../styles/nav-bar.module.scss';
@@ -36,8 +37,15 @@ const NavBar: React.FC<NavBarProps> = (props) => {
       serverList={props.serverList}
     ></NavBarButton>
 
-    <button onClick={() => { print({ printTitle: "Network Dashboard", landscape: false }) }}>Print</button>
+   
     <div className={style.source}>
+      <a href="#" className={style.btn} onClick={(e) => { 
+        e.preventDefault();
+        window.print({ printTitle: "Network Dashboard", landscape: false });
+        }}>
+          <img src={print} alt="프린트하기" />
+          화면출력
+        </a>
       <a href="https://github.com/PointToPointNet" className={style.btn} target='_blank'>
         <img src={github} alt="깃허브 코드보기" className={style.git} />
         깃허브

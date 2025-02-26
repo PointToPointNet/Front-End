@@ -24,6 +24,7 @@ const NavBarButton: React.FC<NavBarButtonProps> = (props) => {
       }}
     ><RiComputerLine />
     <div className={style.tip + " " + style[serverName]}>{serverName}</div>
+    <span className={style.mobiletitle }>{serverName}</span>
     </li>
 ))
 
@@ -35,6 +36,8 @@ const NavBarButton: React.FC<NavBarButtonProps> = (props) => {
         props.changePage("home");
       }}
       ><HiHome />
+     <span className={style.mobiletitle }>HOME</span> 
+
       </li>
       {server}
     </ul>  
