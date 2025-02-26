@@ -7,22 +7,10 @@ interface CpuData {
   [key: string]: { [serverName: string]: number };
 }
 
-const TotalCpu: React.FC = () => {
+const TotalCpu: React.FC = ({cpuData}) => {
   const cpuRef = useRef<SVGSVGElement | null>(null);
   const colorValues = ["#0c9b5d", "#135E93", "#e33535", "#1a9aae", "#da7421"]; // 서버별 색상
   const [helperVisible, setHelperVisible] = useState(false);
-
-  // 새로운 데이터 구조
-  const cpuData: CpuData = {
-    "2025-02-01": { kkms: 77, peter: 51, lauren: 70, JUH: 86, SHJ: 94 },
-    "2025-02-02": { kkms: 56, peter: 72, lauren: 69, JUH: 78, SHJ: 85 },
-    "2025-02-03": { kkms: 74, peter: 84, lauren: 54, JUH: 89, SHJ: 64 },
-    "2025-02-04": { kkms: 77, peter: 74, lauren: 76, JUH: 65, SHJ: 67 },
-    "2025-02-05": { kkms: 78, peter: 78, lauren: 50, JUH: 64, SHJ: 59 },
-    "2025-02-06": { kkms: 56, peter: 92, lauren: 88, JUH: 93, SHJ: 59 },
-    "2025-02-07": { kkms: 65, peter: 67, lauren: 69, JUH: 82, SHJ: 68 },
-  };
-
   const drawGraph = (svgRef: React.RefObject<SVGSVGElement>, data: CpuData) => {
     if (!svgRef.current || Object.keys(data).length === 0) return;
 
@@ -152,7 +140,7 @@ const TotalCpu: React.FC = () => {
 
   useEffect(() => {
     drawGraph(cpuRef, cpuData); // 새로운 데이터 전달
-  }, []);
+  }, [cpuData]);
 
   return (
     <div className={style.body} id="cpubox">
