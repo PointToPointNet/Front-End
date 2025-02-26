@@ -1,4 +1,4 @@
-import style from "../styles/all-total-memory.module.scss"
+import style from "../styles/all-total-connect.module.scss"
 import { IoMdHelpCircleOutline } from "react-icons/io";
 import { useEffect, useState, useRef } from "react";
 import * as d3 from "d3";
@@ -18,9 +18,9 @@ const AllTotalConnect: React.FC<WebData> = ({ webData }) => {
   const drawGraph = (svgRef: React.RefObject<SVGSVGElement>, data: WebData) => {
     if (!svgRef.current || Object.keys(data).length === 0) return;
 
-const width = parseInt(d3.select("#cpubox").style("width"), 10) - 20;
+    const width = parseInt(d3.select("#memorybox").style("width"), 10) - 20;
     const height = 300;
-    const margin = { top: 30, right: 40, bottom: 20, left: 30 };
+    const margin = { top: 20, right: 40, bottom: 50, left: 50 };
     const svg = d3
       .select(svgRef.current)
       .attr("width", width)
@@ -65,7 +65,7 @@ const width = parseInt(d3.select("#cpubox").style("width"), 10) - 20;
       .attr("transform", `translate(0, ${innerHeight})`)
       .call(d3.axisBottom(xScale).tickFormat((d) => d))
       .selectAll("text")
-      //.attr("transform", "rotate(45)")
+      // .attr("transform", "rotate(45)")
       .style("text-anchor", "center");
 
     // y축 생성
