@@ -39,7 +39,8 @@ const DashboardAllTotal: React.FC<DashboardAllTotalProps> = ({
   //For components data
   const [memData, setMemData] = useState({});
   const [cpuData, setCpuData] = useState({});
-
+  const [webData, setWebData] = useState({});
+  const [packetData, setPacketData] = useState({});
   // //END State Area
 
   const handleDateChange = (newStart: Date | null, newEnd: Date | null) => {
@@ -115,14 +116,13 @@ const DashboardAllTotal: React.FC<DashboardAllTotalProps> = ({
   ///////////////////////DataParsing//////////////////////////////
 
   const dataParsing = (totalPageData) => {
-    console.log("데이터 파싱 실행되나??");
     console.log(totalPageData);
     const { total_all_page } = totalPageData;
-    //UTC인지 아닌지 데이터 체크를 위한 변수수
+    //UTC인지 아닌지 데이터 체크를 위한 변수
     const checkData = total_all_page[0].recorded_date.split("T")[0];
 
     //parsing을 위한 함수
-    const parsing = (total_all_page, attr) => {
+    const parsing = (total_all_page, attr, number=1) => {
       return total_all_page.reduce((acc, cur) => {
         const date = correctDate(checkData, startDate, cur.recorded_date);
         //누적 객체의 데이트값이 없으면, 해당날짜의 빈객체 생성
@@ -130,15 +130,20 @@ const DashboardAllTotal: React.FC<DashboardAllTotalProps> = ({
           acc[date] = {};
         }
 
-        acc[date][serverMapping[cur.server_id]] = Number(cur[attr]);
+        acc[date][serverMapping[cur.server_id]] = Number(cur[attr] * number);
         return acc;
       }, {});
     };
 
     const groupedMemory = parsing(total_all_page, "mem_avg");
     const groupedCpu = parsing(total_all_page, "cpu_avg");
+    const groupedWeb = parsing(total_all_page, "web_access_count",13 );
+    const groupedPacket = parsing(total_all_page, "total" );
+
     setMemData(groupedMemory);
     setCpuData(groupedCpu);
+    setWebData(groupedWeb);
+    setPacketData(groupedPacket);
 
     console.log(cpuData);
   };
@@ -195,8 +200,8 @@ const DashboardAllTotal: React.FC<DashboardAllTotalProps> = ({
         <div className={style.section1}>
           <AllTotalMemory memData={memData}></AllTotalMemory>
           <AllTotalCpu cpuData={cpuData}></AllTotalCpu>
-          <AllTotalPacket></AllTotalPacket>
-          <AllTotalConnect></AllTotalConnect>
+          <AllTotalPacket packetData={packetData}></AllTotalPacket>
+          <AllTotalConnect webData={webData}></AllTotalConnect>
           <AllTotalError></AllTotalError>
         </div>
       </div>
