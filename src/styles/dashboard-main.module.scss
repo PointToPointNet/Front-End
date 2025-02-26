@@ -18,6 +18,21 @@
         @media (max-width: 550px) {
             padding: 15px 15px 0 15px;
         }
+        a {
+            display: flex;
+            padding: 5px 20px;
+            background-color: variables.$primary-color;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            gap: 5px;
+            align-items: center;
+            @media (max-width: 550px) {
+                padding: 5px 10px;
+                font-size: 12px;
+                margin-top: 3px;
+            }
+        } 
     }
     .main {
         display: grid;

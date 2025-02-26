@@ -4,6 +4,7 @@ import NavBar from './components/Nav-bar.tsx';
 import DashboardMain from './components/Dashboard-main.tsx';
 import DashboardDetail from './components/Dashboard-detail.tsx';
 import DashboardTotal from './components/Dashboard-total.tsx';
+import DashboardAllTotal from './components/Dashboard-all-total.tsx';
 import style from './styles/dashboard-detail.module.scss';
 
 import url from "./assets/config/url.ts";
@@ -57,6 +58,13 @@ const App: React.FC = () => {
               setMode("detail");
             }}
           ></DashboardTotal>)
+          break;
+        case "allTotal":
+          setModeTSX(<DashboardAllTotal
+            setPage={() => {
+              setMode("home");
+            }}
+          ></DashboardAllTotal>)
           break;
       }
       console.log(serverList);

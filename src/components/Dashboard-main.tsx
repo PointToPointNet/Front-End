@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import style from '../styles/dashboard-main.module.scss';
-
+import { TbReportSearch } from "react-icons/tb";
 import DashboardMainBox from './Dashboard-mainbox';
 import url from "../assets/config/url.ts";
 
@@ -67,6 +67,10 @@ const DashboardMain: React.FC<DashBoardMainProps> = ({ serverList, setPage, chan
     return <div className={style.dashboard}>
         <div className={style.header}>
             <h1 className={style.title}>Main Page</h1>
+            <a href="#" onClick={ e=>{
+                e.preventDefault();
+                setPage("allTotal");
+            }}><TbReportSearch /> 통계</a>
         </div>
         <div className={style.main}>
             {serverBody}

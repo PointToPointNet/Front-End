@@ -18,11 +18,11 @@ const DashboardDetail: React.FC<ParentProps> = ({ serverName, setPage }) => {
     return <div className={style.dashboard}>
             <div className={style.header}>
             <h1 className={style.title}>Network Dashboard - {serverName}</h1>
-            <a href="#" onClick={ e=>{
-                e.preventDefault();
-                setPage();
-            }}><TbReportSearch /> 통계</a>
-        </div>
+                <a href="#" onClick={ e=>{
+                    e.preventDefault();
+                    setPage();
+                }}><TbReportSearch /> 통계</a>
+            </div>
         <div className={style.board}>
             <div className={style.boardTop}>
                 <BoardRuntime serverName={serverName}></BoardRuntime>
