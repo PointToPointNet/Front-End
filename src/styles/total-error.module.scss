@@ -11,6 +11,7 @@
     }
     .helper {
         @include mixin.helper;
+        
     }
     .title {
         @include mixin.title;
@@ -32,4 +33,12 @@
             background-color: #9747FF;
         }
     }
+}
+[class*=help_circle]{
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    background-color: red;
+    border-radius: 50%;
+    margin-right: 5px;
 }

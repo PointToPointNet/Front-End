@@ -40,7 +40,7 @@ const TotalPacket: React.FC<TotalPacketProps> = ({ packetData }) => {
     .scaleBand()
     .domain(data.map((_, i) => i.toString())) 
     .range([0, innerWidth])
-    .padding(0.6)
+    .padding(0)
 
     const yScale = d3
       .scaleLinear()
