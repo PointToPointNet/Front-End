@@ -9,7 +9,7 @@ interface CpuData {
 
 const TotalCpu: React.FC = () => {
   const cpuRef = useRef<SVGSVGElement | null>(null);
-  const colorValues = ["#ADEBAC", "#FFB6C1", "#87CEEB", "#FFD700", "#FFA07A"]; // 서버별 색상
+  const colorValues = ["#0c9b5d", "#135E93", "#e33535", "#1a9aae", "#da7421"]; // 서버별 색상
   const [helperVisible, setHelperVisible] = useState(false);
 
   // 새로운 데이터 구조
@@ -28,7 +28,7 @@ const TotalCpu: React.FC = () => {
 
     const width = parseInt(d3.select("#cpubox").style("width"), 10) - 20;
     const height = 300;
-    const margin = { top: 20, right: 40, bottom: 50, left: 50 };
+    const margin = { top: 30, right: 40, bottom: 20, left: 30 };
     const svg = d3
       .select(svgRef.current)
       .attr("width", width)
@@ -73,8 +73,8 @@ const TotalCpu: React.FC = () => {
       .attr("transform", `translate(0, ${innerHeight})`)
       .call(d3.axisBottom(xScale).tickFormat((d) => d))
       .selectAll("text")
-      .attr("transform", "rotate(45)")
-      .style("text-anchor", "start");
+      //.attr("transform", "rotate(45)")
+      .style("text-anchor", "center");
 
     // y축 생성
     graphGroup.select(".y-axis").remove();

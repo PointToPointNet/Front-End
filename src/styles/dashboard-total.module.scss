@@ -19,8 +19,18 @@
         h1 {
             @include mixin.pagetitle;
         }
-        a {
+        .last {
             order: 3;
+        }
+        .btngroup {
+            
+            display: flex;
+            gap: 10px;
+            .alltotal {
+                background-color: variables.$all-total-color;
+            }
+        }
+        a {
             display: flex;
             padding: 5px 20px;
             background-color: variables.$primary-color;

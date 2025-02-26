@@ -186,6 +186,7 @@ const DashboardAllTotal: React.FC<DashboardAllTotalProps> = ({
             e.preventDefault();
             setPage("home");
           }}
+          className={style.last}
         >
           <FiPlayCircle /> Home
         </a>

@@ -185,15 +185,18 @@ const DashboardTotal: React.FC<DashboardTotalProps> = ({
     <div className={style.dashboard}>
       <div className={style.header}>
         <h1 className={style.title}>Total - {serverName}</h1>
-        <a
-          href="#"
-          onClick={(e) => {
-            e.preventDefault();
-            setPage();
-          }}
-        >
-          <FiPlayCircle /> 실시간 모니터링
-        </a>
+        <div className={style.btngroup + " " + style.last}>
+          <a href="#" className={style.alltotal}>전체서버통계</a>
+          <a
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              setPage();
+            }}
+          >
+            <FiPlayCircle /> 실시간 모니터링
+          </a>
+        </div>
         {/*2025.02.23 **SDH**   */}
         <div className={style.searchbox}>
           <TotalDatepicker onDateChange={handleDateChange}></TotalDatepicker>
