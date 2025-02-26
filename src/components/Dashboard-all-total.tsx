@@ -196,7 +196,7 @@ const DashboardAllTotal: React.FC<DashboardAllTotalProps> = ({
           <AllTotalCpu cpuData={cpuData}></AllTotalCpu>
           <AllTotalPacket packetData={packetData}></AllTotalPacket>
           <AllTotalConnect webData={webData}></AllTotalConnect>
-          <AllTotalError></AllTotalError>
+          {/* <AllTotalError></AllTotalError> */}
         </div>
       </div>
     </div>
