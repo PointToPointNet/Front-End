@@ -4,44 +4,31 @@ import style from "../styles/total-cpu.module.scss";
 import { IoMdHelpCircleOutline } from "react-icons/io";
 
 interface CpuData {
-  date: string;
-  value: number;
+  [key: string]: { [serverName: string]: number };
 }
 
 const TotalCpu: React.FC = () => {
   const cpuRef = useRef<SVGSVGElement | null>(null);
-  const colorValues = ["#ADEBAC", "#FFB6C1"]; // 선 색상 배열
+  const colorValues = ["#ADEBAC", "#FFB6C1", "#87CEEB", "#FFD700", "#FFA07A"]; // 서버별 색상
   const [helperVisible, setHelperVisible] = useState(false);
 
-  // 첫번째 서버 
-  const cpuDataGroup1: CpuData[] = [
-    { date: "2025.01.02", value: 15 },
-    { date: "2025.01.03", value: 30 },
-    { date: "2025.01.04", value: 10 },
-    { date: "2025.01.05", value: 20 },
-    { date: "2025.01.06", value: 45 },
-    { date: "2025.01.07", value: 30 },
-  ];
+  // 새로운 데이터 구조
+  const cpuData: CpuData = {
+    "2025-02-01": { kkms: 77, peter: 51, lauren: 70, JUH: 86, SHJ: 94 },
+    "2025-02-02": { kkms: 56, peter: 72, lauren: 69, JUH: 78, SHJ: 85 },
+    "2025-02-03": { kkms: 74, peter: 84, lauren: 54, JUH: 89, SHJ: 64 },
+    "2025-02-04": { kkms: 77, peter: 74, lauren: 76, JUH: 65, SHJ: 67 },
+    "2025-02-05": { kkms: 78, peter: 78, lauren: 50, JUH: 64, SHJ: 59 },
+    "2025-02-06": { kkms: 56, peter: 92, lauren: 88, JUH: 93, SHJ: 59 },
+    "2025-02-07": { kkms: 65, peter: 67, lauren: 69, JUH: 82, SHJ: 68 },
+  };
 
-  //두번째 서버
-  const cpuDataGroup2: CpuData[] = [
-    { date: "2025.01.02", value: 25 },
-    { date: "2025.01.03", value: 30 },
-    { date: "2025.01.04", value: 10 },
-    { date: "2025.01.05", value: 60 },
-    { date: "2025.01.06", value: 44 },
-    { date: "2025.01.07", value: 30 },
-  ];
-
-  const drawGraph = (
-    svgRef: React.RefObject<SVGSVGElement>,
-    dataGroups: CpuData[][]
-  ) => {
-    if (!svgRef.current || dataGroups.length === 0) return;
+  const drawGraph = (svgRef: React.RefObject<SVGSVGElement>, data: CpuData) => {
+    if (!svgRef.current || Object.keys(data).length === 0) return;
 
     const width = parseInt(d3.select("#cpubox").style("width"), 10) - 20;
-    const height = 220;
-    const margin = { top: 20, right: 40, bottom: 20, left: 30 };
+    const height = 300;
+    const margin = { top: 20, right: 40, bottom: 50, left: 50 };
     const svg = d3
       .select(svgRef.current)
       .attr("width", width)
@@ -49,19 +36,23 @@ const TotalCpu: React.FC = () => {
     const innerWidth = width - margin.left - margin.right;
     const innerHeight = height - margin.top - margin.bottom;
 
-    // x축 스케일 설정
+    // 날짜와 서버 이름 추출
+    const dates = Object.keys(data);
+    const servers = Object.keys(data[dates[0]]);
+
+    // x축 스케일 설정 (날짜)
     const xScale = d3
       .scaleBand()
-      .domain(dataGroups[0].map((d) => d.date))
+      .domain(dates)
       .range([0, innerWidth])
-      .padding(0.6);
+      .padding(0.2);
 
-    // y축 스케일 설정
+    // y축 스케일 설정 (값 범위)
     const yScale = d3
       .scaleLinear()
       .domain([
         0,
-        d3.max(dataGroups.flat(), (d) => d.value) || 100, // 모든 데이터 그룹에서 최대값 찾기
+        d3.max(dates.flatMap((date) => Object.values(data[date]))) || 100,
       ])
       .nice()
       .range([innerHeight, 0]);
@@ -71,8 +62,7 @@ const TotalCpu: React.FC = () => {
       graphGroup = svg
         .append("g")
         .attr("class", "graph-group")
-        .attr("transform", `translate(${margin.left}, ${margin.top})`)
-        .style("stroke", "#aaa");
+        .attr("transform", `translate(${margin.left}, ${margin.top})`);
     }
 
     // x축 생성
@@ -81,16 +71,17 @@ const TotalCpu: React.FC = () => {
       .append("g")
       .attr("class", "x-axis")
       .attr("transform", `translate(0, ${innerHeight})`)
-      .call(d3.axisBottom(xScale))
-      .style("stroke", "#aaa");
+      .call(d3.axisBottom(xScale).tickFormat((d) => d))
+      .selectAll("text")
+      .attr("transform", "rotate(45)")
+      .style("text-anchor", "start");
 
     // y축 생성
     graphGroup.select(".y-axis").remove();
     graphGroup
       .append("g")
       .attr("class", "y-axis")
-      .call(d3.axisLeft(yScale).ticks(10))
-      .style("stroke", "#aaa");
+      .call(d3.axisLeft(yScale).ticks(10));
 
     // 가로 보조선 추가
     const gridLines = graphGroup.selectAll(".grid-line").data(yScale.ticks(10));
@@ -103,42 +94,47 @@ const TotalCpu: React.FC = () => {
       .attr("x2", innerWidth)
       .attr("y1", (d) => yScale(d))
       .attr("y2", (d) => yScale(d))
-      .attr("stroke", "#555")
+      .attr("stroke", "#ddd")
       .attr("stroke-width", 1)
       .attr("stroke-dasharray", "4");
 
     gridLines.exit().remove();
 
-    // 각 데이터 그룹에 대해 선 그래프 생성
-    dataGroups.forEach((data, index) => {
+    // 각 서버에 대해 선 그래프 생성
+    servers.forEach((serverName, index) => {
+      const serverData = dates.map((date) => ({
+        date,
+        value: data[date][serverName],
+      }));
+
       const lineGenerator = d3
-        .line<CpuData>()
+        .line<{ date: string; value: number }>()
         .x((d) => (xScale(d.date) || 0) + xScale.bandwidth() / 2)
         .y((d) => yScale(d.value))
         .curve(d3.curveMonotoneX);
 
       // 선 그래프 추가
-      const linePath = graphGroup.selectAll(`.line-path-${index}`).data([data]);
+      const linePath = graphGroup.selectAll(`.line-path-${serverName}`).data([serverData]);
       linePath
         .enter()
         .append("path")
-        .attr("class", `line-path-${index}`)
+        .attr("class", `line-path-${serverName}`)
         .merge(linePath)
         .transition()
         .duration(500)
         .attr("fill", "none")
-        .attr("stroke", colorValues[index]) // 각 그룹마다 다른 색상 적용
+        .attr("stroke", colorValues[index % colorValues.length]) // 서버별 색상 적용
         .attr("stroke-width", 2)
         .attr("d", lineGenerator);
 
       linePath.exit().remove();
 
       // 데이터 포인트 추가 (각 점 표시)
-      const points = graphGroup.selectAll(`.data-point-${index}`).data(data);
+      const points = graphGroup.selectAll(`.data-point-${serverName}`).data(serverData);
       points
         .enter()
         .append("circle")
-        .attr("class", `data-point-${index}`)
+        .attr("class", `data-point-${serverName}`)
         .merge(points)
         .transition()
         .duration(500)
@@ -148,14 +144,14 @@ const TotalCpu: React.FC = () => {
         )
         .attr("cy", (d) => yScale(d.value))
         .attr("r", 4)
-        .attr("fill", colorValues[index]);
+        .attr("fill", colorValues[index % colorValues.length]);
 
       points.exit().remove();
     });
   };
 
   useEffect(() => {
-    drawGraph(cpuRef, [cpuDataGroup1, cpuDataGroup2]); // 두 그룹 데이터를 전달
+    drawGraph(cpuRef, cpuData); // 새로운 데이터 전달
   }, []);
 
   return (
@@ -178,11 +174,9 @@ const TotalCpu: React.FC = () => {
         }}
       >
         <p className={style.help}>
-          그래프 하나당 하루의 CPU 사용률을 보여줍니다.
+          각 서버별 CPU 사용량을 한눈에 보여줍니다.
         </p>
-        <p className={style.help}>
-          CPU 부하 상태를 확인하여 성능 저하가 발생하기 전에 대처할 수 있습니다.
-        </p>
+     
       </div>
     </div>
   );
