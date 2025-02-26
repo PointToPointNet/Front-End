@@ -19,8 +19,8 @@ interface DashboardTotalProps {
   setPage: () => void;
   goAllTotal: () => void;
 }
-interface ServerMapping{
-   [key: string]: number 
+interface ServerMapping {
+  [key: string]: number;
 }
 
 const DashboardTotal: React.FC<DashboardTotalProps> = ({
@@ -28,10 +28,11 @@ const DashboardTotal: React.FC<DashboardTotalProps> = ({
   setPage,
   goAllTotal
 }) => {
-
   //State Area
 
-  const [serverMapping,setServerMapping] = useState<ServerMapping | null>(null);
+  const [serverMapping, setServerMapping] = useState<ServerMapping | null>(
+    null
+  );
 
   const [totalPageDate, setTotalPageDate] = useState<any | null>(null);
   const [startDate, setStartDate] = useState<Date | null>(
@@ -54,7 +55,27 @@ const DashboardTotal: React.FC<DashboardTotalProps> = ({
   const [mysqlErr, setMysqlErr] = useState<any[] | null>(null);
   const [ufwErr, setUfwErr] = useState<any[] | null>(null);
 
+  const [isUTC, setIsUTC] = useState<boolean | null>(null);
+
   //END State Area
+
+  const correctDate = (inputDate, startDate, recordedDate) => {
+    let parseDate = "";
+    if (inputDate === getLocalDateString(startDate)) {
+      // console.log("KST표준시간");
+      parseDate = recordedDate.split("T")[0];
+      return parseDate;
+    } else {
+      // console.log("UTC표준시간");
+      const utcDate = new Date(recordedDate.split("T")[0]);
+      const kstDate = new Date(utcDate.getTime() + 15 * 60 * 60 * 1000);
+      const year = kstDate.getFullYear();
+      const month = String(kstDate.getMonth() + 1).padStart(2, "0");
+      const day = String(kstDate.getDate()).padStart(2, "0");
+      parseDate = `${year}-${month}-${day}`;
+      return parseDate;
+    }
+  };
 
   const handleDateChange = (newStart: Date | null, newEnd: Date | null) => {
     setStartDate(newStart);
@@ -66,15 +87,14 @@ const DashboardTotal: React.FC<DashboardTotalProps> = ({
       .then((res) => res.json())
       .then((data) => {
         setServerData(data);
-        
       });
   };
 
   const setServerData = (data) => {
-    const tempObj = {}
-    data.forEach( server=>{
-      tempObj[server["name"]]=server["id"];
-    } )
+    const tempObj = {};
+    data.forEach((server) => {
+      tempObj[server["name"]] = server["id"];
+    });
     setServerMapping(tempObj);
   };
 
@@ -93,9 +113,7 @@ const DashboardTotal: React.FC<DashboardTotalProps> = ({
       .then((res) => res.json())
       .then((data) => {
         setTotalPageDate(data);
-        console.log('@@@@@@@@@@@@@@@@@@@');
         console.log(data);
-        console.log('@@@@@@@@@@@@@@@@@@@');
       });
   };
 
@@ -130,10 +148,16 @@ const DashboardTotal: React.FC<DashboardTotalProps> = ({
 
     const tempWebConnectData: any[] = [];
     const tempErrGraphData: any[] = [];
-    // const tempLoginData: any[] = [];
 
+    const checkData = total_info[0].recorded_date.split("T")[0];
+    // 다른 컴포넌트에 UTC인지 알려주기위한
+    if (checkData != getLocalDateString(startDate)) {
+      setIsUTC(true);
+    } else {
+      setIsUTC(false);
+    }
     total_info.forEach((info: any) => {
-      const parsedDate = info.recorded_date.split("T")[0];
+      const parsedDate = correctDate(checkData, startDate, info.recorded_date);
       tempMemData.push({
         date: parsedDate,
         value: Number(info.mem_avg)
@@ -174,11 +198,11 @@ const DashboardTotal: React.FC<DashboardTotalProps> = ({
     fetchData();
   }, []);
 
-  useEffect( ()=>{
-    if(serverMapping){
+  useEffect(() => {
+    if (serverMapping) {
       getTotalPageData();
     }
-  } ,[serverMapping]);
+  }, [serverMapping]);
 
   useEffect(() => {
     if (!totalPageDate) return;
@@ -189,12 +213,16 @@ const DashboardTotal: React.FC<DashboardTotalProps> = ({
       <div className={style.header}>
         <h1 className={style.title}>Total - {serverName}</h1>
         <div className={style.btngroup + " " + style.last}>
-          <a href="#" className={style.alltotal} 
-            onClick={e=>{
+          <a
+            href="#"
+            className={style.alltotal}
+            onClick={(e) => {
               e.preventDefault();
               goAllTotal();
             }}
-          ><TbReportSearch /> 전체서버통계</a>
+          >
+            <TbReportSearch /> 전체서버통계
+          </a>
           <a
             href="#"
             onClick={(e) => {
@@ -235,7 +263,7 @@ const DashboardTotal: React.FC<DashboardTotalProps> = ({
           <TotalLogin loginData={loginData}></TotalLogin>
         </div>
         <div className={style.section3}>
-          <TotalLogs criticalErrData={criticalErrData}></TotalLogs>
+          <TotalLogs criticalErrData={criticalErrData} isUTC={isUTC}></TotalLogs>
         </div>
       </div>
     </div>
@@ -243,3 +271,4 @@ const DashboardTotal: React.FC<DashboardTotalProps> = ({
 };
 
 export default DashboardTotal;
+이거일단
