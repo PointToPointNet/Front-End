@@ -5,23 +5,24 @@ import * as d3 from "d3";
 
 
 interface MemData {
+  [key: string]: { [serverName: string]: number };
 }
 
 
-const AllTotalMemory: React.FC = ({ memData }) => {
+const AllTotalMemory: React.FC<MemData> = ({ memData }) => {
   const memoryRef = useRef<SVGSVGElement | null>(null);
 
   const colorValues = ["#0c9b5d", "#135E93", "#e33535", "#1a9aae", "#da7421"]; // 서버별 색상
   const [helperVisible, setHelperVisible] = useState(false);
 
+
   // 새로운 데이터 구조
   // const memData: MemData[]
-  console.log([memData])
 
   const drawGraph = (svgRef: React.RefObject<SVGSVGElement>, data: MemData) => {
     if (!svgRef.current || Object.keys(data).length === 0) return;
 
-    const width = parseInt(d3.select("#memorybox").style("width"), 10) - 20;
+const width = parseInt(d3.select("#memorybox").style("width"), 10) - 20;
     const height = 300;
     const margin = { top: 20, right: 40, bottom: 50, left: 50 };
     const svg = d3
@@ -68,8 +69,8 @@ const AllTotalMemory: React.FC = ({ memData }) => {
       .attr("transform", `translate(0, ${innerHeight})`)
       .call(d3.axisBottom(xScale).tickFormat((d) => d))
       .selectAll("text")
-      .attr("transform", "rotate(45)")
-      .style("text-anchor", "start");
+      // .attr("transform", "rotate(45)")
+      .style("text-anchor", "center");
 
     // y축 생성
     graphGroup.select(".y-axis").remove();
@@ -147,7 +148,7 @@ const AllTotalMemory: React.FC = ({ memData }) => {
 
   useEffect(() => {
     drawGraph(memoryRef, memData); // 새로운 데이터 전달
-  }, []);
+  }, [memData]);
 
   return (
     <div className={style.body} id="memorybox">
