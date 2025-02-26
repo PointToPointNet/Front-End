@@ -37,9 +37,10 @@ const TotalPacket: React.FC<TotalPacketProps> = ({ packetData }) => {
     const innerHeight = height - margin.top - margin.bottom;
 
     const xScale = d3
-      .scaleLinear()
-      .domain([0, data.length - 1])
-      .range([0, innerWidth]);
+    .scaleBand()
+    .domain(data.map((_, i) => i.toString())) 
+    .range([0, innerWidth])
+    .padding(0.6)
 
     const yScale = d3
       .scaleLinear()
@@ -104,14 +105,14 @@ const TotalPacket: React.FC<TotalPacketProps> = ({ packetData }) => {
     //선그래프 생성 - rx
     const rxLineGenerator = d3
       .line<PacketData>()
-      .x((_, i) => xScale(i))
+      .x((_, i) => (xScale(i.toString()) || 0) + xScale.bandwidth() / 2) // Align line with bar centers
       .y((d) => yScale(d.rxData))
       .curve(d3.curveMonotoneX);
 
     // 선그래프생성 - tx
     const txLineGenerator = d3
       .line<PacketData>()
-      .x((_, i) => xScale(i))
+      .x((_, i) => (xScale(i.toString()) || 0) + xScale.bandwidth() / 2) // Align line with bar centers
       .y((d) => yScale(d.txData))
       .curve(d3.curveMonotoneX);
 
@@ -155,7 +156,7 @@ const TotalPacket: React.FC<TotalPacketProps> = ({ packetData }) => {
       .merge(rxPoints)
       .transition()
       .duration(500)
-      .attr("cx", (_, i) => xScale(i))
+      .attr("cx", (_, i) => (xScale(i.toString()) || 0) + xScale.bandwidth() / 2)
       .attr("cy", (d) => yScale(d.rxData))
       .attr("r", 4)
       .attr("fill", colorValues[0]);
@@ -170,7 +171,7 @@ const TotalPacket: React.FC<TotalPacketProps> = ({ packetData }) => {
       .merge(txPoints)
       .transition()
       .duration(500)
-      .attr("cx", (_, i) => xScale(i))
+      .attr("cx", (_, i) => (xScale(i.toString()) || 0) + xScale.bandwidth() / 2)
       .attr("cy", (d) => yScale(d.txData))
       .attr("r", 4)
       .attr("fill", colorValues[1]);

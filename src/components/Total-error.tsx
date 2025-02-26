@@ -52,9 +52,10 @@ const TotalError: React.FC = ({
     const innerHeight = height - margin.top - margin.bottom;
 
     const xScale = d3
-      .scaleLinear()
-      .domain([0, data.length - 1])
-      .range([0, innerWidth]);
+    .scaleBand()
+    .domain(data.map((_, i) => i.toString())) 
+    .range([0, innerWidth])
+    .padding(0.6)
 
     const yScale = d3
       .scaleLinear()
@@ -121,28 +122,28 @@ const TotalError: React.FC = ({
     //선그래프 생성 - web
     const webLineGenerator = d3
       .line<ErrGraphData>()
-      .x((_, i) => xScale(i))
+      .x((_, i) => (xScale(i.toString()) || 0) + xScale.bandwidth() / 2) // Align line with bar centers
       .y((d) => yScale(d.web))
       .curve(d3.curveMonotoneX);
 
     // 선그래프생성 - ufw
     const ufwLineGenerator = d3
       .line<ErrGraphData>()
-      .x((_, i) => xScale(i))
+      .x((_, i) => (xScale(i.toString()) || 0) + xScale.bandwidth() / 2) // Align line with bar centers
       .y((d) => yScale(d.ufw))
       .curve(d3.curveMonotoneX);
 
     // 선그래프생성 - auth
     const authLineGenerator = d3
       .line<ErrGraphData>()
-      .x((_, i) => xScale(i))
+      .x((_, i) => (xScale(i.toString()) || 0) + xScale.bandwidth() / 2) // Align line with bar centers
       .y((d) => yScale(d.auth))
       .curve(d3.curveMonotoneX);
 
     // 선그래프생성 - mysql
     const mysqlLineGenerator = d3
       .line<ErrGraphData>()
-      .x((_, i) => xScale(i))
+      .x((_, i) => (xScale(i.toString()) || 0) + xScale.bandwidth() / 2) // Align line with bar centers
       .y((d) => yScale(d.mysql))
       .curve(d3.curveMonotoneX);
 
@@ -216,7 +217,7 @@ const TotalError: React.FC = ({
       .merge(webPoints)
       .transition()
       .duration(500)
-      .attr("cx", (_, i) => xScale(i))
+      .attr("cx", (_, i) => (xScale(i.toString()) || 0) + xScale.bandwidth() / 2)
       .attr("cy", (d) => yScale(d.web))
       .attr("r", 4)
       .attr("fill", colorValues[0]);
@@ -231,7 +232,7 @@ const TotalError: React.FC = ({
       .merge(ufwPoints)
       .transition()
       .duration(500)
-      .attr("cx", (_, i) => xScale(i))
+      .attr("cx", (_, i) => (xScale(i.toString()) || 0) + xScale.bandwidth() / 2)
       .attr("cy", (d) => yScale(d.ufw))
       .attr("r", 4)
       .attr("fill", colorValues[1]);
@@ -246,7 +247,7 @@ const TotalError: React.FC = ({
       .merge(authPoints)
       .transition()
       .duration(500)
-      .attr("cx", (_, i) => xScale(i))
+      .attr("cx", (_, i) => (xScale(i.toString()) || 0) + xScale.bandwidth() / 2)
       .attr("cy", (d) => yScale(d.auth))
       .attr("r", 4)
       .attr("fill", colorValues[2]);
@@ -261,7 +262,7 @@ const TotalError: React.FC = ({
       .merge(mysqlPoints)
       .transition()
       .duration(500)
-      .attr("cx", (_, i) => xScale(i))
+      .attr("cx", (_, i) => (xScale(i.toString()) || 0) + xScale.bandwidth() / 2)
       .attr("cy", (d) => yScale(d.mysql))
       .attr("r", 4)
       .attr("fill", colorValues[3]);
