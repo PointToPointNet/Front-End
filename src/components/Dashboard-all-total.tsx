@@ -27,31 +27,21 @@ const DashboardAllTotal: React.FC<DashboardAllTotalProps> = ({
 
   //State Area
 
+  //For server 
   const [serverMapping,setServerMapping] = useState<ServerMapping | null>(null);
-
-  // const [totalPageDate, setTotalPageDate] = useState<any | null>(null);
+  //For date
+  const [totalPageDate, setTotalPageDate] = useState<any | null>(null);
   const [startDate, setStartDate] = useState<Date | null>(
     new Date("2025-02-01")
   );
   const [endDate, setEndDate] = useState<Date | null>(new Date("2025-02-07"));
 
-  // // const [memData, setMemData] = useState<any[] | null>(null);
-  // // const [cpuData, setCpuData] = useState<any[] | null>(null);
-  // // const [packetData, setPacketData] = useState<any[] | null>(null);
+  //For components data
+  const [memData,setMemdata] = useState({});
 
-  // // const [webConnectData, setWebConnectData] = useState<any[] | null>(null);
-  // // const [errGraphData, setErrGraphData] = useState<any[] | null>(null);
-  // // const [loginData, setLoginData] = useState<any[] | null>(null);
-
-  // // const [criticalErrData, setCriticalErrData] = useState<any[] | null>(null);
-
-  // // const [apacheErr, setApacheErr] = useState<any[] | null>(null);
-  // // const [authErr, setAuthErr] = useState<any[] | null>(null);
-  // // const [mysqlErr, setMysqlErr] = useState<any[] | null>(null);
-  // // const [ufwErr, setUfwErr] = useState<any[] | null>(null);
 
   // //END State Area
-
+  
   const handleDateChange = (newStart: Date | null, newEnd: Date | null) => {
     setStartDate(newStart);
     setEndDate(newEnd);
@@ -65,16 +55,40 @@ const DashboardAllTotal: React.FC<DashboardAllTotalProps> = ({
       });
   };
 
+
+  //날짜 보정하는 함수 
+  const correctDate = (inputDate, startDate, recordedDate)=>{
+    let parseDate = "";
+    if( inputDate ===  getLocalDateString(startDate)){
+        console.log("KST표준시간");
+        parseDate = recordedDate.split("T")[0];
+        return parseDate
+    }else{
+        console.log("UTC표준시간");
+        const utcDate = new Date(recordedDate.split("T")[0]);
+        const kstDate = new Date(utcDate.getTime() + (15 * 60 * 60 * 1000));
+        const year = kstDate.getFullYear();
+        const month = String(kstDate.getMonth() + 1).padStart(2, "0");
+        const day = String(kstDate.getDate()).padStart(2, "0");
+        parseDate = `${year}-${month}-${day}`;
+        return parseDate
+    }
+}
+
+  //서버데이터 역으로 
   const setServerData = (data) => {
     const tempObj = {}
     data.forEach( server=>{
-      tempObj[server["name"]]=server["id"];
+      tempObj[server["id"]]= server["name"];
     } )
     setServerMapping(tempObj);
+    console.log(tempObj);
   };
 
+
+
   const getTotalPageData = () => {
-    fetch(`${url.url}/get_total_page_info`, {
+    fetch(`${url.url}/get_total_all_info`, {
       method: "POST",
       headers: {
         "content-type": "application/json"
@@ -82,13 +96,13 @@ const DashboardAllTotal: React.FC<DashboardAllTotalProps> = ({
       body: JSON.stringify({
         start_date: `${getLocalDateString(startDate)}`,
         end_date: `${getLocalDateString(endDate)}`,
-        server_id: serverMapping[serverName]
       })
     })
       .then((res) => res.json())
       .then((data) => {
         setTotalPageDate(data);
-      });
+        console.log(data);
+      }).catch(err=>{console.log(err)});
   };
 
   const getLocalDateString = (date: Date | null): string => {
@@ -98,67 +112,32 @@ const DashboardAllTotal: React.FC<DashboardAllTotalProps> = ({
     return `${year}-${month}-${day}`;
   };
 
-  // //Data Parsing!
-  // const dataParsing = (totalPageData: any): void => {
-  //   const {
-  //     login_info,
-  //     critical_log,
-  //     total_info,
-  //     select_apache_err,
-  //     select_auth_err,
-  //     select_mysql_err,
-  //     select_ufw_err
-  //   } = totalPageData;
-  //   setLoginData(login_info);
-  //   setCriticalErrData(critical_log);
-  //   setApacheErr(select_apache_err);
-  //   setAuthErr(select_auth_err);
-  //   setMysqlErr(select_mysql_err);
-  //   setUfwErr(select_ufw_err);
+  ///////////////////////DataParsing//////////////////////////////
 
-  //   const tempMemData: any[] = [];
-  //   const tempCpuData: any[] = [];
-  //   const tempPacketData: any[] = [];
+  const dataParsing = (totalPageData)=>{
+    console.log("데이터 파싱 실행되나??");
+    console.log(totalPageData);
+    const { total_all_page } = totalPageData;
+    //UTC인지 아닌지 데이터 체크를 위한 변수수
+    const checkData = total_all_page[0].recorded_date.split("T")[0];
+    
+    const groupedMemory = total_all_page.reduce( (acc, cur)=>{
+      const date = correctDate(checkData, startDate, cur.recorded_date);
+      //누적 객체의 데이트값이 없으면, 해당날짜의 빈객체 생성
+      if(!acc[date]){
+        acc[date] = {};
+      }
 
-  //   const tempWebConnectData: any[] = [];
-  //   const tempErrGraphData: any[] = [];
-  //   // const tempLoginData: any[] = [];
+      acc[date][serverMapping[cur.server_id]] = Number(cur["mem_avg"]);
+      return acc;
 
-  //   total_info.forEach((info: any) => {
-  //     const parsedDate = info.recorded_date.split("T")[0];
-  //     tempMemData.push({
-  //       date: parsedDate,
-  //       value: Number(info.mem_avg)
-  //     });
-  //     tempCpuData.push({
-  //       date: parsedDate,
-  //       value: Number(info.cpu_avg)
-  //     });
-  //     tempPacketData.push({
-  //       date: parsedDate,
-  //       rxData: Number(info.rx_data),
-  //       txData: Number(info.tx_data)
-  //     });
-  //     tempWebConnectData.push({
-  //       date: parsedDate,
-  //       value: Number(info.web_access_count) * 13
-  //     });
+    } ,{});//초기누적값은 빈객체. 
+    setMemdata(groupedMemory);
+    console.log(groupedMemory);
+  }
 
-  //     tempErrGraphData.push({
-  //       date: parsedDate,
-  //       web: Number(info.web_error_count),
-  //       ufw: Number(info.ufw_count),
-  //       auth: Number(info.auth_error_count),
-  //       mysql: Number(info.mysql_err_count)
-  //     });
-  //   });
-  //   setMemData(tempMemData);
-  //   setCpuData(tempCpuData);
-  //   setPacketData(tempPacketData);
-  //   setWebConnectData(tempWebConnectData);
-  //   setErrGraphData(tempErrGraphData);
-  // };
-  // //End Data Parsing!
+  ///////////////////////DataParsing//////////////////////////////
+
   useEffect(() => {
     const fetchData = async () => {
       await getServerData();
@@ -172,10 +151,12 @@ const DashboardAllTotal: React.FC<DashboardAllTotalProps> = ({
     }
   } ,[serverMapping]);
 
-  // useEffect(() => {
-  //   if (!totalPageDate) return;
-  //   dataParsing(totalPageDate);
-  // }, [totalPageDate]);
+  useEffect(() => {
+    if (!totalPageDate) return;
+    dataParsing(totalPageDate);
+  }, [totalPageDate]);
+
+
   return (
     <div className={style.dashboard}>
       <div className={style.header}>
@@ -186,7 +167,6 @@ const DashboardAllTotal: React.FC<DashboardAllTotalProps> = ({
             e.preventDefault();
             setPage("home");
           }}
-          className={style.last}
         >
           <FiPlayCircle /> Home
         </a>
@@ -205,7 +185,7 @@ const DashboardAllTotal: React.FC<DashboardAllTotalProps> = ({
       </div>
       <div className={style.total}>
         <div className={style.section1}>
-          <AllTotalMemory ></AllTotalMemory>
+          <AllTotalMemory memData = { memData }></AllTotalMemory>
           <AllTotalCpu ></AllTotalCpu>
           <AllTotalPacket ></AllTotalPacket>
           <AllTotalConnect ></AllTotalConnect>
