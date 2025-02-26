@@ -8,7 +8,7 @@ interface CpuData {
   value: number;
 }
 interface TotalCpuProps {
-  cpuData: CpuData[];
+  cpuData: CpuData[] | null;
 }
 
 const TotalCpu: React.FC<TotalCpuProps> = ({cpuData}) => {

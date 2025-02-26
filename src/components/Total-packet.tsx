@@ -10,7 +10,7 @@ interface PacketData {
 }
 
 interface TotalPacketProps {
-  packetData: PacketData[];
+  packetData: PacketData[] | null;
 }
 
 const TotalPacket: React.FC<TotalPacketProps> = ({ packetData }) => {

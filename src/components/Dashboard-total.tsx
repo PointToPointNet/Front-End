@@ -1,3 +1,6 @@
+import { useState, useEffect } from "react";
+import style from "../styles/dashboard-total.module.scss";
+
 import TotalMemory from "./Total-memory.tsx";
 import TotalCpu from "./Total-cpu.tsx";
 import TotalPacket from "./Total-packet.tsx";
@@ -5,68 +8,153 @@ import TotalConnect from "./Total-connect.tsx";
 import TotalError from "./Total-error.tsx";
 import TotalLogin from "./Total-login.tsx";
 import TotalLogs from "./Total-logs.tsx";
-import { FiPlayCircle } from "react-icons/fi";
-import { TbReportSearch } from "react-icons/tb";
-import style from "../styles/dashboard-total.module.scss";
-// 2025.02.23 **SDH**
-import { useState, useEffect } from "react";
 import TotalDatepicker from "./Total-datepicker.tsx";
 
-import url from "../assets/config/url.ts";
+import { FiPlayCircle } from "react-icons/fi";
+import { TbReportSearch } from "react-icons/tb";
 
+import url from "../assets/config/url.ts";
+// 외부에 정의된 인터페이스 (예: 서버 맵핑, 전체 페이지 데이터 객체)
+import { ServerMapping, DataObject } from "../types/forTotal/index.ts";
+
+// 자식 컴포넌트에서 사용할 데이터 타입들을 아래와 같이 정의합니다.
+export interface MemoryData {
+  date: string;
+  value: number;
+}
+
+export interface CpuData {
+  date: string;
+  value: number;
+}
+
+export interface PacketData {
+  date: string;
+  rxData: number;
+  txData: number;
+}
+
+export interface WebConnectData {
+  date: string;
+  value: number;
+}
+
+export interface ErrGraphData {
+  date: string;
+  web: number;
+  ufw: number;
+  auth: number;
+  mysql: number;
+}
+
+export interface LoginData {
+  server_id: number;
+  user: string;
+  login_count: number;
+  last_login_time: string;
+}
+
+export interface CriticalErrData {
+  server_id: number;
+  log_time: string;
+  service: string;
+  log_level: string;
+  message: string;
+}
+
+export interface ApacheError {
+  log_time: string;
+  log_level: string;
+  error_code: string;
+  message: string;
+}
+
+export interface MysqlError {
+  log_time: string;
+  log_level: string;
+  error_code: string;
+  message: string;
+}
+
+export interface UfwError {
+  log_time: string;
+  src_ip: string;
+  dst_ip: string;
+  protocol: string;
+  src_port: number | null;
+  dst_port: number | null;
+  action: string;
+}
+
+export interface AuthError {
+  log_time: string;
+  service: string;
+  user: string;
+  src_ip: string;
+  action: string;
+}
+
+// DashboardTotal 컴포넌트의 Props 인터페이스
 interface DashboardTotalProps {
   serverName: string;
   setPage: () => void;
   goAllTotal: () => void;
 }
-interface ServerMapping {
-  [key: string]: number;
-}
 
 const DashboardTotal: React.FC<DashboardTotalProps> = ({
   serverName,
   setPage,
-  goAllTotal
+  goAllTotal,
 }) => {
-  //State Area
-
+  // State Area
   const [serverMapping, setServerMapping] = useState<ServerMapping | null>(
     null
   );
-
-  const [totalPageDate, setTotalPageDate] = useState<any | null>(null);
-  const [startDate, setStartDate] = useState<Date | null>(
-    new Date("2025-02-01")
-  );
+  const [totalPageDate, setTotalPageDate] = useState<DataObject | null>(null);
+  const [startDate, setStartDate] = useState<Date | null>(new Date("2025-02-01"));
   const [endDate, setEndDate] = useState<Date | null>(new Date("2025-02-07"));
 
-  const [memData, setMemData] = useState<any[] | null>(null);
-  const [cpuData, setCpuData] = useState<any[] | null>(null);
-  const [packetData, setPacketData] = useState<any[] | null>(null);
+  const [memData, setMemData] = useState<MemoryData[]>([]);
+  const [cpuData, setCpuData] = useState<CpuData[]>([]);
+  const [packetData, setPacketData] = useState<PacketData[]>([]);
 
-  const [webConnectData, setWebConnectData] = useState<any[] | null>(null);
-  const [errGraphData, setErrGraphData] = useState<any[] | null>(null);
-  const [loginData, setLoginData] = useState<any[] | null>(null);
+  const [webConnectData, setWebConnectData] = useState<WebConnectData[]>([]);
+  const [errGraphData, setErrGraphData] = useState<ErrGraphData[]>([]);
+  const [loginData, setLoginData] = useState<LoginData[]>([]);
 
-  const [criticalErrData, setCriticalErrData] = useState<any[] | null>(null);
+  const [criticalErrData, setCriticalErrData] = useState<CriticalErrData[]>([]);
 
-  const [apacheErr, setApacheErr] = useState<any[] | null>(null);
-  const [authErr, setAuthErr] = useState<any[] | null>(null);
-  const [mysqlErr, setMysqlErr] = useState<any[] | null>(null);
-  const [ufwErr, setUfwErr] = useState<any[] | null>(null);
+  const [apacheErr, setApacheErr] = useState<ApacheError[]>([]);
+  const [authErr, setAuthErr] = useState<AuthError[]>([]);
+  const [mysqlErr, setMysqlErr] = useState<MysqlError[]>([]);
+  const [ufwErr, setUfwErr] = useState<UfwError[]>([]);
 
-  const [isUTC, setIsUTC] = useState<boolean | null>(null);
+  // UTC 여부는 boolean으로 관리합니다.
+  const [isUTC, setIsUTC] = useState<boolean>(false);
+  // END State Area
 
-  //END State Area
+  // 날짜 문자열 생성 함수 (YYYY-MM-DD 형식)
+  const getLocalDateString = (date: Date | null): string => {
+    if (!date) return "";
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
+    const day = date.getDate().toString().padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
 
-  const correctDate = (inputDate, startDate, recordedDate) => {
+  // 날짜 보정 함수: 입력된 날짜와 기록 날짜에 따라 처리
+  const correctDate = (
+    inputDate: string,
+    startDate: Date | null,
+    recordedDate: string
+  ): string => {
     let parseDate = "";
     if (inputDate === getLocalDateString(startDate)) {
-      // console.log("KST표준시간");
+      // KST 표준 시간인 경우
       parseDate = recordedDate.split("T")[0];
       return parseDate;
     } else {
-      // console.log("UTC표준시간");
+      // UTC 표준 시간인 경우
       const utcDate = new Date(recordedDate.split("T")[0]);
       const kstDate = new Date(utcDate.getTime() + 15 * 60 * 60 * 1000);
       const year = kstDate.getFullYear();
@@ -90,8 +178,8 @@ const DashboardTotal: React.FC<DashboardTotalProps> = ({
       });
   };
 
-  const setServerData = (data) => {
-    const tempObj = {};
+  const setServerData = (data: any[]) => {
+    const tempObj: ServerMapping = {};
     data.forEach((server) => {
       tempObj[server["name"]] = server["id"];
     });
@@ -99,16 +187,17 @@ const DashboardTotal: React.FC<DashboardTotalProps> = ({
   };
 
   const getTotalPageData = () => {
+    if (!serverMapping) return;
     fetch(`${url.url}/get_total_page_info`, {
       method: "POST",
       headers: {
-        "content-type": "application/json"
+        "content-type": "application/json",
       },
       body: JSON.stringify({
-        start_date: `${getLocalDateString(startDate)}`,
-        end_date: `${getLocalDateString(endDate)}`,
-        server_id: serverMapping[serverName]
-      })
+        start_date: getLocalDateString(startDate),
+        end_date: getLocalDateString(endDate),
+        server_id: serverMapping[serverName],
+      }),
     })
       .then((res) => res.json())
       .then((data) => {
@@ -117,14 +206,7 @@ const DashboardTotal: React.FC<DashboardTotalProps> = ({
       });
   };
 
-  const getLocalDateString = (date: Date | null): string => {
-    const year = date?.getFullYear();
-    const month = (date.getMonth() + 1).toString().padStart(2, "0");
-    const day = date?.getDate().toString().padStart(2, "0");
-    return `${year}-${month}-${day}`;
-  };
-
-  //Data Parsing!
+  // Data Parsing!
   const dataParsing = (totalPageData: any): void => {
     const {
       login_info,
@@ -133,8 +215,9 @@ const DashboardTotal: React.FC<DashboardTotalProps> = ({
       select_apache_err,
       select_auth_err,
       select_mysql_err,
-      select_ufw_err
+      select_ufw_err,
     } = totalPageData;
+
     setLoginData(login_info);
     setCriticalErrData(critical_log);
     setApacheErr(select_apache_err);
@@ -142,16 +225,15 @@ const DashboardTotal: React.FC<DashboardTotalProps> = ({
     setMysqlErr(select_mysql_err);
     setUfwErr(select_ufw_err);
 
-    const tempMemData: any[] = [];
-    const tempCpuData: any[] = [];
-    const tempPacketData: any[] = [];
-
-    const tempWebConnectData: any[] = [];
-    const tempErrGraphData: any[] = [];
+    const tempMemData: MemoryData[] = [];
+    const tempCpuData: CpuData[] = [];
+    const tempPacketData: PacketData[] = [];
+    const tempWebConnectData: WebConnectData[] = [];
+    const tempErrGraphData: ErrGraphData[] = [];
 
     const checkData = total_info[0].recorded_date.split("T")[0];
-    // 다른 컴포넌트에 UTC인지 알려주기위한
-    if (checkData != getLocalDateString(startDate)) {
+    // 다른 컴포넌트에 UTC 여부를 알려주기 위한 처리
+    if (checkData !== getLocalDateString(startDate)) {
       setIsUTC(true);
     } else {
       setIsUTC(false);
@@ -160,28 +242,27 @@ const DashboardTotal: React.FC<DashboardTotalProps> = ({
       const parsedDate = correctDate(checkData, startDate, info.recorded_date);
       tempMemData.push({
         date: parsedDate,
-        value: Number(info.mem_avg)
+        value: Number(info.mem_avg),
       });
       tempCpuData.push({
         date: parsedDate,
-        value: Number(info.cpu_avg)
+        value: Number(info.cpu_avg),
       });
       tempPacketData.push({
         date: parsedDate,
         rxData: Number(info.rx_data),
-        txData: Number(info.tx_data)
+        txData: Number(info.tx_data),
       });
       tempWebConnectData.push({
         date: parsedDate,
-        value: Number(info.web_access_count) * 13
+        value: Number(info.web_access_count) * 13,
       });
-
       tempErrGraphData.push({
         date: parsedDate,
         web: Number(info.web_error_count),
         ufw: Number(info.ufw_count),
         auth: Number(info.auth_error_count),
-        mysql: Number(info.mysql_err_count)
+        mysql: Number(info.mysql_err_count),
       });
     });
     setMemData(tempMemData);
@@ -190,7 +271,8 @@ const DashboardTotal: React.FC<DashboardTotalProps> = ({
     setWebConnectData(tempWebConnectData);
     setErrGraphData(tempErrGraphData);
   };
-  //End Data Parsing!
+  // End Data Parsing!
+
   useEffect(() => {
     const fetchData = async () => {
       await getServerData();
@@ -208,11 +290,12 @@ const DashboardTotal: React.FC<DashboardTotalProps> = ({
     if (!totalPageDate) return;
     dataParsing(totalPageDate);
   }, [totalPageDate]);
+
   return (
     <div className={style.dashboard}>
       <div className={style.header}>
         <h1 className={style.title}>Total - {serverName}</h1>
-        <div className={style.btngroup + " " + style.last}>
+        <div className={`${style.btngroup} ${style.last}`}>
           <a
             href="#"
             className={style.alltotal}
@@ -233,37 +316,29 @@ const DashboardTotal: React.FC<DashboardTotalProps> = ({
             <FiPlayCircle /> 실시간 모니터링
           </a>
         </div>
-        {/*2025.02.23 **SDH**   */}
         <div className={style.searchbox}>
-          <TotalDatepicker onDateChange={handleDateChange}></TotalDatepicker>
-          <button
-            onClick={() => {
-              getTotalPageData();
-            }}
-          >
-            조회
-          </button>
+          <TotalDatepicker onDateChange={handleDateChange} />
+          <button onClick={getTotalPageData}>조회</button>
         </div>
-        {/*2025.02.23 END **SDH** */}
       </div>
 
       <div className={style.total}>
         <div className={style.section1}>
-          <TotalMemory memData={memData}></TotalMemory>
-          <TotalCpu cpuData={cpuData}></TotalCpu>
-          <TotalPacket packetData={packetData}></TotalPacket>
-          <TotalConnect webConnectData={webConnectData}></TotalConnect>
+          <TotalMemory memData={memData} />
+          <TotalCpu cpuData={cpuData} />
+          <TotalPacket packetData={packetData} />
+          <TotalConnect webConnectData={webConnectData} />
           <TotalError
             errGraphData={errGraphData}
             apacheErr={apacheErr}
             authErr={authErr}
             mysqlErr={mysqlErr}
             ufwErr={ufwErr}
-          ></TotalError>
-          <TotalLogin loginData={loginData}></TotalLogin>
+          />
+          <TotalLogin loginData={loginData} />
         </div>
         <div className={style.section3}>
-          <TotalLogs criticalErrData={criticalErrData} isUTC={isUTC}></TotalLogs>
+          <TotalLogs criticalErrData={criticalErrData} isUTC={isUTC} />
         </div>
       </div>
     </div>
