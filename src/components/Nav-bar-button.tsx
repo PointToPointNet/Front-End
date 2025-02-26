@@ -22,7 +22,9 @@ const NavBarButton: React.FC<NavBarButtonProps> = (props) => {
         props.changeServer(serverName); 
         props.changePage("detail");
       }}
-    ><RiComputerLine /></li>
+    ><RiComputerLine />
+    <div className={style.tip}>{serverName}</div>
+    </li>
 ))
 
   return <div>
@@ -32,7 +34,8 @@ const NavBarButton: React.FC<NavBarButtonProps> = (props) => {
         props.changeServer("home"); 
         props.changePage("home");
       }}
-      ><HiHome /></li>
+      ><HiHome />
+      </li>
       {server}
     </ul>  
   </div>

@@ -11,6 +11,7 @@
         margin-left: 20px;
     }
     li {
+        position: relative;
         padding: 10px 15px 10px 20px;
         margin: 10px 0 ;
         font-size: 25px;
@@ -19,6 +20,35 @@
         @media (max-width: 920px) {
             font-size: 20px;
             padding: 5px 10px;
+        }
+        .tip {
+            position: absolute;
+            left: 80%;
+            top: 46%;
+            transform: translateY(-50%);
+            background-color: variables.$primary-color;
+            padding: 3px 7px 5px;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 10px;
+            display: none;
+            &::after {
+                content: "";
+                position: absolute;
+                right: 100%;
+                top: 50%;
+                transform: translateY(-50%);
+                border: 5px solid transparent;
+                border-right: 5px solid variables.$primary-color;
+            }
+        }
+        &:hover {
+            .tip {
+                display: block;
+                @media (max-width: 550px) {
+                    display: none;
+                }
+            }
         }
         &.on {
             color: variables.$font-color;
@@ -29,6 +59,9 @@
                 border-bottom: 3px solid variables.$primary-color;
                 padding: 5px 15px;
             }
+            // .tip {
+            //     display: block;
+            // }
         }
     }
 }

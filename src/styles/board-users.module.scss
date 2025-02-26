@@ -20,11 +20,11 @@
             12%
             15%
             1fr
-            15%
-            15%
+            13%
+            20%
         ;
         @media(max-width: 650px){
-            grid-template-columns: 1fr 1.5fr 1fr 1fr;
+            grid-template-columns: 1fr 1.5fr 1fr 1.2fr;
         }
     }
     .tableHeader {
@@ -34,6 +34,7 @@
         div {
             flex: 1;
             padding: 15px 0;
+            font-size: 15px;
             
             &+div {
                 border-left: 1px solid variables.$border-Boxes;
@@ -43,7 +44,7 @@
                 &:nth-child(4) {
                     display: none;
                 }
-                font-size: 12px;
+                font-size: 11px;
             }
         } 
     }
@@ -67,9 +68,13 @@
                 &:nth-child(4){
                     display: none;
                 }
+                font-size: 12px;
             }
             .disconnectbtn {
-               @include mixin.disconnect; 
+               @include mixin.disconnect;
+               @media (max-width: 650px) {
+                    font-size: 11px;
+               } 
             }
         }
     }

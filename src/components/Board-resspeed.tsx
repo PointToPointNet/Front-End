@@ -57,7 +57,7 @@ const BoardResspeed: React.FC<BoardResspeed> = ({ serverName }) => {
 
     //const width = 360;
     const height = 130;
-    const margin = { top: 15, right: 10, bottom: 15, left: 30 };
+    const margin = { top: 15, right: 10, bottom: 20, left: 30 };
 
     const width = parseInt(d3.select("#resspeedBox").style("width"), 10) - 40;
     //const height = parseInt(d3.select('#my_dataviz').style('height'), 10);

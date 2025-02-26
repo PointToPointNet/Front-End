@@ -186,7 +186,7 @@ const DashboardMainBox: React.FC<DashBoardMainBoxProps> = ({ server, runtime, me
                     <dd>{runtimeText}</dd>
                 </dl>
                 <dl>
-                    <dt>Server Status</dt>
+                    <dt>Status</dt>
                     <dd>Running</dd>
                 </dl>
             </div>
