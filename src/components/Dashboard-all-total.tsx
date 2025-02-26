@@ -1,5 +1,5 @@
 import { FiPlayCircle } from "react-icons/fi";
-import style from "../styles/dashboard-total.module.scss";
+import style from "../styles/dashboard-all-total.module.scss";
 import AllTotalMemory from "./All-total-memory.tsx";
 import AllTotalCpu from "./All-total-cpu.tsx";
 import AllTotalPacket from "./All-total-packet.tsx";
@@ -191,7 +191,7 @@ const DashboardAllTotal: React.FC<DashboardAllTotalProps> = ({
         {/*2025.02.23 END **SDH** */}
       </div>
       <div className={style.total}>
-        <div className={style.section1}>
+        <div className={style.section4}>
           <AllTotalMemory memData={memData}></AllTotalMemory>
           <AllTotalCpu cpuData={cpuData}></AllTotalCpu>
           <AllTotalPacket packetData={packetData}></AllTotalPacket>
