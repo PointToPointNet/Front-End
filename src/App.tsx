@@ -8,6 +8,7 @@ import DashboardAllTotal from './components/Dashboard-all-total.tsx';
 import style from './styles/dashboard-detail.module.scss';
 
 import url from "./assets/config/url.ts";
+import ChatBot from "./components/Chatbot.tsx";
 
 const App: React.FC = () => {
   const [serverList, setServerList] = useState<string[]>(["kkms", "peter", "lauren", "JUH", "SHJ"]);
@@ -85,6 +86,7 @@ const App: React.FC = () => {
       ></NavBar>
     </div>
     {modeTSX}
+    <ChatBot></ChatBot>
   </div>
 }
 
