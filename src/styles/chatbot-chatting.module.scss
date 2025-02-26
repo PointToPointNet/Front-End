@@ -5,8 +5,13 @@
     width: 400px;
     height: 600px;
 
-    color: black;
-    background-color: white;
+    color: #ccc;
+    background-color: #1f1d21dd;
+    box-sizing: border-box;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 30px rgba(9, 9, 9, 0.852);
+    border: 1px solid #555;
 
     position: fixed;
     bottom: 60px;
@@ -14,9 +19,12 @@
     .titleArea {
         height: 5%;
         .closeButton {
+            position: absolute;
+            right: -10px;
+            top: -10px;
             background-color: transparent;
             border: none;
-            color: variables.$primary-color;
+            color: #fff;
             .closeIcon {
                 // position: relative;
                 // top: 50%;
@@ -27,34 +35,39 @@
     }
 
     .chattingArea {
-        border: 1px solid red;
         width: 100%;
         height: 85%;
 
         overflow-y: scroll;
         @include mixin.scrollbar;
+        font-size: 14px;
 
         .chatLine {
             width: 100%;
             // display: flex;
             margin: 3px 0;
-            border: 1px solid blue;
+            // border: 1px solid blue;
+            padding: 0 10px;
 
             $chatBoxWidth: 80%;
             .chatBox {
                 display: inline-block;
                 padding: 5px;
-                border-radius: 5px;
-                border: 1px solid red;
+                border-radius: 8px;
                 max-width: $chatBoxWidth;
+                padding: 8px 15px;
             }
             .userChat {
                 text-align: right;
                 justify-self: flex-end;
+                margin-bottom: 8px;
+                background-color: variables.$primary-color;
+                font-weight: 500;
             }
             .assistantChat {
-                
+                margin-bottom: 15px;
                 text-align: left;
+                background-color: #000;
             }
         }
         .userLine {
@@ -68,21 +81,38 @@
 
     .promptArea {
         width: 100%;
-        height: 10%;
+        height: 60px;
         position: relative;
         display: flex;
         justify-content: center;
         align-items: center;
-        // padding: 10px; 
+        padding: 10px; 
         .prompt {
-            width: 90%;
+            width: 100%;
             margin: auto;
             resize: none;
+            height: 100%;
+
+            background-color: #333;
+            border-radius: 17px;
+            border: 0;
+            padding: 11px 16px;
+            font-family: "Noto Sans KR, serif";
+            color: #fff;
+            line-height: 20px;
+            font-size: 16px;
+        
         }
         .sendButton {
             position: absolute;
-            top: 0;
-            right: 0;
+            top: 52%;
+            transform: translateY(-50%);
+            right: 20px;
+            background-color: transparent;
+            border: 0;
+            color: #fff;
+            font-size: 17px;
+            
         }
     }
 }

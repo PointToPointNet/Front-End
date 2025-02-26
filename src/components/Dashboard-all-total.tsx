@@ -4,8 +4,8 @@ import AllTotalMemory from "./All-total-memory.tsx";
 import AllTotalCpu from "./All-total-cpu.tsx";
 import AllTotalPacket from "./All-total-packet.tsx";
 import AllTotalConnect from "./All-total-connect.tsx";
-import AllTotalError from "./All-total-error.tsx";
 import AllTotalDatepicker from "./All-total-datepicker.tsx";
+import { FaUser } from "react-icons/fa";
 // 2025.02.23 **SDH**
 import { useState, useEffect } from "react";
 
@@ -166,6 +166,7 @@ const DashboardAllTotal: React.FC<DashboardAllTotalProps> = ({
     <div className={style.dashboard}>
       <div className={style.header}>
         <h1 className={style.title}>AllTotal</h1>
+        
         <a
           href="#"
           onClick={(e) => {
@@ -189,7 +190,16 @@ const DashboardAllTotal: React.FC<DashboardAllTotalProps> = ({
           </button>
         </div>
         {/*2025.02.23 END **SDH** */}
+        
+        <div className={style.tag}>
+        <span className={style.kkms}> <FaUser /> kkms </span>
+        <span className={style.peter}> <FaUser /> peter </span>
+        <span className={style.lauren}> <FaUser /> lauren </span>
+        <span className={style.juh}> <FaUser /> JUH </span>
+        <span className={style.shj}> <FaUser /> SHJ </span>
       </div>
+      </div>
+      
       <div className={style.total}>
         <div className={style.section4}>
           <AllTotalMemory memData={memData}></AllTotalMemory>
