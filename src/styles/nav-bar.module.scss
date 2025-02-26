@@ -26,12 +26,41 @@
             left: 80%;
             top: 46%;
             transform: translateY(-50%);
-            background-color: variables.$primary-color;
             padding: 3px 7px 5px;
             border-radius: 5px;
             color: #fff;
-            font-size: 10px;
+            font-size: 12px;
             display: none;
+            &.kkms { 
+                background-color: map-get(variables.$colors, "kkms");
+                &::after {
+                    border-right: 5px solid map-get(variables.$colors, "kkms");
+                }
+            }
+            &.peter { 
+                background-color: map-get(variables.$colors, "peter");
+                &::after {
+                    border-right: 5px solid map-get(variables.$colors, "peter");
+                }
+            }
+            &.lauren { 
+                background-color: map-get(variables.$colors, "lauren");
+                &::after {
+                    border-right: 5px solid map-get(variables.$colors, "lauren");
+                }
+            }
+            &.JUH { 
+                background-color: map-get(variables.$colors, "JUH");
+                &::after {
+                    border-right: 5px solid map-get(variables.$colors, "JUH");
+                }
+            }
+            &.SHJ { 
+                background-color: map-get(variables.$colors, "SHJ");
+                &::after {
+                    border-right: 5px solid map-get(variables.$colors, "SHJ");
+                }
+            }
             &::after {
                 content: "";
                 position: absolute;
@@ -39,7 +68,8 @@
                 top: 50%;
                 transform: translateY(-50%);
                 border: 5px solid transparent;
-                border-right: 5px solid variables.$primary-color;
+                
+                
             }
         }
         &:hover {

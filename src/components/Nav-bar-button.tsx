@@ -23,7 +23,7 @@ const NavBarButton: React.FC<NavBarButtonProps> = (props) => {
         props.changePage("detail");
       }}
     ><RiComputerLine />
-    <div className={style.tip}>{serverName}</div>
+    <div className={style.tip + " " + style[serverName]}>{serverName}</div>
     </li>
 ))
 

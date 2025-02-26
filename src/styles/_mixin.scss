@@ -1,5 +1,8 @@
 @use 'variables';
 
+
+
+
 @mixin box-item {
     position: relative;
     background-color: variables.$background-Boxes;
@@ -109,3 +112,4 @@
 
     }
 }
+
