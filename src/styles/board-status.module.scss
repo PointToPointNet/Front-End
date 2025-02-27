@@ -23,10 +23,14 @@
         height: 200px;
         order: 3;
     }
-    @media (max-width: 650px) {
-        flex-direction: column;
+    @media (max-width: 920px) {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
         height: auto;
         align-items: center;
+    }
+    @media (max-width: 440px) {
+        grid-template-columns: 1fr;
     }
     .title {
         margin-bottom: 0px;
@@ -36,33 +40,37 @@
     .memory {
         position: relative;
         width: 25%;
-        @media (max-width: 650px) {
-            width: 60%;
+        @media (max-width: 920px) {
+            width: 80%;
             height: 170px;
+            margin: 0 auto;
         }
     }
     .cpu {
         position: relative;
         width: 25%;
-        @media (max-width: 650px) {
-            width: 60%;
+        @media (max-width: 920px) {
+            width: 80%;
             height: 170px;
+            margin: 0 auto;
         }
     }
     .disk {
         position: relative;
         width: 25%;
-        @media (max-width: 650px) {
-            width: 60%;
+        @media (max-width: 920px) {
+            width: 80%;
             height: 170px;
+            margin: 0 auto;
         }
     }
     .swap {
         position: relative;
         width: 25%;
-        @media (max-width: 650px) {
-            width: 60%;
+        @media (max-width: 920px) {
+            width: 80%;
             height: 170px;
+            margin: 0 auto;
         }
     }
     .data {
