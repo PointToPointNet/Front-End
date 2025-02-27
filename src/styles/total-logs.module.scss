@@ -3,7 +3,7 @@
 
 .body {
     @include mixin.box-item;
-    height:300px;
+    height:320px;
     // padding:10px;
     overflow-y: hidden;
     flex: 1;
@@ -42,7 +42,6 @@
         background-color: variables.$background-Header;
         border-bottom: 1px solid variables.$border-Boxes;
         text-align: center;
-        font-weight: 900;
         @media (max-width: 550px) {
             font-weight: 500;
             font-size: 14px;   

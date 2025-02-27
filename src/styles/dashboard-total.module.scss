@@ -118,6 +118,15 @@
         }
         .section3 {
             flex: 1;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+            &>div:last-child {
+                grid-column: 2 / span 2;
+            }
+            @media (max-width: 1650px) {
+                grid-template-columns: 1fr 1fr;
+            }
         }
     }
 }
