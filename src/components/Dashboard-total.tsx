@@ -88,7 +88,6 @@ const DashboardTotal: React.FC<DashboardAllTotalProps> = ({
     fetch(`${url.url}/server`)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setServerData(data);
       });
   };
@@ -117,7 +116,6 @@ const DashboardTotal: React.FC<DashboardAllTotalProps> = ({
       .then((res) => res.json())
       .then((data) => {
         setTotalPageDate(data);
-        console.log(data);
       });
   };
 
