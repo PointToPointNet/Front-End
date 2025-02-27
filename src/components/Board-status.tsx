@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import style from "../styles/board-status.module.scss";
 import BoardStatusMemory from "./Board-status-memory";
+import BoardStatusSwap from "./Board-status-swap";
 import BoardStatusCpu from "./Board-status-cpu";
 import BoardStatusDisk from "./Board-status-disk";
 import { IoMdHelpCircleOutline } from "react-icons/io";
@@ -13,6 +14,8 @@ interface BoardStatusProps {
 const BoardStatus: React.FC<BoardStatusProps> = ({ serverName }) => {
   const [usingMemory, setUsingMemory] = useState<number | null>(0);
   const [totalMemory, setTotalMemory] = useState<number | null>(0);
+  const [usingSwap, setUsingSwap] = useState<number | null>(0);
+  const [totalSwap, setTotalSwap] = useState<number | null>(0);
   const [cpuUtilization, setCpuUtilization] = useState<number | null>(0);
   const [usingDisk, setUsingDisk] = useState<number | null>(0);
 
@@ -29,14 +32,19 @@ const BoardStatus: React.FC<BoardStatusProps> = ({ serverName }) => {
             // console.log("serverNameData:", serverNameData);
 
             if (serverNameData == serverName) {
-              const { memory, cpu, disk } = data[i][serverNameData];
+              const { memory, swap, cpu, disk } = data[i][serverNameData];
+              
               const usingMemory = memory.usingMemory;
               const totalMemory = memory.totalMemory;
+              const usingSwap = swap.usingSwap;
+              const totalSwap = swap.totalSwap;
               const cpuUtilization = parseFloat(cpu.cpuUtilization);
               const usingDisk = Number(disk.diskUtilization.replace("%", ""));
-
+              // console.log(swap)
               setUsingMemory(usingMemory);
               setTotalMemory(totalMemory);
+              setUsingSwap(usingSwap);
+              setTotalSwap(totalSwap);
               setCpuUtilization(cpuUtilization);
               setUsingDisk(usingDisk);
             }
@@ -59,6 +67,10 @@ const BoardStatus: React.FC<BoardStatusProps> = ({ serverName }) => {
         usingMemory={usingMemory}
         totalMemory={totalMemory}
       ></BoardStatusMemory>
+      <BoardStatusSwap
+        usingSwap={usingSwap}
+        totalSwap={totalSwap}
+      ></BoardStatusSwap>
       <BoardStatusCpu cpuUtilization={cpuUtilization}></BoardStatusCpu>
       <BoardStatusDisk usingDisk={usingDisk}></BoardStatusDisk>
       <button

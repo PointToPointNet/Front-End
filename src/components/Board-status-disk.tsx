@@ -21,7 +21,7 @@ const BoardStatusDisk: React.FC<BoardStatusDiskProps> = ({ usingDisk }) => {
     d3.select(diskSvgRef.current).selectAll("*").remove();
 
     const data = [usingDisk, 100 - usingDisk];
-    const width = parseInt(d3.select('#diskbox').style('width'), 10) - 20;
+    const width = parseInt(d3.select('#diskbox').style('width'), 10) - 35;
     const height = 180;
     const radius = Math.min(width, height) / 2;
 

@@ -1,4 +1,3 @@
-// BoardStatusMemory.tsx
 import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
 import style from "../styles/board-status.module.scss";
@@ -21,7 +20,7 @@ const BoardStatusMemory: React.FC<BoardStatusMemoryProps> = (props) => {
     if (!memorySvgRef.current || usingMemory === null || totalMemory === null) return;
 
     const data = [usingMemory, totalMemory - usingMemory];
-    const width = parseInt(d3.select('#memorybox').style('width'), 10) - 20;
+    const width = parseInt(d3.select('#memorybox').style('width'), 10) - 35;
     const height = 180;
     const radius = Math.min(width, height) / 2;
 

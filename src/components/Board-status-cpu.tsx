@@ -17,7 +17,7 @@ const BoardStatusCpu: React.FC<BoardStatusCpuProps> = ({ cpuUtilization }) => {
 
     d3.select(cpuSvgRef.current).selectAll("*").remove();
 
-    const width = parseInt(d3.select('#cpubox').style('width'), 10) - 20;
+    const width = parseInt(d3.select('#cpubox').style('width'), 10) - 35;
   
     const height = 180;
     const radius = Math.min(width, height) / 2;

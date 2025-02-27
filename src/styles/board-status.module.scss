@@ -35,7 +35,7 @@
     }
     .memory {
         position: relative;
-        width: 33%;
+        width: 25%;
         @media (max-width: 650px) {
             width: 60%;
             height: 170px;
@@ -43,7 +43,7 @@
     }
     .cpu {
         position: relative;
-        width: 33%;
+        width: 25%;
         @media (max-width: 650px) {
             width: 60%;
             height: 170px;
@@ -51,7 +51,15 @@
     }
     .disk {
         position: relative;
-        width: 33%;
+        width: 25%;
+        @media (max-width: 650px) {
+            width: 60%;
+            height: 170px;
+        }
+    }
+    .swap {
+        position: relative;
+        width: 25%;
         @media (max-width: 650px) {
             width: 60%;
             height: 170px;
