@@ -8,7 +8,7 @@ interface BoardStatusCpuProps {
 
 const BoardStatusCpu: React.FC<BoardStatusCpuProps> = ({ cpuUtilization }) => {
   const cpuSvgRef = useRef<SVGSVGElement | null>(null);
-  let percent = 0;
+  let percent: string | number = 0;
   if (cpuUtilization !== null) {
     percent = (cpuUtilization).toFixed(1);
   }

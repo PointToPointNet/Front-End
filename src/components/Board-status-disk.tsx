@@ -9,7 +9,7 @@ interface BoardStatusDiskProps {
 const BoardStatusDisk: React.FC<BoardStatusDiskProps> = ({ usingDisk }) => {
   const diskSvgRef = useRef<SVGSVGElement | null>(null);
 
-  let percent = 0;
+  let percent: string | number = 0;
     if (usingDisk !== null) {
       percent = (usingDisk).toFixed(1);
     }

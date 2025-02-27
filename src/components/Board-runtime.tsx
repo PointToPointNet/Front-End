@@ -13,7 +13,8 @@ const BoardRuntime: React.FC<BoardRuntime> = ({ serverName }) => {
   const [runtimeData, setRuntimeData] = useState<number | null>(null);
 
   useEffect(() => {
-    let timeoutId: NodeJS.Timeout;
+    // let timeoutId: NodeJS.Timeout;
+    let timeoutId: ReturnType<typeof setTimeout>;
     // setInterval을 setTimeout으로 변경.
     const fetchData = () => {
       fetch(`${url.url}/runtime`)
@@ -38,7 +39,7 @@ const BoardRuntime: React.FC<BoardRuntime> = ({ serverName }) => {
   }, [serverName]);
 
 
-  const addZero = (value) => {
+  const addZero = (value: number) => {
     if (value < 10) {
       return `0${value}`;
     } else {
@@ -51,10 +52,10 @@ const BoardRuntime: React.FC<BoardRuntime> = ({ serverName }) => {
       <h2 className={style.title}>RUN TIME</h2>
       <div className={style.timebox}>
         <div className={style.time}>
-          {`${addZero(Math.floor(runtimeData / 60 - (24 * Math.floor(runtimeData / 60 / 24))))}:${addZero(runtimeData % 60)}`}
+          {`${addZero(Math.floor(runtimeData! / 60 - (24 * Math.floor(runtimeData! / 60 / 24))))}:${addZero(runtimeData! % 60)}`}
         </div>
         <div className={style.day}>
-          {`${Math.floor(runtimeData / 60 / 24)} days`}
+          {`${Math.floor(runtimeData! / 60 / 24)} days`}
         </div>
       </div>
       {/* <p className={style.contents}>{runtimeData !== null ? `${Math.floor(runtimeData / 60 / 24)}d : ${Math.floor(runtimeData / 60 - (24 * Math.floor(runtimeData / 60 / 24)))}h : ${runtimeData % 60}m` : "Loading..."}</p> */}

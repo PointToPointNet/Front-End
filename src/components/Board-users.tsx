@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { IoClose } from "react-icons/io5";
 import { IoAlertCircle } from "react-icons/io5";
 import style from '../styles/board-users.module.scss';
-import Popup from './Popup';
 import { IoMdHelpCircleOutline } from "react-icons/io";
 import url from "../assets/config/url.ts";
 
@@ -76,13 +75,12 @@ const BoardUsers: React.FC<BoardUsersProps> = ({ serverName }) => {
 
 
   const disconnectUser = (index: number) => {
-    const username = userList[index].username;
-    console.log({ [serverName]: { username } });
+    // console.log({ [serverName]: { username } });
     const newUserList = [...userList];
     newUserList[index].connecting = false;
     setUserList(newUserList);
     setVisible(null);
-    // 만약 아래코드를 주석 풀면 백쪽에서 원격 실제로 끊을 수 있게 해줘야 하는데 어떡하징징
+    // 만약 아래코드를 주석 풀면 백쪽에서 원격 실제로 끊을 수 있게
     // fetch("http://localhost:3000/force_disconnect", {
     //   method: "POST",
     //   headers: {
@@ -103,7 +101,7 @@ const BoardUsers: React.FC<BoardUsersProps> = ({ serverName }) => {
     //   .catch((error) => console.error("Error disconnecting user:", error));
 
 
-    // 이게 실제로 백쪽에서 접속 끊을 수 있는 코드라는데데
+    // 이게 실제로 백쪽에서 접속 끊을 수 있는 코드
     //     const { exec } = require("child_process");
 
     // const disconnectUser = (username) => {

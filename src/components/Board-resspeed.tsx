@@ -139,7 +139,10 @@ const BoardResspeed: React.FC<BoardResspeed> = ({ serverName }) => {
   };
 
   useEffect(() => {
+
     drawGraph(pingRef, PingData);
+
+
   }, [PingData]);
 
   return (

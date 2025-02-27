@@ -12,7 +12,7 @@ const BoardStatusMemory: React.FC<BoardStatusMemoryProps> = (props) => {
   const { usingMemory, totalMemory } = props;
   const memorySvgRef = useRef<SVGSVGElement | null>(null);
 
-  let percent = 0;
+  let percent: string | number = 0;
   if (usingMemory !== null && totalMemory !== null) {
     percent = (Math.round((usingMemory / totalMemory) * 100 * 10) / 10).toFixed(1);
   }
