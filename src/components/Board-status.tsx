@@ -33,7 +33,7 @@ const BoardStatus: React.FC<BoardStatusProps> = ({ serverName }) => {
 
             if (serverNameData == serverName) {
               const { memory, swap, cpu, disk } = data[i][serverNameData];
-              
+
               const usingMemory = memory.usingMemory;
               const totalMemory = memory.totalMemory;
               const usingSwap = swap.usingSwap;
@@ -88,9 +88,10 @@ const BoardStatus: React.FC<BoardStatusProps> = ({ serverName }) => {
           setHelperVisible(!helperVisible);
         }}
       >
-        <p className={style.help}>MEMORY: 현재 메모리 사용률을 나타냅니다.</p>
-        <p className={style.help}>CPU: 현재 CPU 사용률을 나타냅니다.</p>
-        <p className={style.help}>DISK: 현재 디스크 사용률을 나타냅니다.</p>
+        <p className={style.help}>MEMORY : 현재 시스템의 메모리 사용 현황을 실시간으로 모니터링합니다.</p>
+        <p className={style.help}>SWAP : 현재 스왑 메모리의 사용률을 한눈에 확인할 수 있습니다.</p>
+        <p className={style.help}>CPU : CPU의 부하 상태를 실시간으로 보여줍니다.</p>
+        <p className={style.help}>DISK : 디스크의 사용 상태를 직관적으로 파악할 수 있습니다.</p>
       </div>
     </div>
   );

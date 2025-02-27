@@ -164,7 +164,7 @@ const BoardResspeed: React.FC<BoardResspeed> = ({ serverName }) => {
           setHelperVisible(!helperVisible);
         }}
       >
-        <p className={style.help}>서버의 평균 응답 속도를 나타내는 데이터입니다.</p>
+        <p className={style.help}>ping 8.8.8.8(Google Server) 명령어를 사용해 측정한 서버의 평균 응답 속도를 보여줍니다.</p>
       </div>
     </div>
   );

@@ -186,7 +186,6 @@ const DashboardAllTotal: React.FC<DashboardAllTotalProps> = ({
             조회
           </button>
         </div>
-        {/*2025.02.23 END **SDH** */}
         
         <div className={style.tag}>
         <span className={style.kkms}> <FaUser /> kkms </span>
