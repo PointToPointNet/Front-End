@@ -8,7 +8,7 @@ interface WebConnectData {
   value: number;
 }
 interface TotalConnectProps {
-  webConnectData: WebConnectData[];
+  webConnectData: WebConnectData[] | null;
 }
 
 const TotalConnect: React.FC<TotalConnectProps> = ({ webConnectData }) => {

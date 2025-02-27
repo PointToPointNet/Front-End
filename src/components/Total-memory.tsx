@@ -9,7 +9,7 @@ interface MemoryData {
 }
 
 interface TotalMemoryProps {
-  memData: MemoryData[];
+  memData: MemoryData[] | null;
 }
 
 const TotalMemory: React.FC<TotalMemoryProps> = ({ memData }) => {
