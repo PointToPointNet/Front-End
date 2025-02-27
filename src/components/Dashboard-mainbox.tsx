@@ -6,11 +6,12 @@ interface DashBoardMainBoxProps {
     server: string,
     runtime: string,
     memory: string,
+    swap: string,
     cpu: string,
     disk: string,
     ping: string
 }
-const DashboardMainBox: React.FC<DashBoardMainBoxProps> = ({ server, runtime, memory, cpu, disk, ping }) => {
+const DashboardMainBox: React.FC<DashBoardMainBoxProps> = ({ server, runtime, memory, swap, cpu, disk, ping }) => {
     const boxGraph = useRef<SVGSVGElement | null>(null);
     const [pingHistory, setPingHistory] = useState<number[]>([
         32.1, 33.6, 26.7, 33.3, 22.1, 25.9, 15.3, 44.2, 22.3, 11,
@@ -28,7 +29,7 @@ const DashboardMainBox: React.FC<DashBoardMainBoxProps> = ({ server, runtime, me
         if (!boxGraph.current) return;
 
         // 기본 설정
-        const width = parseInt(d3.select(`#box`+server).style('width'), 10);
+        const width = parseInt(d3.select(`#box` + server).style('width'), 10);
         const height = 200;
         const margin = { top: 10, right: 40, bottom: 20, left: 40 };
         const innerWidth = width - margin.left - margin.right;
@@ -45,6 +46,7 @@ const DashboardMainBox: React.FC<DashBoardMainBoxProps> = ({ server, runtime, me
         const barData = [
             { name: "CPU", value: parseFloat(cpu) },
             { name: "Memory", value: parseFloat(memory) },
+            { name: "Swap", value: parseFloat(swap) },
             { name: "Disk", value: parseFloat(disk) }
         ];
 
@@ -191,10 +193,10 @@ const DashboardMainBox: React.FC<DashBoardMainBoxProps> = ({ server, runtime, me
                 </dl>
             </div>
             {/* <h2>{server}</h2> */}
-            <div className={style.svgbox} id={`box`+server}>
+            <div className={style.svgbox} id={`box` + server}>
                 <svg ref={boxGraph}></svg>
             </div>
-            
+
             {/* <h3 style={{textAlign: "right"}}>{runtimeText}</h3> */}
             <div className={style.readmore}>
                 <p>View more</p>
