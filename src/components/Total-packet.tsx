@@ -27,7 +27,7 @@ const TotalPacket: React.FC<TotalPacketProps> = ({ packetData }) => {
 
     // 그래프의 크기 세팅
     const width = parseInt(d3.select("#packetbox").style("width"), 10) - 20;
-    const height = 220;
+    const height = 240;
     const margin = { top: 20, right: 40, bottom: 20, left: 30 };
     const svg = d3
       .select(svgRef.current)
@@ -43,16 +43,16 @@ const TotalPacket: React.FC<TotalPacketProps> = ({ packetData }) => {
     .padding(0)
 
     const yScale = d3
-      .scaleLinear()
-      .domain([
-        0,
-        Math.max(
-          d3.max(data, (d) => d.rxData) || 0,
-          d3.max(data, (d) => d.txData) || 0
-        )
-      ])
-      .nice()
-      .range([innerHeight, 0]);
+    .scaleLinear()
+    .domain([
+      0,
+      Math.max(
+        d3.max(data, (d) => d.rxData) || 0,
+        d3.max(data, (d) => d.txData) || 0
+      ) / 1 // 최대값을 1/1000로 줄임
+    ])
+    .nice()
+    .range([innerHeight, 0]);
 
     let graphGroup = svg.select(".graph-group");
     if (graphGroup.empty()) {
@@ -78,12 +78,13 @@ const TotalPacket: React.FC<TotalPacketProps> = ({ packetData }) => {
       .style("stroke", "#aaa");
 
     //y축입니다
-    graphGroup.select(".y-axis").remove();
     graphGroup
-      .append("g")
-      .attr("class", "y-axis")
-      .call(d3.axisLeft(yScale).ticks(10))
-      .style("stroke", "#aaa");
+    .append("g")
+    .attr("class", "y-axis")
+    .call(
+      d3.axisLeft(yScale).tickFormat((d) => Math.floor(d / 1000000)) // 원래 값으로 보이게 설정
+    )
+    .style("stroke", "#aaa");
 
     // 가로 보조선 추가
     const gridLines = graphGroup.selectAll(".grid-line").data(yScale.ticks(10)); // y축 눈금 기준으로 보조선 추가
