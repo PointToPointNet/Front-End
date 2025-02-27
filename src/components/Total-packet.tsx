@@ -82,7 +82,7 @@ const TotalPacket: React.FC<TotalPacketProps> = ({ packetData }) => {
     .append("g")
     .attr("class", "y-axis")
     .call(
-      d3.axisLeft(yScale).tickFormat((d) => Math.floor(d / 1000000)) // 원래 값으로 보이게 설정
+      d3.axisLeft(yScale).tickFormat((d) => Math.floor(d / (1024**2))) // 원래 값으로 보이게 설정
     )
     .style("stroke", "#aaa");
 
@@ -190,7 +190,7 @@ const TotalPacket: React.FC<TotalPacketProps> = ({ packetData }) => {
 
   return (
     <div className={style.body} id="packetbox">
-      <h2 className={style.title}>🔌 Daily Interface Usage(Byte)</h2>
+      <h2 className={style.title}>🔌 Daily Packet Usage(GB)</h2>
       <svg ref={packetRef}></svg>
       <button
         className={style.helpBtn}

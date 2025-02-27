@@ -11,8 +11,8 @@ import url from "./assets/config/url.ts";
 import ChatBot from "./components/Chatbot.tsx";
 
 const App: React.FC = () => {
-  const [serverList, setServerList] = useState<string[]>(["kkms", "peter", "lauren", "JUH", "SHJ"]);
-  // const [serverList, setServerList] = useState<string[]>([]);
+  // const [serverList, setServerList] = useState<string[]>(["kkms", "peter", "lauren", "JUH", "SHJ"]);
+  const [serverList, setServerList] = useState<string[]>([]);
   const [activeServer, setActiveServer] = useState<string>("home");
   const [mode, setMode] = useState<string>("home");
 
@@ -33,7 +33,7 @@ const App: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    if (serverList) {
+    if (serverList.length > 0) {
       switch (mode) {
         case "home":
           setModeTSX(<DashboardMain
@@ -51,8 +51,8 @@ const App: React.FC = () => {
             setPage={() => {
               setMode("total");
             }}
-            goAllTotal={()=>{
-              setMode("allTotal"); 
+            goAllTotal={() => {
+              setMode("allTotal");
             }}
           ></DashboardDetail>)
           break;
@@ -61,8 +61,8 @@ const App: React.FC = () => {
             setPage={() => {
               setMode("detail");
             }}
-            goAllTotal={()=>{
-              setMode("allTotal"); 
+            goAllTotal={() => {
+              setMode("allTotal");
             }}
           ></DashboardTotal>)
           break;
@@ -74,7 +74,6 @@ const App: React.FC = () => {
           ></DashboardAllTotal>)
           break;
       }
-      console.log(serverList);
     }
   }, [serverList, mode, activeServer]);
 
@@ -91,7 +90,7 @@ const App: React.FC = () => {
         serverList={serverList}
       ></NavBar>
     </div>
-    {modeTSX}
+    {modeTSX ? modeTSX : <h1>Loading...</h1>}
     <ChatBot></ChatBot>
   </div>
 }

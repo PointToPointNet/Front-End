@@ -69,7 +69,9 @@ const AllTotalpacket: React.FC = ({packetData}) => {
     graphGroup
       .append("g")
       .attr("class", "y-axis")
-      .call(d3.axisLeft(yScale).ticks(10));
+      .call(
+            d3.axisLeft(yScale).tickFormat((d) => Math.floor(d / (1024**2))) // 원래 값으로 보이게 설정
+          )
 
     // 가로 보조선 추가
     const gridLines = graphGroup.selectAll(".grid-line").data(yScale.ticks(10));
@@ -144,7 +146,7 @@ const AllTotalpacket: React.FC = ({packetData}) => {
 
   return (
     <div className={style.body} id="allpacket">
-      <h2 className={style.title}>🔌 Daily Interface Usage(Byte)</h2>
+      <h2 className={style.title}>🔌 Daily Packet Usage(GB)</h2>
       <svg ref={packetRef}></svg>
       <button
         className={style.helpBtn}
