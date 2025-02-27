@@ -31,10 +31,14 @@
         background-color: variables.$background-Header;
         border-bottom: 1px solid variables.$border-Boxes;
         text-align: center;
+        padding-right: 5px;
+        @media (max-width: 650px) {
+            padding-right: 0;
+        }
         div {
             flex: 1;
             padding: 15px 0;
-            font-size: 15px;
+            font-size: 13px;
             
             &+div {
                 border-left: 1px solid variables.$border-Boxes;
@@ -46,6 +50,7 @@
                 }
                 font-size: 11px;
             }
+
         } 
     }
     .tBody {

@@ -16,6 +16,14 @@
     position: fixed;
     bottom: 60px;
     right: 60px;
+    @media (max-width: 650px) {
+        z-index: 2000;
+        height: 80vh;
+        right: auto;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 14px;
+    }
     .titleArea {
         height: 5%;
         .closeButton {
