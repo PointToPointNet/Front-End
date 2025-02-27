@@ -66,7 +66,7 @@ const fetchActivePort = () => {
     //1분마다 실행
     const interval = setInterval(() => {
       fetchActivePort();
-    }, 60000);
+    }, 10000);
     return () => clearInterval(interval);
   }, [serverName]);
 
