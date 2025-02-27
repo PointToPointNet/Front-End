@@ -9,13 +9,26 @@
         @include mixin.helpBtn; 
 
     }
+    // ["#C3E1FF", "#B91293", "#9747FF", "#FFD7A3"]
     .helper {
         @include mixin.helper;
-        
+        span {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            background-color: red;
+            border-radius: 50%;
+            margin-right: 3px;
+            margin-left: 15px;
+            vertical-align: middle;
+            margin-top: -1px;
+        }
     }
     .title {
         @include mixin.title;
-        text-align: left;
+        & {  /*yoon: 오류발생으로 명시적 선언합니다*/
+            text-align: left;
+        }
     }
     .btn {
         position: absolute;
@@ -33,12 +46,4 @@
             background-color: #9747FF;
         }
     }
-}
-[class*=help_circle]{
-    display: inline-block;
-    width: 12px;
-    height: 12px;
-    background-color: red;
-    border-radius: 50%;
-    margin-right: 5px;
 }

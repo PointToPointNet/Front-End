@@ -34,8 +34,10 @@
         }
         .title {
             @include mixin.title;
-            margin-bottom: 10px;
-            text-align: left;
+            & {  /*yoon: 오류발생으로 명시적 선언합니다*/
+                margin-bottom: 10px;
+                text-align: left;
+            }
         }
         svg {
             display: block;

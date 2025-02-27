@@ -14,94 +14,10 @@ import { FiPlayCircle } from "react-icons/fi";
 import { TbReportSearch } from "react-icons/tb";
 
 import url from "../assets/config/url.ts";
-// 외부에 정의된 인터페이스 (예: 서버 맵핑, 전체 페이지 데이터 객체)
-import { ServerMapping, DataObject } from "../types/forTotal/index.ts";
+//interface
+import { ServerMapping, DataObject, DashboardAllTotalProps, CpuData, PacketData, WebConnectData, ErrGraphData, LoginData, CriticalErrData, ApacheError, AuthError, MysqlError, UfwError,MemoryData } from "../types/forTotal/forTotal.ts";
 
-// 자식 컴포넌트에서 사용할 데이터 타입들을 아래와 같이 정의합니다.
-export interface MemoryData {
-  date: string;
-  value: number;
-}
-
-export interface CpuData {
-  date: string;
-  value: number;
-}
-
-export interface PacketData {
-  date: string;
-  rxData: number;
-  txData: number;
-}
-
-export interface WebConnectData {
-  date: string;
-  value: number;
-}
-
-export interface ErrGraphData {
-  date: string;
-  web: number;
-  ufw: number;
-  auth: number;
-  mysql: number;
-}
-
-export interface LoginData {
-  server_id: number;
-  user: string;
-  login_count: number;
-  last_login_time: string;
-}
-
-export interface CriticalErrData {
-  server_id: number;
-  log_time: string;
-  service: string;
-  log_level: string;
-  message: string;
-}
-
-export interface ApacheError {
-  log_time: string;
-  log_level: string;
-  error_code: string;
-  message: string;
-}
-
-export interface MysqlError {
-  log_time: string;
-  log_level: string;
-  error_code: string;
-  message: string;
-}
-
-export interface UfwError {
-  log_time: string;
-  src_ip: string;
-  dst_ip: string;
-  protocol: string;
-  src_port: number | null;
-  dst_port: number | null;
-  action: string;
-}
-
-export interface AuthError {
-  log_time: string;
-  service: string;
-  user: string;
-  src_ip: string;
-  action: string;
-}
-
-// DashboardTotal 컴포넌트의 Props 인터페이스
-interface DashboardTotalProps {
-  serverName: string;
-  setPage: () => void;
-  goAllTotal: () => void;
-}
-
-const DashboardTotal: React.FC<DashboardTotalProps> = ({
+const DashboardTotal: React.FC<DashboardAllTotalProps> = ({
   serverName,
   setPage,
   goAllTotal,
@@ -129,11 +45,9 @@ const DashboardTotal: React.FC<DashboardTotalProps> = ({
   const [mysqlErr, setMysqlErr] = useState<MysqlError[]>([]);
   const [ufwErr, setUfwErr] = useState<UfwError[]>([]);
 
-  // UTC 여부는 boolean으로 관리합니다.
   const [isUTC, setIsUTC] = useState<boolean>(false);
   // END State Area
 
-  // 날짜 문자열 생성 함수 (YYYY-MM-DD 형식)
   const getLocalDateString = (date: Date | null): string => {
     if (!date) return "";
     const year = date.getFullYear();
@@ -178,7 +92,7 @@ const DashboardTotal: React.FC<DashboardTotalProps> = ({
       });
   };
 
-  const setServerData = (data: any[]) => {
+  const setServerData = (data: {id: number; name: string;}[]) => {
     const tempObj: ServerMapping = {};
     data.forEach((server) => {
       tempObj[server["name"]] = server["id"];
@@ -202,12 +116,11 @@ const DashboardTotal: React.FC<DashboardTotalProps> = ({
       .then((res) => res.json())
       .then((data) => {
         setTotalPageDate(data);
-        console.log(data);
       });
   };
 
   // Data Parsing!
-  const dataParsing = (totalPageData: any): void => {
+  const dataParsing = (totalPageData): void => {
     const {
       login_info,
       critical_log,
@@ -238,7 +151,7 @@ const DashboardTotal: React.FC<DashboardTotalProps> = ({
     } else {
       setIsUTC(false);
     }
-    total_info.forEach((info: any) => {
+    total_info.forEach((info) => {
       const parsedDate = correctDate(checkData, startDate, info.recorded_date);
       tempMemData.push({
         date: parsedDate,
