@@ -238,6 +238,7 @@ const DashboardTotal: React.FC<DashboardAllTotalProps> = ({
       <div className={style.total}>
         <div className={style.section1}>
           <TotalMemory memData={memData} />
+          <TotalSwap swapData={swapData}/>
           <TotalCpu cpuData={cpuData} />
           <TotalPacket packetData={packetData} />
           <TotalConnect webConnectData={webConnectData} />
@@ -248,9 +249,10 @@ const DashboardTotal: React.FC<DashboardAllTotalProps> = ({
             mysqlErr={mysqlErr}
             ufwErr={ufwErr}
           />
-          <TotalLogin loginData={loginData} />
+          
         </div>
         <div className={style.section3}>
+          <TotalLogin loginData={loginData} />
           <TotalLogs criticalErrData={criticalErrData} isUTC={isUTC} />
         </div>
       </div>
