@@ -73,3 +73,85 @@ export interface TotalInfo {
   export interface ServerMapping {
     [key: string]: number;
   }
+
+  export interface CpuData {
+    date: string;
+    value: number;
+  }
+  
+  export interface PacketData {
+    date: string;
+    rxData: number;
+    txData: number;
+  }
+  
+  export interface WebConnectData {
+    date: string;
+    value: number;
+  }
+  
+  export interface ErrGraphData {
+    date: string;
+    web: number;
+    ufw: number;
+    auth: number;
+    mysql: number;
+  }
+  
+  export interface LoginData {
+    server_id: number;
+    user: string;
+    login_count: number;
+    last_login_time: string;
+  }
+  
+  export interface CriticalErrData {
+    server_id: number;
+    log_time: string;
+    service: string;
+    log_level: string;
+    message: string;
+  }
+  
+  export interface ApacheError {
+    log_time: string;
+    log_level: string;
+    error_code: string;
+    message: string;
+  }
+  
+  export interface MysqlError {
+    log_time: string;
+    log_level: string;
+    error_code: string;
+    message: string;
+  }
+  
+  export interface UfwError {
+    log_time: string;
+    src_ip: string;
+    dst_ip: string;
+    protocol: string;
+    src_port: number | null;
+    dst_port: number | null;
+    action: string;
+  }
+  
+  export interface AuthError {
+    log_time: string;
+    service: string;
+    user: string;
+    src_ip: string;
+    action: string;
+  }
+  
+  export interface DashboardAllTotalProps {
+    serverName: string;
+    setPage: () => void;
+    goAllTotal: ()=> void;
+  }
+
+  export interface MemoryData {
+    date: string;
+    value: number;
+  }
