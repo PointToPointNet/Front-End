@@ -25,8 +25,12 @@
 
     h2 {
         @include mixin.title;
-        text-align: left;
-        padding:0px 0px 10px 0px;
+        & {  /*yoon: 오류발생으로 명시적 선언합니다*/
+            padding:0px 0px 10px 0px;
+            text-align: left;
+        }
+        
+        
     }
 
     .tableHeader {

@@ -7,7 +7,9 @@
 
     .title {
         @include mixin.title;
-        text-align: left;
+        & {  /*yoon: 오류발생으로 명시적 선언합니다*/
+            text-align: left;
+        }
     }
 
     .helpBtn {

@@ -1,5 +1,6 @@
 @use 'variables';
 @use 'mixin';
+@use 'sass:map';
 
 .iconlist {
     text-align: center;
@@ -36,33 +37,33 @@
             font-size: 12px;
             display: none;
             &.kkms { 
-                background-color: map-get(variables.$colors, "kkms");
+                background-color: map.get(variables.$colors, "kkms");
                 &::after {
-                    border-right: 5px solid map-get(variables.$colors, "kkms");
+                    border-right: 5px solid map.get(variables.$colors, "kkms");
                 }
             }
             &.peter { 
-                background-color: map-get(variables.$colors, "peter");
+                background-color: map.get(variables.$colors, "peter");
                 &::after {
-                    border-right: 5px solid map-get(variables.$colors, "peter");
+                    border-right: 5px solid map.get(variables.$colors, "peter");
                 }
             }
             &.lauren { 
-                background-color: map-get(variables.$colors, "lauren");
+                background-color: map.get(variables.$colors, "lauren");
                 &::after {
-                    border-right: 5px solid map-get(variables.$colors, "lauren");
+                    border-right: 5px solid map.get(variables.$colors, "lauren");
                 }
             }
             &.JUH { 
-                background-color: map-get(variables.$colors, "JUH");
+                background-color: map.get(variables.$colors, "JUH");
                 &::after {
-                    border-right: 5px solid map-get(variables.$colors, "JUH");
+                    border-right: 5px solid map.get(variables.$colors, "JUH");
                 }
             }
             &.SHJ { 
-                background-color: map-get(variables.$colors, "SHJ");
+                background-color: map.get(variables.$colors, "SHJ");
                 &::after {
-                    border-right: 5px solid map-get(variables.$colors, "SHJ");
+                    border-right: 5px solid map.get(variables.$colors, "SHJ");
                 }
             }
             &::after {
