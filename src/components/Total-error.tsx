@@ -314,10 +314,10 @@ const TotalError: React.FC = ({
         각 그래프당 하루의 서비스 오류 건수를 나타냅니다.
         </p>
         <p className={style.help}>
-          <span className={style.help_circle_web}></span> 웹에러
-          <span className={style.help_circle_mysql}></span> mysql 에러
-          <span className={style.help_circle_ufw}></span> ufw 에러
-          <span className={style.help_circle_auth}></span> auth 에러
+          <span style={{background: "#C3E1FF"}}></span> 웹에러
+          <span style={{background: "#B91293"}}></span> mysql 에러
+          <span style={{background: "#9747FF"}}></span> ufw 에러
+          <span style={{background: "#FFD7A3"}}></span> auth 에러
         </p>
       </div>
     </div>
