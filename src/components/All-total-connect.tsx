@@ -11,7 +11,6 @@ interface WebData {
 const AllTotalConnect: React.FC<WebData> = ({ webData }) => {
   const memoryRef = useRef<SVGSVGElement | null>(null);
 
-  console.log(`WEB DTAT : ${webData}`)
   const colorValues = ["#0c9b5d", "#135E93", "#e33535", "#1a9aae", "#da7421"]; // 서버별 색상
   const [helperVisible, setHelperVisible] = useState(false);
 

@@ -54,7 +54,7 @@ const BoardPortsGraph: React.FC<BoardPortsGraphProps> = ({propsServerName}) => {
             
             const sorting = ports.sort((a, b) => b.count - a.count)
             const top4 = sorting.slice(0, 4);
-            console.log(top4)
+            // console.log(top4)
             setUsedPortTop4(top4)
             setUsedPortList(ports);
             setPortType({type1: top4[0].count, type2: top4[1].count, type3: top4[2].count, type4: top4[3].count})

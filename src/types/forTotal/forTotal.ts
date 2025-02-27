@@ -155,3 +155,27 @@ export interface TotalInfo {
     date: string;
     value: number;
   }
+  export interface MemorySwapData {
+    date: string;
+    value: number;
+  }
+
+  export interface ServerReverseMapping {
+    [key: string]: number;
+  }
+
+  export interface AllTotalPageDate {
+    recorded_date: string; // ISO 형식의 날짜 문자열
+    server_id: number;
+    mem_avg: string;
+    cpu_avg: string;
+    rx_data: string;
+    tx_data: string;
+    total: string;
+    web_access_count: number;
+    web_error_count: number;
+    ufw_count: number;
+    auth_error_count: number;
+    mysql_err_count: number;
+    critical_cnt: number | null;
+  }

@@ -88,8 +88,8 @@ const BoardPacket: React.FC<BoardPacket> = ({ serverName }) => {
           prevTX.packets = curTX.packets;
           prevTX.bytes = curTX.bytes;
 
-          console.log(diffRX);
-          console.log(diffTX);
+          // console.log(diffRX);
+          // console.log(diffTX);
 
           setRXData(prevRXData => {
             const tempRX = [...prevRXData];

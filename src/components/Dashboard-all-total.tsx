@@ -95,7 +95,6 @@ const DashboardAllTotal: React.FC<DashboardAllTotalProps> = ({
       .then((res) => res.json())
       .then((data) => {
         setAllTotalPageDate(data);
-        console.log(data);
       })
       .catch((err) => {
         console.log(err);
