@@ -10,10 +10,15 @@ interface BoardStatusDiskProps {
 const BoardStatusDisk: React.FC<BoardStatusDiskProps> = (props) => {
   const { usingDisk, totalDisk } = props;
   const diskSvgRef = useRef<SVGSVGElement | null>(null);
-  console.log("disk: " + usingDisk, totalDisk)
+  // console.log("disk: " + usingDisk, totalDisk);
   let percent: string | number = 0;
   if (usingDisk !== null && totalDisk !== null) {
     percent = (Math.round((usingDisk / totalDisk) * 100 * 10) / 10).toFixed(1);
+  }
+
+  const getDiskSize = (diskSize:number):string => {
+    const diskSizeGB = diskSize / (2**20);
+    return diskSizeGB > (2**10) ? `${(diskSizeGB/(2**10)).toFixed(1)} TB` : `${diskSizeGB.toFixed(1)} GB`;
   }
 
   useEffect(() => {
@@ -54,8 +59,6 @@ const BoardStatusDisk: React.FC<BoardStatusDiskProps> = (props) => {
       .attr("stroke-width", 2);
   }, [usingDisk, totalDisk]);
 
-  const totalDiskSize = totalDisk ? totalDisk / (2**20) : 0;
-
   if (usingDisk === null || totalDisk === null ) {
     return <div>Loading...</div>;
   }
@@ -63,11 +66,13 @@ const BoardStatusDisk: React.FC<BoardStatusDiskProps> = (props) => {
   return (
     <div className={style.disk} id="diskbox">
       <h2 className={style.title}>disk</h2>
-      <p className={style.data}>
-        {!percent ? 0 : percent } %
-        <span>{(usingDisk / (2**20)).toFixed(1)}GB / {(totalDiskSize > 1000 ? (totalDiskSize / (2**10)).toFixed(1) + "TB" : totalDiskSize.toFixed(1) + "GB")}</span>
-      </p>
-      <svg ref={diskSvgRef}></svg>
+      <div className={style.svgbox}>
+        <p className={style.data}>
+          {!percent ? 0 : percent } %
+          <span>{getDiskSize(usingDisk)} / {getDiskSize(totalDisk)}</span>
+        </p>
+        <svg ref={diskSvgRef}></svg>
+      </div>
     </div>
   );
 };

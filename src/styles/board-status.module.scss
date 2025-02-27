@@ -11,16 +11,30 @@
 
     .helpBtn {
         @include mixin.helpBtn; 
-        top: -6px;
+        & {
+            top: 10px;
+        }
+        @media (max-width: 1700px) {
+            top: -6px;
+        }
     }
     .helper {
         @include mixin.helper;
-        z-index:1500;
+        & {
+            z-index:1500;
+        }
+        
     }
+    .svgbox {
+        position: relative;
+        margin-top: 20px;
+        margin-bottom: 30px;
+    }
+
 
     @media (max-width: 1500px) {
         grid-column:  1 / span 2;
-        height: 200px;
+        height: 230px;
         order: 3;
     }
     @media (max-width: 920px) {
@@ -28,9 +42,12 @@
         grid-template-columns: 1fr 1fr;
         height: auto;
         align-items: center;
+        gap: 50px 10px;
+        padding-bottom: 50px;
     }
     @media (max-width: 440px) {
         grid-template-columns: 1fr;
+        gap: 40px;
     }
     .title {
         margin-bottom: 0px;
@@ -76,19 +93,37 @@
     .data {
         position: absolute;
         z-index: 1000;
-        bottom: -1px;
+        // bottom: -1px;
+        top: 40%;
         left: 50%;
         transform: translateX(-50%);
         @media (max-width: 650px) {
-            bottom: 25px;
+            
         }
         span {
+            position: absolute;
+            top: 120%;
+            left: 50%;
+            transform: translateX(-50%);
             font-size: 11.5px;
             display: block;
             opacity: 0.5;
+            width: 160px;
+            background-color: #000;
+            border: 1px solid #aaa;
+            padding: 3px 0;
+            @media (max-width: 1620px) {
+                top: 160%;
+            }
+            @media (max-width: 440px) {
+                top: 160%;
+            }
         }
     }
     svg {
-        margin-top: 17px;
+        // margin-top: 17px;
+        @media (max-width: 1700px) {
+            margin-top: 17px;
+        }
     }
 }

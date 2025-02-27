@@ -61,11 +61,13 @@ const BoardStatusSwap: React.FC<BoardStatusSwapProps> = (props) => {
   return (
     <div className={style.swap} id="swapbox">
       <h2 className={style.title}>SWAP</h2>
-      <p className={style.data}>
-        {!percent ? 0 : percent } %
-        <span>{(usingSwap / (1024)).toFixed(1)} / {(totalSwap / (1024)).toFixed(1)} GB</span>
-        </p>
-      <svg ref={swapSvgRef}></svg>
+      <div className={style.svgbox}>
+        <p className={style.data}>
+          {!percent ? 0 : percent } %
+          <span>{(usingSwap / (1024)).toFixed(1)} / {(totalSwap / (1024)).toFixed(1)} GB</span>
+          </p>
+        <svg ref={swapSvgRef}></svg>
+      </div>
     </div>
   );
 };

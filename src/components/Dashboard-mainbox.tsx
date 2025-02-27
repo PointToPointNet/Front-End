@@ -165,7 +165,7 @@ const DashboardMainBox: React.FC<DashBoardMainBoxProps> = ({ server, runtime, me
             .attr("transform", `translate(${innerWidth}, 0)`)
             .call(d3.axisRight(yScalePing).ticks(5).tickFormat(d => `${d}ms`));
 
-    }, [cpu, memory, disk, pingHistory]);
+    }, [cpu, memory, swap, disk, pingHistory]);
 
     const [runtimeText, setRuntimeText] = useState<string | null>(null);
     useEffect(() => {

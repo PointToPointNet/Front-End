@@ -56,7 +56,7 @@ const BoardResspeed: React.FC<BoardResspeed> = ({ serverName }) => {
     if (!svgRef.current || data.length === 0) return;
 
     //const width = 360;
-    const height = 130;
+    const height = 160;
     const margin = { top: 15, right: 10, bottom: 20, left: 30 };
 
     const width = parseInt(d3.select("#resspeedBox").style("width"), 10) - 40;

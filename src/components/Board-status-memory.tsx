@@ -62,11 +62,13 @@ const BoardStatusMemory: React.FC<BoardStatusMemoryProps> = (props) => {
   return (
     <div className={style.memory} id="memorybox">
       <h2 className={style.title}>MEMORY</h2>
-      <p className={style.data}>
-        {!percent ? 0 : percent } %
-        <span>{(usingMemory / (1024**3)).toFixed(1)} / {(totalMemory / (1024**3)).toFixed(1)} GB</span>
-      </p>
-      <svg ref={memorySvgRef}></svg>
+      <div className={style.svgbox}>
+        <p className={style.data}>
+          {!percent ? 0 : percent } %
+          <span>{(usingMemory / (1024**3)).toFixed(1)} / {(totalMemory / (1024**3)).toFixed(1)} GB</span>
+        </p>
+        <svg ref={memorySvgRef}></svg>
+      </div>
     </div>
   );
 };

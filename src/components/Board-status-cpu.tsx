@@ -58,11 +58,13 @@ const BoardStatusCpu: React.FC<BoardStatusCpuProps> = ({ cpuUtilization, cpuSpee
   return (
     <div className={style.cpu} id="cpubox">
       <h2 className={style.title}>CPU</h2>
-      <p className={style.data}>
-        {percent} %
-        <span>{(cpuSpeed!/1024).toFixed(1)} GHz</span>
-      </p>
-      <svg ref={cpuSvgRef}></svg>
+      <div className={style.svgbox}>
+        <p className={style.data}>
+          {percent} %
+          <span>{(cpuSpeed!/1024).toFixed(1)} GHz</span>
+        </p>
+        <svg ref={cpuSvgRef}></svg>
+      </div>
     </div>
   );
 };
