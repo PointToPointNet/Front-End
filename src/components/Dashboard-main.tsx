@@ -47,6 +47,7 @@ const DashboardMain: React.FC<DashBoardMainProps> = ({ serverList, setPage, chan
                                 server={server}
                                 runtime={getData(runtime, server, "runtime")}
                                 memory={(Number(getData(status, server, "memory")["usingMemory"]) * 100 / Number(getData(status, server, "memory")["totalMemory"])).toFixed(1)}
+                                swap={(Number(getData(status, server, "swap")["usingSwap"]) * 100 / Number(getData(status, server, "swap")["totalSwap"])).toFixed(1)}
                                 cpu={getData(status, server, "cpu")["cpuUtilization"]}
                                 disk={getData(status, server, "disk")["diskUtilization"]}
                                 ping={getData(ping, server, "pingResponse")}
