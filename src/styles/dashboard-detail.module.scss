@@ -20,6 +20,10 @@
             border-right: 0;
             border-bottom: 1px solid variables.$border-Boxes;
         }
+        @media print {
+            position: absolute;
+            // display: none;
+        }
     }
     .dashboard {
         padding-left: 100px;
