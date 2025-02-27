@@ -1,36 +1,35 @@
-import { FiPlayCircle } from "react-icons/fi";
 import style from "../styles/dashboard-all-total.module.scss";
 import AllTotalMemory from "./All-total-memory.tsx";
 import AllTotalCpu from "./All-total-cpu.tsx";
 import AllTotalPacket from "./All-total-packet.tsx";
 import AllTotalConnect from "./All-total-connect.tsx";
 import AllTotalDatepicker from "./All-total-datepicker.tsx";
+
 import { FaUser } from "react-icons/fa";
-// 2025.02.23 **SDH**
 import { useState, useEffect } from "react";
+import { FiPlayCircle } from "react-icons/fi";
 
 import url from "../assets/config/url.ts";
 
+//interface
+import {ServerReverseMapping ,AllTotalPageDate} from "../types/forTotal/forTotal.ts"
+
 interface DashboardAllTotalProps {
-  serverName: string;
   setPage: () => void;
-}
-interface ServerMapping {
-  [key: string]: number;
 }
 
 const DashboardAllTotal: React.FC<DashboardAllTotalProps> = ({
-  serverName,
   setPage
 }) => {
-  //State Area
+
+  //START State Area
 
   //For server
-  const [serverMapping, setServerMapping] = useState<ServerMapping | null>(
+  const [serverMapping, setServerMapping] = useState<ServerReverseMapping | null>(
     null
   );
   //For date
-  const [totalPageDate, setTotalPageDate] = useState<any | null>(null);
+  const [allTotalPageDate, setAllTotalPageDate] = useState<AllTotalPageDate | null>(null);
   const [startDate, setStartDate] = useState<Date | null>(
     new Date("2025-02-01")
   );
@@ -57,14 +56,12 @@ const DashboardAllTotal: React.FC<DashboardAllTotalProps> = ({
   };
 
   //날짜 보정하는 함수
-  const correctDate = (inputDate, startDate, recordedDate) => {
+  const correctDate = (inputDate: string, startDate: Date, recordedDate: string) => {
     let parseDate = "";
     if (inputDate === getLocalDateString(startDate)) {
-      // console.log("KST표준시간");
       parseDate = recordedDate.split("T")[0];
       return parseDate;
     } else {
-      // console.log("UTC표준시간");
       const utcDate = new Date(recordedDate.split("T")[0]);
       const kstDate = new Date(utcDate.getTime() + 15 * 60 * 60 * 1000);
       const year = kstDate.getFullYear();
@@ -97,7 +94,8 @@ const DashboardAllTotal: React.FC<DashboardAllTotalProps> = ({
     })
       .then((res) => res.json())
       .then((data) => {
-        setTotalPageDate(data);
+        setAllTotalPageDate(data);
+        console.log(data);
       })
       .catch((err) => {
         console.log(err);
@@ -119,7 +117,7 @@ const DashboardAllTotal: React.FC<DashboardAllTotalProps> = ({
     const checkData = total_all_page[0].recorded_date.split("T")[0];
 
     //parsing을 위한 함수
-    const parsing = (total_all_page, attr, number=1) => {
+    const parsing = (total_all_page: AllTotalPageDate[], attr, number=1) => {
       return total_all_page.reduce((acc, cur) => {
         const date = correctDate(checkData, startDate, cur.recorded_date);
         //누적 객체의 데이트값이 없으면, 해당날짜의 빈객체 생성
@@ -158,9 +156,9 @@ const DashboardAllTotal: React.FC<DashboardAllTotalProps> = ({
   }, [serverMapping]);
 
   useEffect(() => {
-    if (!totalPageDate) return;
-    dataParsing(totalPageDate);
-  }, [totalPageDate]);
+    if (!allTotalPageDate) return;
+    dataParsing(allTotalPageDate);
+  }, [allTotalPageDate]);
 
   return (
     <div className={style.dashboard}>
