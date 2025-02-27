@@ -126,6 +126,13 @@
             }
             @media (max-width: 1650px) {
                 grid-template-columns: 1fr 1fr;
+                &>div:last-child {
+                    grid-column: auto;
+                }
+            }
+            @media (max-width: 1300px) {
+                grid-template-columns: 1fr;
+
             }
         }
     }

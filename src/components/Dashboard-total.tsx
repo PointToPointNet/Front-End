@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import style from "../styles/dashboard-total.module.scss";
 
 import TotalMemory from "./Total-memory.tsx";
+import TotalMemSwap from "./Total-memswap.tsx";
 import TotalCpu from "./Total-cpu.tsx";
 import TotalPacket from "./Total-packet.tsx";
 import TotalConnect from "./Total-connect.tsx";
@@ -264,7 +265,7 @@ const DashboardTotal: React.FC<DashboardAllTotalProps> = ({
       <div className={style.total}>
         <div className={style.section1}>
           <TotalMemory memData={memData} />
-          {/* <TotalSwap memSwapData={memSwapData}/> */}
+          <TotalMemSwap memSwapData={memSwapData}/>
           <TotalCpu cpuData={cpuData} />
           <TotalPacket packetData={packetData} />
           <TotalConnect webConnectData={webConnectData} />
