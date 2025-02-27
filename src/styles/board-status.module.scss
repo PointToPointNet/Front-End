@@ -76,13 +76,17 @@
     .data {
         position: absolute;
         z-index: 1000;
-        bottom: 5px;
+        bottom: -1px;
         left: 50%;
         transform: translateX(-50%);
         @media (max-width: 650px) {
             bottom: 25px;
         }
-        
+        span {
+            font-size: 11.5px;
+            display: block;
+            opacity: 0.5;
+        }
     }
     svg {
         margin-top: 17px;

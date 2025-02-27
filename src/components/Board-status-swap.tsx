@@ -10,7 +10,7 @@ interface BoardStatusSwapProps {
 const BoardStatusSwap: React.FC<BoardStatusSwapProps> = (props) => {
   const { usingSwap, totalSwap } = props;
   const swapSvgRef = useRef<SVGSVGElement | null>(null);
-  
+  console.log("swap: " + usingSwap, totalSwap)
   let percent: string | number = 0;
   if (usingSwap !== null && totalSwap !== null) {
     percent = (Math.round((usingSwap / totalSwap) * 100 * 10) / 10).toFixed(1);
@@ -61,7 +61,10 @@ const BoardStatusSwap: React.FC<BoardStatusSwapProps> = (props) => {
   return (
     <div className={style.swap} id="swapbox">
       <h2 className={style.title}>SWAP</h2>
-      <p className={style.data}>{!percent ? 0 : percent } %</p>
+      <p className={style.data}>
+        {!percent ? 0 : percent } %
+        <span>{(usingSwap / (1024)).toFixed(1)} / {(totalSwap / (1024)).toFixed(1)} GB</span>
+        </p>
       <svg ref={swapSvgRef}></svg>
     </div>
   );

@@ -4,9 +4,10 @@ import style from "../styles/board-status.module.scss";
 
 interface BoardStatusCpuProps {
   cpuUtilization: number | null;
+  cpuSpeed: number | null;
 }
 
-const BoardStatusCpu: React.FC<BoardStatusCpuProps> = ({ cpuUtilization }) => {
+const BoardStatusCpu: React.FC<BoardStatusCpuProps> = ({ cpuUtilization, cpuSpeed }) => {
   const cpuSvgRef = useRef<SVGSVGElement | null>(null);
   let percent: string | number = 0;
   if (cpuUtilization !== null) {
@@ -57,7 +58,10 @@ const BoardStatusCpu: React.FC<BoardStatusCpuProps> = ({ cpuUtilization }) => {
   return (
     <div className={style.cpu} id="cpubox">
       <h2 className={style.title}>CPU</h2>
-      <p className={style.data}>{percent} %</p>
+      <p className={style.data}>
+        {percent} %
+        <span>{(cpuSpeed!/1024).toFixed(1)} GHz</span>
+      </p>
       <svg ref={cpuSvgRef}></svg>
     </div>
   );

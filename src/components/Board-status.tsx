@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import style from "../styles/board-status.module.scss";
-import BoardStatusMemory from "./Board-status-memory";
+import BoardStatusMemory from "./Board-status-memory.tsx";
 import BoardStatusSwap from "./Board-status-swap";
 import BoardStatusCpu from "./Board-status-cpu";
 import BoardStatusDisk from "./Board-status-disk";
@@ -14,10 +14,15 @@ interface BoardStatusProps {
 const BoardStatus: React.FC<BoardStatusProps> = ({ serverName }) => {
   const [usingMemory, setUsingMemory] = useState<number | null>(0);
   const [totalMemory, setTotalMemory] = useState<number | null>(0);
+
   const [usingSwap, setUsingSwap] = useState<number | null>(0);
   const [totalSwap, setTotalSwap] = useState<number | null>(0);
+
   const [cpuUtilization, setCpuUtilization] = useState<number | null>(0);
+  const [cpuSpeed, setCpuSpeed] = useState<number | null>(0);
+
   const [usingDisk, setUsingDisk] = useState<number | null>(0);
+  const [totalDisk, setTotalDisk] = useState<number | null>(0);
 
   const [helperVisible, setHelperVisible] = useState(false);
 
@@ -34,19 +39,28 @@ const BoardStatus: React.FC<BoardStatusProps> = ({ serverName }) => {
             if (serverNameData == serverName) {
               const { memory, swap, cpu, disk } = data[i][serverNameData];
 
-              const usingMemory = memory.usingMemory;
-              const totalMemory = memory.totalMemory;
+              const usingMemory = Number(memory.usingMemory);
+              const totalMemory = Number(memory.totalMemory);
+              console.log("console1:" +  usingMemory, totalMemory)
+
               const usingSwap = swap.usingSwap;
               const totalSwap = swap.totalSwap;
-              const cpuUtilization = parseFloat(cpu.cpuUtilization);
-              const usingDisk = Number(disk.diskUtilization.replace("%", ""));
-              // console.log(swap)
+
+              const cpuUtilization = Number.parseFloat(cpu.cpuUtilization)
+              const cpuSpeed = cpu.cpuSpeed;
+
+              const usingDisk = disk.usingDisk;
+              const totalDisk = disk.totalDisk;
+
               setUsingMemory(usingMemory);
               setTotalMemory(totalMemory);
               setUsingSwap(usingSwap);
               setTotalSwap(totalSwap);
               setCpuUtilization(cpuUtilization);
+              setCpuSpeed(cpuSpeed);
               setUsingDisk(usingDisk);
+              setTotalDisk(totalDisk);
+              console.log("console2:" + usingMemory, totalMemory)
             }
           }
         })
@@ -71,8 +85,8 @@ const BoardStatus: React.FC<BoardStatusProps> = ({ serverName }) => {
         usingSwap={usingSwap}
         totalSwap={totalSwap}
       ></BoardStatusSwap>
-      <BoardStatusCpu cpuUtilization={cpuUtilization}></BoardStatusCpu>
-      <BoardStatusDisk usingDisk={usingDisk}></BoardStatusDisk>
+      <BoardStatusCpu cpuUtilization={cpuUtilization} cpuSpeed={cpuSpeed}></BoardStatusCpu>
+      <BoardStatusDisk usingDisk={usingDisk} totalDisk={totalDisk}></BoardStatusDisk>
       <button
         className={style.helpBtn}
         onClick={() => {

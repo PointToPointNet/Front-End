@@ -10,7 +10,8 @@ interface BoardStatusMemoryProps {
 const BoardStatusMemory: React.FC<BoardStatusMemoryProps> = (props) => {
   const { usingMemory, totalMemory } = props;
   const memorySvgRef = useRef<SVGSVGElement | null>(null);
-
+  
+    // console.log("memory: " + usingMemory, totalMemory)
   let percent: string | number = 0;
   if (usingMemory !== null && totalMemory !== null) {
     percent = (Math.round((usingMemory / totalMemory) * 100 * 10) / 10).toFixed(1);
@@ -18,7 +19,7 @@ const BoardStatusMemory: React.FC<BoardStatusMemoryProps> = (props) => {
 
   useEffect(() => {
     if (!memorySvgRef.current || usingMemory === null || totalMemory === null) return;
-
+    console.log(usingMemory, totalMemory)
     const data = [usingMemory, totalMemory - usingMemory];
     const width = parseInt(d3.select('#memorybox').style('width'), 10) - 35;
     const height = 180;
@@ -61,7 +62,10 @@ const BoardStatusMemory: React.FC<BoardStatusMemoryProps> = (props) => {
   return (
     <div className={style.memory} id="memorybox">
       <h2 className={style.title}>MEMORY</h2>
-      <p className={style.data}>{!percent ? 0 : percent } %</p>
+      <p className={style.data}>
+        {!percent ? 0 : percent } %
+        <span>{(usingMemory / (1024**3)).toFixed(1)} / {(totalMemory / (1024**3)).toFixed(1)} GB</span>
+      </p>
       <svg ref={memorySvgRef}></svg>
     </div>
   );
