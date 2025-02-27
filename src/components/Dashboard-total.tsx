@@ -15,22 +15,42 @@ import { TbReportSearch } from "react-icons/tb";
 
 import url from "../assets/config/url.ts";
 //interface
-import { ServerMapping, DataObject, DashboardAllTotalProps, CpuData, PacketData, WebConnectData, ErrGraphData, LoginData, CriticalErrData, ApacheError, AuthError, MysqlError, UfwError,MemoryData } from "../types/forTotal/forTotal.ts";
+import {
+  ServerMapping,
+  DataObject,
+  DashboardAllTotalProps,
+  MemorySwapData,
+  CpuData,
+  PacketData,
+  WebConnectData,
+  ErrGraphData,
+  LoginData,
+  CriticalErrData,
+  ApacheError,
+  AuthError,
+  MysqlError,
+  UfwError,
+  MemoryData
+} from "../types/forTotal/forTotal.ts";
 
 const DashboardTotal: React.FC<DashboardAllTotalProps> = ({
   serverName,
   setPage,
-  goAllTotal,
+  goAllTotal
 }) => {
   // State Area
   const [serverMapping, setServerMapping] = useState<ServerMapping | null>(
     null
   );
   const [totalPageDate, setTotalPageDate] = useState<DataObject | null>(null);
-  const [startDate, setStartDate] = useState<Date | null>(new Date("2025-02-01"));
+  const [startDate, setStartDate] = useState<Date | null>(
+    new Date("2025-02-01")
+  );
   const [endDate, setEndDate] = useState<Date | null>(new Date("2025-02-07"));
 
   const [memData, setMemData] = useState<MemoryData[]>([]);
+  const [memSwapData, setMemSwapData] = useState<MemorySwapData[]>([]);
+
   const [cpuData, setCpuData] = useState<CpuData[]>([]);
   const [packetData, setPacketData] = useState<PacketData[]>([]);
 
@@ -92,7 +112,7 @@ const DashboardTotal: React.FC<DashboardAllTotalProps> = ({
       });
   };
 
-  const setServerData = (data: {id: number; name: string;}[]) => {
+  const setServerData = (data: { id: number; name: string }[]) => {
     const tempObj: ServerMapping = {};
     data.forEach((server) => {
       tempObj[server["name"]] = server["id"];
@@ -105,17 +125,18 @@ const DashboardTotal: React.FC<DashboardAllTotalProps> = ({
     fetch(`${url.url}/get_total_page_info`, {
       method: "POST",
       headers: {
-        "content-type": "application/json",
+        "content-type": "application/json"
       },
       body: JSON.stringify({
         start_date: getLocalDateString(startDate),
         end_date: getLocalDateString(endDate),
-        server_id: serverMapping[serverName],
-      }),
+        server_id: serverMapping[serverName]
+      })
     })
       .then((res) => res.json())
       .then((data) => {
         setTotalPageDate(data);
+        console.log(data);
       });
   };
 
@@ -128,7 +149,7 @@ const DashboardTotal: React.FC<DashboardAllTotalProps> = ({
       select_apache_err,
       select_auth_err,
       select_mysql_err,
-      select_ufw_err,
+      select_ufw_err
     } = totalPageData;
 
     setLoginData(login_info);
@@ -143,6 +164,7 @@ const DashboardTotal: React.FC<DashboardAllTotalProps> = ({
     const tempPacketData: PacketData[] = [];
     const tempWebConnectData: WebConnectData[] = [];
     const tempErrGraphData: ErrGraphData[] = [];
+    const tempMemSwapData: MemorySwapData[] = [];
 
     const checkData = total_info[0].recorded_date.split("T")[0];
     // 다른 컴포넌트에 UTC 여부를 알려주기 위한 처리
@@ -155,27 +177,31 @@ const DashboardTotal: React.FC<DashboardAllTotalProps> = ({
       const parsedDate = correctDate(checkData, startDate, info.recorded_date);
       tempMemData.push({
         date: parsedDate,
-        value: Number(info.mem_avg),
+        value: Number(info.mem_avg)
+      });
+      tempMemSwapData.push({
+        date: parsedDate,
+        value: Number(info.mem_swap_avg)
       });
       tempCpuData.push({
         date: parsedDate,
-        value: Number(info.cpu_avg),
+        value: Number(info.cpu_avg)
       });
       tempPacketData.push({
         date: parsedDate,
         rxData: Number(info.rx_data),
-        txData: Number(info.tx_data),
+        txData: Number(info.tx_data)
       });
       tempWebConnectData.push({
         date: parsedDate,
-        value: Number(info.web_access_count) * 13,
+        value: Number(info.web_access_count) * 13
       });
       tempErrGraphData.push({
         date: parsedDate,
         web: Number(info.web_error_count),
         ufw: Number(info.ufw_count),
         auth: Number(info.auth_error_count),
-        mysql: Number(info.mysql_err_count),
+        mysql: Number(info.mysql_err_count)
       });
     });
     setMemData(tempMemData);
@@ -183,12 +209,13 @@ const DashboardTotal: React.FC<DashboardAllTotalProps> = ({
     setPacketData(tempPacketData);
     setWebConnectData(tempWebConnectData);
     setErrGraphData(tempErrGraphData);
+    setMemSwapData(tempMemSwapData);
   };
   // End Data Parsing!
 
   useEffect(() => {
-    const fetchData = async () => {
-      await getServerData();
+    const fetchData = () => {
+      getServerData();
     };
     fetchData();
   }, []);
@@ -203,7 +230,6 @@ const DashboardTotal: React.FC<DashboardAllTotalProps> = ({
     if (!totalPageDate) return;
     dataParsing(totalPageDate);
   }, [totalPageDate]);
-
   return (
     <div className={style.dashboard}>
       <div className={style.header}>
@@ -238,7 +264,7 @@ const DashboardTotal: React.FC<DashboardAllTotalProps> = ({
       <div className={style.total}>
         <div className={style.section1}>
           <TotalMemory memData={memData} />
-          {/* <TotalSwap swapData={swapData}/> */}
+          {/* <TotalSwap memSwapData={memSwapData}/> */}
           <TotalCpu cpuData={cpuData} />
           <TotalPacket packetData={packetData} />
           <TotalConnect webConnectData={webConnectData} />
@@ -249,7 +275,6 @@ const DashboardTotal: React.FC<DashboardAllTotalProps> = ({
             mysqlErr={mysqlErr}
             ufwErr={ufwErr}
           />
-          
         </div>
         <div className={style.section3}>
           <TotalLogin loginData={loginData} />

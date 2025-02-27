@@ -22,6 +22,9 @@ const TotalError: React.FC = ({
   mysqlErr,
   ufwErr
 }) => {
+  if (!errGraphData) {
+    return <div className={style.body}>Loading...</div>;
+  }
   /* START Popup을 위한 코드 START */
   const [selectedDetail, setSelectedDetail] = useState(false);
   const closePopup = () => {
