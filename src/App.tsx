@@ -70,6 +70,7 @@ const App: React.FC = () => {
           setModeTSX(<DashboardAllTotal
             setPage={() => {
               setMode("home");
+              setActiveServer("home")
             }}
           ></DashboardAllTotal>)
           break;

@@ -18,10 +18,7 @@ interface DashboardAllTotalProps {
   setPage: () => void;
 }
 
-const DashboardAllTotal: React.FC<DashboardAllTotalProps> = ({
-  setPage
-}) => {
-
+const DashboardAllTotal: React.FC<DashboardAllTotalProps> = ({setPage}) => {
   //START State Area
 
   //For server
