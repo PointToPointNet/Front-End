@@ -1,50 +1,50 @@
-# React + TypeScript + Vite
+# 📊네트워크 대시보드
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 개요
+네트워크 대시보드는 서버들의 네트워크 상태를 실시간으로 모니터링하고 다양한 통계를 제공하는 웹 애플리케이션입니다. 사용자는 메인 페이지에서 전체 서버 상태를 한눈에 파악할 수 있으며, 개별 서버의 상세 정보 및 기간별 통계를 조회할 수 있습니다. 또한, OpenAI 기반의 챗봇을 활용하여 네트워크 및 서버 관련 질문을 할 수 있습니다.
 
-Currently, two official plugins are available:
+## 주요 기능
+### 실시간 서버 상태 확인
+- 메모리, Swap 메모리, CPU, 디스크 사용량 확인
+- 서버 응답 속도 표시
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### 서버 상세 정보 제공
+- 서버 런타임 표시
+- 메모리, Swap 메모리, CPU, 디스크 사용량 표시
+- 서버 응답 속도 표시
+- 네트워크 전송 속도 (bps)
+- 포트 사용량
+- 사용중인 포트
+- 접속 중인 유저 수
+- 각 서버 기간별 통계 확인
+- 전체 서버 기간별 통계 확인
 
-## Expanding the ESLint configuration
+### 추가 기능
+- OpenAI 기반 챗봇을 통한 네트워크 및 서버 관련 질문 지원
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## 기술 스택
+- **프론트엔드**: React, TypeScript
+- **기능**: d3.js, OpenAI API
 
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## 설치 및 실행 방법
+### 1. 프로젝트 클론
+```sh
+git clone https://github.com/PointToPointNet/Front-End/ [diretory]
+cd [directory]
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+### 2. 패키지 설치
+```sh
+npm install
 ```
+
+### 3. 프론트 엔드 실행
+```sh
+npm run dev
+```
+
+## 사용 방법
+1. 메인 페이지에서 전체 서버 상태를 확인합니다.
+2. 특정 서버를 클릭하여 상세 정보를 조회합니다.
+3. 기간별 통계를 확인하고 분석합니다.
+4. 챗봇을 활용하여 네트워크 및 서버 관련 질문을 합니다.
