@@ -37,20 +37,20 @@ const NavBar: React.FC<NavBarProps> = (props) => {
       serverList={props.serverList}
     ></NavBarButton>
 
-   
+
     <div className={style.source}>
-      <a href="#" className={style.btn} onClick={(e) => { 
+      <a href="#" className={style.btn} onClick={(e) => {
         e.preventDefault();
         window.print({ printTitle: "Network Dashboard", landscape: false });
-        }}>
-          <img src={print} alt="프린트하기" />
-          화면출력
-        </a>
+      }}>
+        <img src={print} alt="프린트하기" />
+        화면출력
+      </a>
       <a href="https://github.com/PointToPointNet" className={style.btn} target='_blank'>
         <img src={github} alt="깃허브 코드보기" className={style.git} />
         깃허브
       </a>
-      <a href="#" className={style.btn} target='_blank'>
+      <a href="http://kkms4001.iptime.org/~c21st11/Portfolio/network_dashboard/Network%20Dashboard_team3.pdf" className={style.btn} target='_blank'>
         <img src={pdf} alt="문서보기" />
         문서보기
       </a>
